@@ -1,0 +1,48 @@
+# Research Assistant
+
+Multi-agent research system that decomposes complex questions, dispatches specialist agents for web and knowledge base research in parallel, and synthesizes findings into a structured report with confidence scoring.
+
+## How It Works
+
+1. **research-orchestrator** (LLM) receives a research question and breaks it into sub-questions.
+2. Uses `trigger_agent` to dispatch sub-questions to specialists:
+   - **web-researcher** searches the internet using `web_search`
+   - **knowledge-analyst** searches the internal knowledge base
+3. The orchestrator synthesizes all results, identifies conflicts, assesses confidence, and produces a structured report.
+4. The final report is stored in the knowledge base for future reference.
+
+## Connic Features Used
+
+| Feature | Where |
+|---------|-------|
+| `trigger_agent` orchestration | `research-orchestrator.yaml` dispatches to specialists |
+| `web_search` tool | `web-researcher.yaml` for internet research |
+| Knowledge base (RAG) | `knowledge-analyst.yaml` for internal data |
+| `reasoning: true` | Orchestrator uses extended reasoning for synthesis |
+| `reasoning_budget: 32768` | Large reasoning budget for complex analysis |
+| `max_iterations: 50` | Allows many tool calls for thorough research |
+| `timeout: 180` | Extended timeout for multi-agent coordination |
+| Output schema | `schemas/research-report.json` |
+| Custom tools | Confidence assessment and citation formatting |
+
+## Suggested Connectors
+
+- **HTTP Webhook (sync)** for on-demand research requests via API
+- **WebSocket (sync, streaming)** for real-time research with progressive updates
+- **Cron inbound** for scheduled market research or competitive analysis
+- **MCP server** to expose research capabilities to IDE-based AI assistants
+
+## Structure
+
+```
+research-assistant/
+  agents/
+    research-orchestrator.yaml  # Decomposes questions, dispatches, synthesizes
+    web-researcher.yaml         # Internet research specialist
+    knowledge-analyst.yaml      # Internal knowledge base specialist
+  tools/
+    research_tools.py           # Confidence assessment, citation formatting
+  schemas/
+    research-report.json        # Structured research output
+  requirements.txt
+```

@@ -1,0 +1,6 @@
+version: "1.0"
+
+name: notification-dispatcher
+type: tool
+description: "Formats and dispatches notifications to the appropriate channel"
+tool_name: notification_tools.dispatch

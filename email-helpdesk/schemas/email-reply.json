@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "description": "Email reply for the Email outbound connector. Fields map directly to SMTP fields.",
+  "properties": {
+    "to": {
+      "type": "string",
+      "description": "Recipient email address (use the sender's from_address from the inbound email)"
+    },
+    "subject": {
+      "type": "string",
+      "description": "Email subject line (e.g. RE: Original Subject)"
+    },
+    "body": {
+      "type": "string",
+      "description": "Plain text email body"
+    },
+    "html_body": {
+      "type": "string",
+      "description": "Optional HTML version of the body"
+    },
+    "cc": {
+      "type": "string",
+      "description": "Optional carbon copy recipient"
+    },
+    "reply_to": {
+      "type": "string",
+      "description": "Optional reply-to address"
+    }
+  },
+  "required": ["to", "subject", "body"]
+}

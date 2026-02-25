@@ -1,0 +1,9 @@
+version: "1.0"
+
+name: invoice-pipeline
+type: sequential
+description: "Extract structured invoice data, then validate totals automatically"
+
+agents:
+  - invoice-extractor
+  - invoice-validator

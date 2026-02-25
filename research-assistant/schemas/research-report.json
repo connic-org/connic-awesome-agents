@@ -1,0 +1,56 @@
+{
+  "type": "object",
+  "description": "Comprehensive research report",
+  "properties": {
+    "question": {
+      "type": "string",
+      "description": "The original research question"
+    },
+    "executive_summary": {
+      "type": "string",
+      "description": "3-5 sentence summary of findings"
+    },
+    "sub_questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question": {"type": "string"},
+          "source": {"type": "string", "enum": ["web", "knowledge_base", "both"]},
+          "answer": {"type": "string"},
+          "confidence": {"type": "string", "enum": ["high", "medium", "low"]}
+        },
+        "required": ["question", "answer"]
+      },
+      "description": "Breakdown of sub-questions and their answers"
+    },
+    "key_findings": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Bullet-point key findings"
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Any conflicting information between sources"
+    },
+    "confidence": {
+      "type": "object",
+      "properties": {
+        "level": {"type": "string", "enum": ["high", "medium", "low"]},
+        "score": {"type": "integer", "minimum": 0, "maximum": 100}
+      }
+    },
+    "citations": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Formatted source citations"
+    },
+    "knowledge_gaps": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Areas where more information is needed"
+    }
+  },
+  "required": ["question", "executive_summary", "key_findings", "confidence"]
+}

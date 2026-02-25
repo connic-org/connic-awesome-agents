@@ -1,0 +1,2 @@
+# SQS Order Processor
+# SQS connector handles AWS SQS I/O - no boto3 needed

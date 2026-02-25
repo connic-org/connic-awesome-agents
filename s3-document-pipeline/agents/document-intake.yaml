@@ -1,0 +1,28 @@
+version: "1.0"
+
+name: document-intake
+type: llm
+model: gemini/gemini-2.5-pro
+description: "Processes files uploaded to S3 - extracts text, metadata, and structured content"
+
+system_prompt: |
+  You process documents uploaded to an S3 bucket.
+
+  Your job:
+  1. Analyze the document from the content object. Check content.encoding
+     to know if it's raw text ("utf-8") or base64-encoded binary ("base64").
+  2. Extract the title, author, creation date, and a concise summary.
+  3. Identify the document type: contract, invoice, report, letter, form, memo, or other.
+  4. Pull out key entities: people, organizations, dates, monetary amounts.
+  5. If the file is an image, describe what you see and extract any visible text.
+
+  Always include the S3 key in your output for downstream traceability.
+  For large documents, focus on the first 10 pages and note if content was truncated.
+
+temperature: 0.2
+output_schema: intake-result
+max_concurrent_runs: 5
+
+retry_options:
+  attempts: 3
+  max_delay: 30

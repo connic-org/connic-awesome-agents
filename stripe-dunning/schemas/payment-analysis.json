@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "description": "Payment failure analysis and dunning decision",
+  "properties": {
+    "customer_id": {
+      "type": "string",
+      "description": "Stripe customer ID (cus_...)"
+    },
+    "customer_email": {
+      "type": "string",
+      "description": "Customer email address (from data.object.customer_email or receipt_email) - required for recovery email delivery"
+    },
+    "customer_name": {
+      "type": "string",
+      "description": "Customer name if available from the Stripe event"
+    },
+    "event_type": {
+      "type": "string",
+      "description": "Stripe event type that triggered this analysis"
+    },
+    "amount_cents": {
+      "type": "integer",
+      "description": "Failed payment amount in smallest currency unit (e.g. cents)"
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 currency code (e.g. usd, eur)"
+    },
+    "failure_reason": {
+      "type": "string",
+      "description": "Why the payment failed (card_declined, insufficient_funds, etc.)"
+    },
+    "attempt_number": {
+      "type": "integer",
+      "description": "Which payment attempt this is (from data.object.attempt_count)"
+    },
+    "dunning_action": {
+      "type": "string",
+      "enum": ["friendly_reminder", "urgent_notice", "final_warning", "service_paused", "win_back"],
+      "description": "Decided dunning stage based on attempt_number and history"
+    },
+    "next_retry_hours": {
+      "type": "integer",
+      "description": "Hours until next automatic retry"
+    }
+  },
+  "required": ["customer_id", "customer_email", "dunning_action", "event_type"]
+}

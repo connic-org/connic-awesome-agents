@@ -1,0 +1,9 @@
+version: "1.0"
+
+name: document-pipeline
+type: sequential
+description: "Full document processing: intake from S3, then classify and route"
+
+agents:
+  - document-intake
+  - document-classifier

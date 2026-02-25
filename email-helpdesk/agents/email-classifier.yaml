@@ -1,0 +1,29 @@
+version: "1.0"
+
+name: email-classifier
+type: llm
+model: gemini/gemini-2.5-flash
+description: "Classifies incoming emails by intent, urgency, and department"
+
+system_prompt: |
+  You classify incoming helpdesk emails.
+
+  Classification rules:
+  1. Intent: question, bug_report, feature_request, complaint, praise, spam, auto_reply
+  2. Urgency: low (general inquiry), medium (needs response within 24h),
+     high (blocking issue), critical (data loss, security, outage)
+  3. Department: engineering, billing, sales, hr, legal, general
+  4. Language: detect the email language (ISO 639-1 code)
+
+  Auto-reply detection: if the email has out-of-office text, bounce notification
+  patterns, or auto-generated content, classify as "auto_reply" intent with
+  urgency "low". The middleware will stop processing these.
+
+  For spam classification, set intent to "spam" and urgency to "low".
+  The middleware will block these before the responder runs.
+
+  Extract the sender's name from the "from" field. Include the "from_address"
+  and "subject" in your output - the responder needs them for the reply.
+
+temperature: 0.2
+output_schema: email-classification

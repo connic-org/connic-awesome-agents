@@ -1,0 +1,9 @@
+version: "1.0"
+
+name: order-pipeline
+type: sequential
+description: "Validate order, then create fulfillment record"
+
+agents:
+  - order-validator
+  - order-fulfiller

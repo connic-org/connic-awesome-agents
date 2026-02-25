@@ -1,0 +1,50 @@
+{
+  "type": "object",
+  "description": "Compliance audit report",
+  "properties": {
+    "audit_date": {
+      "type": "string",
+      "description": "Date of the audit (YYYY-MM-DD)"
+    },
+    "frameworks_checked": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Compliance frameworks audited (GDPR, SOC2, HIPAA, etc.)"
+    },
+    "overall_posture": {
+      "type": "string",
+      "enum": ["green", "yellow", "red"],
+      "description": "Traffic-light compliance status"
+    },
+    "compliance_percentage": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "severity": {"type": "string", "enum": ["critical", "high", "medium", "low", "info"]},
+          "area": {"type": "string"},
+          "regulation": {"type": "string"},
+          "description": {"type": "string"},
+          "remediation": {"type": "string"}
+        },
+        "required": ["title", "severity", "description"]
+      }
+    },
+    "regulatory_updates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Recent regulatory changes discovered via web search"
+    },
+    "executive_summary": {
+      "type": "string",
+      "description": "3-5 sentence summary for leadership"
+    }
+  },
+  "required": ["overall_posture", "compliance_percentage", "findings"]
+}

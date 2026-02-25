@@ -1,0 +1,6 @@
+version: "1.0"
+
+name: invoice-validator
+type: tool
+description: "Deterministic validation of invoice math without LLM - zero token cost"
+tool_name: invoice_tools.validate_totals

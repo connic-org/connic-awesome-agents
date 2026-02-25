@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "description": "Document intake extraction result",
+  "properties": {
+    "s3_key": {
+      "type": "string",
+      "description": "Original S3 object key for traceability"
+    },
+    "title": {
+      "type": "string",
+      "description": "Document title"
+    },
+    "author": {
+      "type": "string",
+      "description": "Document author if identifiable"
+    },
+    "creation_date": {
+      "type": "string",
+      "description": "Document creation or issue date (YYYY-MM-DD)"
+    },
+    "document_type": {
+      "type": "string",
+      "enum": ["contract", "invoice", "report", "letter", "form", "memo", "other"]
+    },
+    "summary": {
+      "type": "string",
+      "description": "Concise summary of the document content"
+    },
+    "entities": {
+      "type": "object",
+      "properties": {
+        "people": {"type": "array", "items": {"type": "string"}},
+        "organizations": {"type": "array", "items": {"type": "string"}},
+        "dates": {"type": "array", "items": {"type": "string"}},
+        "amounts": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "truncated": {
+      "type": "boolean",
+      "description": "True if the document was too long and content was cut"
+    },
+    "page_count": {
+      "type": "integer",
+      "description": "Number of pages processed"
+    }
+  },
+  "required": ["s3_key", "document_type", "summary"]
+}

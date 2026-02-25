@@ -1,0 +1,9 @@
+version: "1.0"
+
+name: dunning-pipeline
+type: sequential
+description: "Analyze payment failure, then compose recovery communication"
+
+agents:
+  - payment-analyzer
+  - recovery-composer

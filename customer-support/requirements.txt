@@ -1,0 +1,3 @@
+# Customer Support
+# Knowledge base tools (query_knowledge, store_knowledge) are built-in
+# No additional dependencies required

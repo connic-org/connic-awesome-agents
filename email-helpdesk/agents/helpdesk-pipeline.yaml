@@ -1,0 +1,9 @@
+version: "1.0"
+
+name: helpdesk-pipeline
+type: sequential
+description: "Classify incoming email, then draft and send a reply"
+
+agents:
+  - email-classifier
+  - email-responder

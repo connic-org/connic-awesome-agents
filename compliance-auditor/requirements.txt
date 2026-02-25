@@ -1,0 +1,3 @@
+# Compliance Auditor
+# web_search, query_knowledge, store_knowledge are built-in
+# MCP integration is built-in

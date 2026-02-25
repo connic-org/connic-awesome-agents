@@ -1,0 +1,6 @@
+version: "1.0"
+
+name: order-fulfiller
+type: tool
+description: "Creates a fulfillment record for validated orders - deterministic, no LLM"
+tool_name: order_tools.create_fulfillment

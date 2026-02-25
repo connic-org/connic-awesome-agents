@@ -1,0 +1,9 @@
+version: "1.0"
+
+name: support-pipeline
+type: sequential
+description: "Full support flow: triage the ticket, then draft a response"
+
+agents:
+  - support-triager
+  - support-responder

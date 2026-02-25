@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "description": "Transaction fraud risk assessment",
+  "properties": {
+    "transaction_id": {
+      "type": "string",
+      "description": "Unique transaction identifier"
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "Customer who made the transaction"
+    },
+    "risk_score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Overall fraud risk score"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    },
+    "decision": {
+      "type": "string",
+      "enum": ["approve", "flag", "hold", "block"],
+      "description": "Recommended action"
+    },
+    "signals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "signal": {"type": "string", "description": "What was detected"},
+          "weight": {"type": "integer", "description": "How much this contributed to the score"},
+          "details": {"type": "string"}
+        },
+        "required": ["signal", "weight"]
+      },
+      "description": "Individual risk signals that contributed to the score"
+    },
+    "velocity_check": {
+      "type": "object",
+      "properties": {
+        "transactions_per_hour": {"type": "number"},
+        "is_anomalous": {"type": "boolean"}
+      }
+    },
+    "geo_check": {
+      "type": "object",
+      "properties": {
+        "is_anomalous": {"type": "boolean"},
+        "reason": {"type": "string"}
+      }
+    }
+  },
+  "required": ["transaction_id", "risk_score", "risk_level", "decision"]
+}

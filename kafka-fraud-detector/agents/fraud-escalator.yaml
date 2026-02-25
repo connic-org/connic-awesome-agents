@@ -1,0 +1,6 @@
+version: "1.0"
+
+name: fraud-escalator
+type: tool
+description: "Formats and dispatches fraud alerts to downstream systems via Kafka outbound"
+tool_name: fraud_tools.format_escalation

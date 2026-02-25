@@ -1,0 +1,65 @@
+{
+  "type": "object",
+  "description": "Structured invoice extraction result",
+  "properties": {
+    "vendor": {
+      "type": "string",
+      "description": "Vendor or company name"
+    },
+    "invoice_number": {
+      "type": "string",
+      "description": "Invoice reference number"
+    },
+    "issue_date": {
+      "type": "string",
+      "description": "Invoice date (YYYY-MM-DD)"
+    },
+    "due_date": {
+      "type": "string",
+      "description": "Payment due date (YYYY-MM-DD)"
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 currency code"
+    },
+    "line_items": {
+      "type": "array",
+      "description": "Itemized charges",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {"type": "string"},
+          "quantity": {"type": "number"},
+          "unit_price": {"type": "number"},
+          "amount": {"type": "number"}
+        },
+        "required": ["description", "amount"]
+      }
+    },
+    "subtotal": {
+      "type": "number",
+      "description": "Sum of line items before tax"
+    },
+    "tax_rate": {
+      "type": "number",
+      "description": "Tax rate as decimal (e.g. 0.19)"
+    },
+    "tax_amount": {
+      "type": "number",
+      "description": "Total tax charged"
+    },
+    "total": {
+      "type": "number",
+      "description": "Grand total including tax"
+    },
+    "discrepancy": {
+      "type": "boolean",
+      "description": "True if calculated totals don't match stated totals"
+    },
+    "discrepancy_note": {
+      "type": "string",
+      "description": "Explanation of any calculation mismatches"
+    }
+  },
+  "required": ["vendor", "total", "currency", "line_items"]
+}

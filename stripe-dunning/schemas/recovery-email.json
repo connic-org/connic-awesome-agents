@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "description": "Recovery email for the Email outbound connector. Fields map directly to SMTP fields.",
+  "properties": {
+    "to": {
+      "type": "string",
+      "description": "Customer email address to send the recovery email to"
+    },
+    "subject": {
+      "type": "string",
+      "description": "Email subject line"
+    },
+    "body": {
+      "type": "string",
+      "description": "Plain text email body with {{update_payment_url}} placeholder"
+    },
+    "html_body": {
+      "type": "string",
+      "description": "Optional HTML version of the body"
+    },
+    "stage": {
+      "type": "string",
+      "enum": ["friendly_reminder", "urgent_notice", "final_warning", "service_paused", "win_back"]
+    },
+    "urgency": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    }
+  },
+  "required": ["to", "subject", "body", "stage"]
+}

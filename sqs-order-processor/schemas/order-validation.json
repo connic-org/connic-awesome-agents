@@ -1,0 +1,63 @@
+{
+  "type": "object",
+  "description": "Order validation result",
+  "properties": {
+    "order_id": {
+      "type": "string"
+    },
+    "validation_status": {
+      "type": "string",
+      "enum": ["approved", "needs_review", "rejected"],
+      "description": "Overall validation decision"
+    },
+    "calculated_total": {
+      "type": "number",
+      "description": "Independently calculated order total"
+    },
+    "stated_total": {
+      "type": "number",
+      "description": "Total claimed in the order"
+    },
+    "total_matches": {
+      "type": "boolean",
+      "description": "Whether calculated and stated totals match"
+    },
+    "inventory_available": {
+      "type": "boolean",
+      "description": "Whether all items are in stock"
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {"type": "string", "enum": ["missing_field", "business_rule", "fraud_signal", "inventory"]},
+          "severity": {"type": "string", "enum": ["info", "warning", "error"]},
+          "message": {"type": "string"}
+        },
+        "required": ["type", "severity", "message"]
+      },
+      "description": "Validation issues found"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sku": {"type": "string"},
+          "quantity": {"type": "integer"},
+          "price": {"type": "number"}
+        }
+      }
+    },
+    "shipping_address": {
+      "type": "object",
+      "properties": {
+        "country": {"type": "string"},
+        "city": {"type": "string"},
+        "postal_code": {"type": "string"}
+      }
+    }
+  },
+  "required": ["order_id", "validation_status"]
+}

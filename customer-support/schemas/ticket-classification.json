@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "description": "Support ticket triage classification",
+  "properties": {
+    "priority": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"],
+      "description": "Ticket urgency level"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["billing", "technical", "account", "onboarding", "general"],
+      "description": "Ticket category for routing"
+    },
+    "sentiment": {
+      "type": "string",
+      "enum": ["positive", "neutral", "frustrated", "angry"],
+      "description": "Customer emotional state"
+    },
+    "summary": {
+      "type": "string",
+      "description": "One-line ticket summary"
+    },
+    "product_mentions": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Products or features mentioned"
+    },
+    "suggested_assignee": {
+      "type": "string",
+      "description": "Recommended team (billing-team, engineering, onboarding, general-support)"
+    }
+  },
+  "required": ["priority", "category", "sentiment", "summary"]
+}
