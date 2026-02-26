@@ -73,7 +73,7 @@ pip install connic-composer-sdk
 connic init my-project --templates=invoice,customer-support
 
 cd my-project
-connic dev      # Validate locally
+connic lint     # Validate locally
 connic test     # Test with hot-reload
 connic deploy   # Deploy to production
 ```

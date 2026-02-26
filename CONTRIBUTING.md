@@ -52,7 +52,7 @@ Each template should demonstrate at least 3-4 Connic platform features. Check th
 
 ```bash
 cd connic-awesome-agents/your-template
-connic dev     # Validate structure and config
+connic lint    # Validate structure and config
 connic test    # Test against Connic cloud (requires connic login)
 ```
 
@@ -61,5 +61,5 @@ connic test    # Test against Connic cloud (requires connic login)
 1. Fork the repository
 2. Create a branch: `git checkout -b add-template-your-name`
 3. Add your template following the standards above
-4. Run `connic dev` in your template folder to confirm it validates
+4. Run `connic lint` in your template folder to confirm it validates
 5. Open a PR with the checklist from the PR template

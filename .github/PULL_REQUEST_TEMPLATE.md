@@ -9,7 +9,7 @@
 - [ ] Tools have real logic, proper type hints, and docstrings
 - [ ] Middleware does something meaningful (no empty pass-through)
 - [ ] Schemas include descriptions and `required` fields
-- [ ] Ran `connic dev` in the template folder (no errors)
+- [ ] Ran `connic lint` in the template folder (no errors)
 - [ ] Tested with `connic test` if possible
 - [ ] Updated main README.md feature coverage matrix if new features are showcased
 
