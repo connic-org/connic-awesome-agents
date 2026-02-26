@@ -61,7 +61,6 @@ Every Connic feature is demonstrated in at least one template:
 | MCP server integration | compliance-auditor |
 | `reasoning` + `reasoning_budget` | compliance-auditor, research-assistant |
 | `retry_options` | invoice, s3-document-pipeline |
-| `max_concurrent_runs` | invoice, s3-document-pipeline, kafka-fraud-detector |
 | `timeout` | invoice, compliance-auditor, research-assistant, sqs-order-processor |
 | `max_iterations` | customer-support, research-assistant |
 

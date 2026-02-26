@@ -18,7 +18,6 @@ Extract structured data from invoices and validate totals automatically. A seque
 | Output schema | `schemas/invoice.json` |
 | Middleware (audit trail) | `middleware/invoice-extractor.py` |
 | `retry_options` | Extractor retries up to 5 times |
-| `max_concurrent_runs` | Extractor handles 3 invoices in parallel |
 | `timeout` | 45-second hard limit per extraction |
 
 ## Suggested Connectors

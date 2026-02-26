@@ -11,11 +11,7 @@ import json
 import re
 from typing import Any
 
-try:
-    from connic.exceptions import StopProcessing
-except ImportError:
-    class StopProcessing(Exception):
-        pass
+from connic.core import StopProcessing
 
 AUTO_REPLY_PATTERNS = [
     r"out of office",

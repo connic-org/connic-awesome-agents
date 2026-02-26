@@ -19,7 +19,6 @@ Real-time transaction fraud detection on a Kafka event stream. Scores every tran
 | **Kafka outbound connector** | Publishes fraud alerts to alert topics |
 | Conditional tools | `admin_override` only available when `context.is_admin == True` |
 | Concurrency control | `concurrency.key: "data.customer_id"` with `on_conflict: queue` |
-| `max_concurrent_runs: 10` | Handles high-throughput transaction streams |
 | Knowledge base | Stores and retrieves fraud patterns |
 | Tool agent | `fraud-escalator.yaml` for deterministic alert formatting |
 | Output schema | `schemas/fraud-assessment.json` |

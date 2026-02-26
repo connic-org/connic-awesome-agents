@@ -6,11 +6,7 @@ Demonstrates StopProcessing for graceful early exits.
 
 from typing import Any
 
-try:
-    from connic.exceptions import StopProcessing
-except ImportError:
-    class StopProcessing(Exception):
-        pass
+from connic.core import StopProcessing
 
 BLOCKED_DOMAINS = {"spam.example.com", "throwaway.mail"}
 

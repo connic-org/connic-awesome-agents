@@ -21,7 +21,6 @@ system_prompt: |
 
 temperature: 0.2
 output_schema: intake-result
-max_concurrent_runs: 5
 
 retry_options:
   attempts: 3

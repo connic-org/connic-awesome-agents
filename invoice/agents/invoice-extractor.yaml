@@ -24,7 +24,6 @@ system_prompt: |
 
 temperature: 0.1
 output_schema: invoice
-max_concurrent_runs: 3
 timeout: 45
 
 retry_options:

@@ -11,11 +11,7 @@ and optionally content: {text, content_type, size_bytes, encoding}
 import json
 from typing import Any
 
-try:
-    from connic.exceptions import StopProcessing
-except ImportError:
-    class StopProcessing(Exception):
-        pass
+from connic.core import StopProcessing
 
 SUPPORTED_TYPES = {
     "application/pdf",

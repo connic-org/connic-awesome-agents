@@ -7,11 +7,7 @@ before the LLM processes them.
 import json
 from typing import Any
 
-try:
-    from connic.exceptions import StopProcessing
-except ImportError:
-    class StopProcessing(Exception):
-        pass
+from connic.core import StopProcessing
 
 
 async def before(content: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:

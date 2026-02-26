@@ -18,7 +18,6 @@ Automatically process documents uploaded to an S3 bucket. The pipeline extracts 
 | `StopProcessing` middleware | `middleware/document-intake.py` rejects unsupported file types |
 | Output schemas | `schemas/intake-result.json`, `schemas/classification-result.json` |
 | `retry_options` | Intake retries 3 times on transient failures |
-| `max_concurrent_runs: 5` | Handles burst uploads in parallel |
 | Multimodal input | Processes images, PDFs, and text files |
 
 ## Connector Setup
