@@ -17,6 +17,7 @@ Production-ready agent templates for the [Connic](https://connic.co) platform. E
 | [email-helpdesk](./email-helpdesk) | End-to-end email support automation | Email IMAP/SMTP, StopProcessing, full knowledge CRUD |
 | [research-assistant](./research-assistant) | Multi-agent research orchestration | trigger_agent, web_search, reasoning budget, parallel dispatch |
 | [sqs-order-processor](./sqs-order-processor) | Order validation and fulfillment | SQS queues, concurrency keys, tool agent, timeout |
+| [telegram-personal-assistant](./telegram-personal-assistant) | Persistent Telegram chatbot with memory | Telegram, persistent sessions, web_search, database, knowledge base |
 
 ## Feature Coverage
 
@@ -36,6 +37,7 @@ Every Connic feature is demonstrated in at least one template:
 | PostgreSQL | postgres-change-notifier |
 | Email (IMAP + SMTP) | email-helpdesk |
 | Stripe | stripe-dunning |
+| Telegram (in + out) | telegram-personal-assistant |
 
 ### Agent Types
 
@@ -50,15 +52,16 @@ Every Connic feature is demonstrated in at least one template:
 | Feature | Template |
 |---------|----------|
 | `trigger_agent` (agent-to-agent) | stripe-dunning, postgres-change-notifier, research-assistant |
-| `query_knowledge` / `store_knowledge` (RAG) | lead-enricher, customer-support, kafka-fraud-detector, compliance-auditor, research-assistant |
+| `query_knowledge` / `store_knowledge` (RAG) | lead-enricher, customer-support, kafka-fraud-detector, compliance-auditor, research-assistant, telegram-personal-assistant |
 | `delete_knowledge` | email-helpdesk |
-| `db_find` / `db_insert` (database) | lead-enricher, stripe-dunning, postgres-change-notifier, compliance-auditor |
-| `web_search` | lead-enricher, compliance-auditor, research-assistant |
+| `db_find` / `db_insert` (database) | lead-enricher, stripe-dunning, postgres-change-notifier, compliance-auditor, telegram-personal-assistant |
+| `web_search` | lead-enricher, compliance-auditor, research-assistant, telegram-personal-assistant |
 | Output schemas | All templates |
 | Conditional tools | kafka-fraud-detector |
 | Concurrency control (key + on_conflict) | kafka-fraud-detector, sqs-order-processor |
 | `StopProcessing` middleware | customer-support, s3-document-pipeline, stripe-dunning, email-helpdesk, sqs-order-processor |
-| Middleware context injection | customer-support, stripe-dunning, kafka-fraud-detector, email-helpdesk, sqs-order-processor |
+| Persistent sessions | telegram-personal-assistant |
+| Middleware context injection | customer-support, stripe-dunning, kafka-fraud-detector, email-helpdesk, sqs-order-processor, telegram-personal-assistant |
 | Context in tools | customer-support, kafka-fraud-detector |
 | MCP server integration | compliance-auditor |
 | `max_iterations` | lead-enricher, customer-support, research-assistant |
