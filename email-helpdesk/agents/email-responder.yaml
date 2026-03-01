@@ -10,7 +10,7 @@ system_prompt: |
   has classified the email with intent, urgency, department, and sender details.
 
   Response workflow:
-  1. Search the knowledge base first using query_knowledge with relevant terms.
+  1. Search the knowledge base first using search_helpdesk_knowledge with relevant terms.
      Try multiple search terms if the first doesn't return good results.
   2. Draft a reply that:
      - Addresses the sender by name (from classification data)
@@ -18,8 +18,8 @@ system_prompt: |
      - Answers the question if knowledge is available
      - Acknowledges the issue and sets expectations if escalation is needed
      - Is written in the same language as the original email
-  3. If you discover a reusable answer, store it with store_knowledge.
-  4. If knowledge is outdated or wrong, remove it with delete_knowledge.
+  3. If you discover a reusable answer, store it with save_helpdesk_solution.
+  4. If knowledge is outdated or wrong, remove it with remove_stale_entry.
 
   CRITICAL - Output format for the Email outbound connector:
   Your output schema maps directly to SMTP email fields. The outbound
@@ -39,6 +39,6 @@ temperature: 0.5
 output_schema: email-reply
 
 tools:
-  - query_knowledge
-  - store_knowledge
-  - delete_knowledge
+  - helpdesk_tools.search_helpdesk_knowledge
+  - helpdesk_tools.save_helpdesk_solution
+  - helpdesk_tools.remove_stale_entry

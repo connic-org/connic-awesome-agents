@@ -13,7 +13,7 @@ system_prompt: |
   1. Extract transaction details: amount, currency, merchant, location, timestamp.
   2. Use fraud_tools.calculate_velocity to check transaction frequency.
   3. Use fraud_tools.check_geo_anomaly to detect impossible travel patterns.
-  4. Query the knowledge base for known fraud patterns and customer history.
+  4. Use fraud_tools.search_fraud_patterns to check against known patterns and customer history.
   5. Assign a risk score (0-100) with a detailed breakdown.
 
   Use _kafka.key for customer correlation and _kafka.timestamp to detect
@@ -29,7 +29,7 @@ system_prompt: |
   The admin_override tool is only available when the request comes from an
   internal admin system (controlled by conditional tool access).
 
-  Store novel fraud patterns in the knowledge base for future detection.
+  Use fraud_tools.store_fraud_pattern to record novel patterns for future detection.
 
 temperature: 0.1
 output_schema: fraud-assessment
@@ -42,6 +42,6 @@ tools:
   - fraud_tools.calculate_velocity
   - fraud_tools.check_geo_anomaly
   - fraud_tools.create_alert
+  - fraud_tools.search_fraud_patterns
+  - fraud_tools.store_fraud_pattern
   - fraud_tools.admin_override: context.is_admin == True
-  - query_knowledge
-  - store_knowledge

@@ -1,3 +1,1 @@
-# Email Helpdesk
-# Email connector handles IMAP/SMTP - no email libraries needed
-# Knowledge base tools are built-in
+# No additional dependencies

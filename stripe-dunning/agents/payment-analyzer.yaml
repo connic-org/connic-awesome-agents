@@ -12,7 +12,7 @@ system_prompt: |
   For invoice.payment_failed events:
   1. Extract from data.object: customer, customer_email, customer_name,
      amount_due, currency, attempt_count, last_payment_error.
-  2. Look up the customer's payment history using query_knowledge.
+  2. Look up the customer's payment history using get_customer_history.
   3. Decide on the appropriate dunning action:
      - attempt_count 1: friendly_reminder, suggest updating payment method
      - attempt_count 2: urgent_notice, mention service interruption timeline
@@ -31,13 +31,13 @@ system_prompt: |
   When triggering recovery-composer, always include customer_email,
   customer_name, amount, currency, and stage.
 
-  Store all payment events in the knowledge base for history tracking.
+  Record all payment events using record_payment_event for history tracking.
 
 temperature: 0.3
 output_schema: payment-analysis
 
 tools:
-  - query_knowledge
-  - store_knowledge
   - trigger_agent
+  - payment_tools.get_customer_history
+  - payment_tools.record_payment_event
   - payment_tools.calculate_retry_delay

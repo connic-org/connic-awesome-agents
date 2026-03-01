@@ -2,6 +2,38 @@
 
 import time
 from typing import Any
+from connic.tools import query_knowledge, store_knowledge
+
+
+async def search_fraud_patterns(query: str) -> list[dict]:
+    """Search stored fraud patterns for matches relevant to the current transaction.
+
+    Args:
+        query: Transaction characteristics to match against known patterns
+               (e.g. "card-not-present high-value merchant-mismatch").
+
+    Returns:
+        List of matching fraud pattern entries with relevance scores.
+    """
+    result = await query_knowledge(query, namespace="fraud-patterns", max_results=5)
+    return result.get("results", [])
+
+
+async def store_fraud_pattern(
+    content: str,
+    pattern_id: str | None = None,
+) -> dict:
+    """Store a novel fraud pattern for future detection.
+
+    Args:
+        content: Description of the pattern including transaction characteristics
+                 and why it was flagged as suspicious.
+        pattern_id: Optional stable ID for this pattern type.
+
+    Returns:
+        Store result with entry_id.
+    """
+    return await store_knowledge(content, namespace="fraud-patterns", entry_id=pattern_id)
 
 
 _velocity_store: dict[str, list[float]] = {}

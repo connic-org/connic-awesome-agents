@@ -20,9 +20,9 @@ system_prompt: |
   - red: critical gap, immediate action required
 
   End with a compliance score (percentage) and trend direction compared to the
-  last audit (use knowledge base data if available).
+  last audit (use get_audit_history to retrieve previous findings).
 
 temperature: 0.3
 
 tools:
-  - query_knowledge
+  - compliance_tools.get_audit_history

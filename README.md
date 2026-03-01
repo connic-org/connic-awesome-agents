@@ -6,6 +6,7 @@ Production-ready agent templates for the [Connic](https://connic.co) platform. E
 
 | Template | Use Case | Highlights |
 |----------|----------|------------|
+| [lead-enricher](./lead-enricher) | Automatic signup enrichment and ICP scoring | web_search, knowledge base, database |
 | [invoice](./invoice) | Invoice data extraction and validation | Sequential pipeline, tool agent, retry, middleware audit trail |
 | [customer-support](./customer-support) | Ticket triage and RAG-powered response | WebSocket streaming, knowledge base, StopProcessing spam filter |
 | [s3-document-pipeline](./s3-document-pipeline) | Automated document processing from S3 | S3 trigger, multimodal input, file type validation |
@@ -25,11 +26,11 @@ Every Connic feature is demonstrated in at least one template:
 
 | Connector | Template |
 |-----------|----------|
-| HTTP Webhook | customer-support, invoice |
+| HTTP Webhook | lead-enricher, customer-support, invoice |
 | Cron | compliance-auditor |
 | Kafka (in + out) | kafka-fraud-detector |
 | WebSocket | customer-support |
-| MCP Server | compliance-auditor, research-assistant |
+| MCP Server | compliance-auditor |
 | AWS SQS (in + out) | sqs-order-processor |
 | AWS S3 | s3-document-pipeline |
 | PostgreSQL | postgres-change-notifier |
@@ -49,9 +50,10 @@ Every Connic feature is demonstrated in at least one template:
 | Feature | Template |
 |---------|----------|
 | `trigger_agent` (agent-to-agent) | stripe-dunning, postgres-change-notifier, research-assistant |
-| `query_knowledge` / `store_knowledge` (RAG) | customer-support, stripe-dunning, kafka-fraud-detector, compliance-auditor, research-assistant |
+| `query_knowledge` / `store_knowledge` (RAG) | lead-enricher, customer-support, kafka-fraud-detector, compliance-auditor, research-assistant |
 | `delete_knowledge` | email-helpdesk |
-| `web_search` | compliance-auditor, research-assistant |
+| `db_find` / `db_insert` (database) | lead-enricher, stripe-dunning, postgres-change-notifier, compliance-auditor |
+| `web_search` | lead-enricher, compliance-auditor, research-assistant |
 | Output schemas | All templates |
 | Conditional tools | kafka-fraud-detector |
 | Concurrency control (key + on_conflict) | kafka-fraud-detector, sqs-order-processor |
@@ -59,10 +61,10 @@ Every Connic feature is demonstrated in at least one template:
 | Middleware context injection | customer-support, stripe-dunning, kafka-fraud-detector, email-helpdesk, sqs-order-processor |
 | Context in tools | customer-support, kafka-fraud-detector |
 | MCP server integration | compliance-auditor |
+| `max_iterations` | lead-enricher, customer-support, research-assistant |
 | `reasoning` + `reasoning_budget` | compliance-auditor, research-assistant |
 | `retry_options` | invoice, s3-document-pipeline |
-| `timeout` | invoice, compliance-auditor, research-assistant, sqs-order-processor |
-| `max_iterations` | customer-support, research-assistant |
+| `timeout` | lead-enricher, invoice, compliance-auditor, research-assistant, sqs-order-processor |
 
 ## Quick Start
 

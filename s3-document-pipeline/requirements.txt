@@ -1,5 +1,1 @@
-# S3 Document Pipeline
-# S3 connector is configured in the Connic dashboard, no SDK needed here
-# Add parsing libraries if processing locally:
-# pdfplumber>=0.11.0
-# python-docx>=1.1.0
+# No additional dependencies

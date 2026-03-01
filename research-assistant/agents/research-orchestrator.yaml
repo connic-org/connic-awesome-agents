@@ -25,7 +25,7 @@ system_prompt: |
      in parallel by calling trigger_agent multiple times).
   4. Once all results are back, synthesize them into a coherent report.
   5. Use research_tools.assess_confidence to rate the overall confidence.
-  6. Store the final report in the knowledge base for future reference.
+  6. Save the final report using research_tools.save_research_report for future reference.
 
   Quality standards:
   - Always cross-reference web results against knowledge base data
@@ -44,6 +44,6 @@ timeout: 180
 
 tools:
   - trigger_agent
-  - store_knowledge
+  - research_tools.save_research_report
   - research_tools.assess_confidence
   - research_tools.format_citation

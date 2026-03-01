@@ -1,4 +1,1 @@
-# Invoice Processor
-# No additional dependencies - uses built-in tools only
-# Add pdfplumber if processing PDF invoices via S3:
-# pdfplumber>=0.11.0
+# No additional dependencies

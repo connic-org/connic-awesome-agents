@@ -25,7 +25,7 @@ system_prompt: |
      - "sales-team": new customers, large orders
      - "none": low-significance changes (no notification)
   3. Use trigger_agent to call notification-dispatcher for significant changes.
-  4. Store high-significance events in the knowledge base for audit trailing.
+  4. Log high-significance events using notification_tools.log_audit_event for audit trailing.
 
   Ignore changes to internal system columns (updated_at, version, etc.) unless
   accompanied by meaningful data changes.
@@ -35,5 +35,5 @@ output_schema: change-analysis
 
 tools:
   - trigger_agent
-  - store_knowledge
   - notification_tools.classify_change
+  - notification_tools.log_audit_event

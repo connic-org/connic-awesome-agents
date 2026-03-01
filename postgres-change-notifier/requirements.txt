@@ -1,3 +1,1 @@
-# PostgreSQL Change Notifier
-# PostgreSQL connector handles LISTEN/NOTIFY - no psycopg2 needed
-# Knowledge base tools are built-in
+# No additional dependencies

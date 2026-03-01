@@ -1,3 +1,1 @@
-# Stripe Dunning
-# Stripe connector handles webhook verification - no stripe SDK needed
-# Knowledge base tools are built-in
+# No additional dependencies

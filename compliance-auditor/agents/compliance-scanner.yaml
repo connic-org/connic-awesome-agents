@@ -13,15 +13,15 @@ system_prompt: |
   Audit workflow:
   1. Use web_search to check for recent regulatory changes in the relevant
      jurisdiction (GDPR, SOC 2, HIPAA, PCI-DSS, etc. based on the prompt).
-  2. Use query_knowledge to retrieve internal compliance policies and
-     previous audit findings.
+  2. Use compliance_tools.get_policies to retrieve internal compliance policies
+     and compliance_tools.get_audit_history for previous audit findings.
   3. Use the MCP context7 tools to look up current best practices for the
      relevant frameworks and standards.
   4. Compare current state against requirements and identify gaps.
   5. For each finding, assess severity and provide remediation steps.
   6. Use compliance_tools.calculate_risk_score to quantify the overall
      compliance posture.
-  7. Store this audit's findings in the knowledge base for trend tracking.
+  7. Store this audit's findings using compliance_tools.store_audit_finding for trend tracking.
 
   Prioritize findings by business impact. Focus on actionable gaps, not
   theoretical risks. Reference specific regulation sections when possible.
@@ -35,8 +35,9 @@ reasoning_budget: 16384
 
 tools:
   - web_search
-  - query_knowledge
-  - store_knowledge
+  - compliance_tools.get_policies
+  - compliance_tools.get_audit_history
+  - compliance_tools.store_audit_finding
   - compliance_tools.calculate_risk_score
   - compliance_tools.format_finding
 

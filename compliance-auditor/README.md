@@ -1,6 +1,6 @@
 # Compliance Auditor
 
-Scheduled compliance auditing with real-time regulatory intelligence. Combines web search for regulatory updates, MCP tools for framework documentation, and a knowledge base for historical audit tracking.
+Scheduled compliance auditing with real-time regulatory intelligence. Combines web search for regulatory updates, MCP tools for framework documentation, a knowledge base for policy retrieval, and the database for audit history tracking.
 
 ## How It Works
 
@@ -16,7 +16,8 @@ Scheduled compliance auditing with real-time regulatory intelligence. Combines w
 | **Cron inbound connector** | Scheduled weekly/monthly audits |
 | `web_search` tool | Checks for new regulatory developments |
 | MCP server integration | Context7 for framework documentation lookup |
-| Knowledge base (RAG) | Stores and retrieves audit history and policies |
+| Knowledge base (RAG) | Retrieves internal compliance policies semantically |
+| Database | Stores and queries audit history via `db_find` / `db_insert` |
 | `reasoning: true` | Deep analysis with transparent reasoning chain |
 | `reasoning_budget: 16384` | Extended thinking for complex compliance analysis |
 | Output schema | `schemas/audit-report.json` |

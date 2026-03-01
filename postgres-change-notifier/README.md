@@ -8,7 +8,7 @@ Intelligent database change monitoring via PostgreSQL LISTEN/NOTIFY. Analyzes ch
 2. The **PostgreSQL inbound connector** delivers the payload to `change-analyzer`.
 3. **change-analyzer** (LLM) classifies the significance, decides who to alert, and uses `trigger_agent` to call the notification dispatcher for important changes.
 4. **notification-dispatcher** (Tool agent) formats the alert for outbound webhook delivery.
-5. High-significance events are stored in the knowledge base for audit trailing.
+5. High-significance events are stored in the database for audit trailing.
 
 ## Connic Features Used
 
@@ -17,7 +17,7 @@ Intelligent database change monitoring via PostgreSQL LISTEN/NOTIFY. Analyzes ch
 | **PostgreSQL inbound connector** | LISTEN/NOTIFY triggers on table changes |
 | `trigger_agent` | `change-analyzer.yaml` dynamically triggers `notification-dispatcher` |
 | Tool agent | `notification-dispatcher.yaml` for deterministic formatting |
-| Knowledge base | Stores high-significance events for audit trail |
+| Database | Stores high-significance events for audit trail via `db_insert` |
 | Output schema | `schemas/change-analysis.json` |
 | Custom tools | Rule-based pre-classification and notification formatting |
 

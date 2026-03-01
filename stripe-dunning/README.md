@@ -6,7 +6,7 @@ Automated payment recovery for Stripe subscriptions. Analyzes failed payment web
 
 1. Stripe sends a webhook event (payment failed, subscription updated/deleted).
 2. Middleware filters irrelevant events with `StopProcessing` and extracts customer metadata into context.
-3. **payment-analyzer** (LLM) looks up customer payment history in the knowledge base, decides the dunning stage, stores the event, and optionally triggers the recovery-composer.
+3. **payment-analyzer** (LLM) looks up customer payment history from the database, decides the dunning stage, records the event, and optionally triggers the recovery-composer.
 4. **recovery-composer** (LLM) writes a personalized recovery email matching the dunning stage tone, outputting structured JSON (`to`, `subject`, `body`) for the Email outbound connector.
 5. **dunning-pipeline** (Sequential) chains analysis then email composition.
 
@@ -17,7 +17,7 @@ Automated payment recovery for Stripe subscriptions. Analyzes failed payment web
 | **Stripe inbound connector** | Receives Stripe webhook events |
 | Sequential agent | `dunning-pipeline.yaml` |
 | `trigger_agent` | `payment-analyzer.yaml` dynamically triggers `recovery-composer` |
-| Knowledge base | Stores and queries customer payment history |
+| Database | Stores and queries customer payment history via `db_find` / `db_insert` |
 | `StopProcessing` middleware | Filters irrelevant Stripe events |
 | Middleware context enrichment | Extracts `stripe_customer_id`, `customer_email`, `customer_name` into context |
 | Output schemas | `payment-analysis.json`, `recovery-email.json` |

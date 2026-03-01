@@ -1,6 +1,41 @@
 """Notification tools for database change events."""
 
+from datetime import datetime, timezone
 from typing import Any
+from connic.tools import db_insert
+
+
+async def log_audit_event(
+    table: str,
+    operation: str,
+    significance: str,
+    description: str,
+    affected_ids: list[str] | None = None,
+    channels_notified: list[str] | None = None,
+) -> dict:
+    """Log a high-significance database change event for audit trailing.
+
+    Args:
+        table: Database table where the change occurred.
+        operation: INSERT, UPDATE, or DELETE.
+        significance: high, medium, or low.
+        description: Human-readable summary of what changed and why it matters.
+        affected_ids: IDs of affected records.
+        channels_notified: Which notification channels were alerted.
+
+    Returns:
+        The inserted audit event document.
+    """
+    result = await db_insert("audit_events", {
+        "table": table,
+        "operation": operation,
+        "significance": significance,
+        "description": description,
+        "affected_ids": affected_ids or [],
+        "channels_notified": channels_notified or [],
+        "recorded_at": datetime.now(timezone.utc).isoformat(),
+    })
+    return result["inserted"][0] if result.get("inserted") else result
 
 
 def classify_change(

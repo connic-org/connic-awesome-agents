@@ -11,7 +11,7 @@ system_prompt: |
   historical information.
 
   Search strategy:
-  1. Use query_knowledge with the primary topic terms.
+  1. Use search_internal_knowledge with the primary topic terms.
   2. If results are sparse, broaden the search with related terms or synonyms.
   3. Try up to 3 different queries to ensure thorough coverage.
   4. Evaluate the relevance and recency of each result.
@@ -29,4 +29,4 @@ temperature: 0.3
 max_iterations: 8
 
 tools:
-  - query_knowledge
+  - research_tools.search_internal_knowledge

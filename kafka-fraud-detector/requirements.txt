@@ -1,3 +1,1 @@
-# Kafka Fraud Detector
-# Kafka connector handles Kafka I/O - no kafka-python needed
-# Knowledge base tools are built-in
+# No additional dependencies
