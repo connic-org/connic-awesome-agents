@@ -2,6 +2,14 @@
 
 Automatically process documents uploaded to an S3 bucket. The pipeline extracts content, identifies entities, classifies the document type, and routes it to the right team.
 
+```bash
+pip install connic-composer-sdk
+connic init my-project --templates=s3-document-pipeline   # new project
+connic init . --templates=s3-document-pipeline            # existing project
+```
+
+[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+
 ## How It Works
 
 1. A file lands in your S3 bucket (PDF, image, text, DOCX).

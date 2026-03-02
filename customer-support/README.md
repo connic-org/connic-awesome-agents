@@ -2,6 +2,14 @@
 
 Intelligent ticket triage and RAG-powered response drafting. The triager classifies priority, category, and sentiment; the responder searches the knowledge base before answering and stores new solutions for future use.
 
+```bash
+pip install connic-composer-sdk
+connic init my-project --templates=customer-support   # new project
+connic init . --templates=customer-support            # existing project
+```
+
+[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+
 ## How It Works
 
 1. **support-triager** (LLM) classifies the ticket and extracts routing metadata. Middleware blocks spam senders using `StopProcessing` before the LLM is ever called.

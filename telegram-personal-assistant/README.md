@@ -5,6 +5,14 @@ saves personal notes, and stores longer-form knowledge for later retrieval.
 Showcases how a single agent can combine sessions, database, knowledge base,
 and web search into a fully featured personal assistant.
 
+```bash
+pip install connic-composer-sdk
+connic init my-project --templates=telegram-personal-assistant   # new project
+connic init . --templates=telegram-personal-assistant            # existing project
+```
+
+[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+
 ## What it does
 
 - Maintains multi-turn conversations via persistent sessions (7 day TTL)

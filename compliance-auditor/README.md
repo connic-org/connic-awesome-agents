@@ -2,6 +2,14 @@
 
 Scheduled compliance auditing with real-time regulatory intelligence. Combines web search for regulatory updates, MCP tools for framework documentation, a knowledge base for policy retrieval, and the database for audit history tracking.
 
+```bash
+pip install connic-composer-sdk
+connic init my-project --templates=compliance-auditor   # new project
+connic init . --templates=compliance-auditor            # existing project
+```
+
+[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+
 ## How It Works
 
 1. A **Cron connector** triggers `compliance-scanner` on a schedule (e.g. weekly).

@@ -2,6 +2,14 @@
 
 E-commerce order validation and fulfillment pipeline powered by AWS SQS. Validates orders for completeness, business rules, fraud signals, and inventory availability, then creates fulfillment records for approved orders.
 
+```bash
+pip install connic-composer-sdk
+connic init my-project --templates=sqs-order-processor   # new project
+connic init . --templates=sqs-order-processor            # existing project
+```
+
+[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+
 ## How It Works
 
 1. Orders arrive via an **SQS inbound** connector.

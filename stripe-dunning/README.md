@@ -2,6 +2,14 @@
 
 Automated payment recovery for Stripe subscriptions. Analyzes failed payment webhooks, decides the appropriate dunning stage based on attempt count and customer history, and composes personalized recovery emails.
 
+```bash
+pip install connic-composer-sdk
+connic init my-project --templates=stripe-dunning   # new project
+connic init . --templates=stripe-dunning            # existing project
+```
+
+[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+
 ## How It Works
 
 1. Stripe sends a webhook event (payment failed, subscription updated/deleted).

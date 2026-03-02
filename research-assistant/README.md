@@ -2,6 +2,14 @@
 
 Multi-agent research system that decomposes complex questions, dispatches specialist agents for web and knowledge base research in parallel, and synthesizes findings into a structured report with confidence scoring.
 
+```bash
+pip install connic-composer-sdk
+connic init my-project --templates=research-assistant   # new project
+connic init . --templates=research-assistant            # existing project
+```
+
+[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+
 ## How It Works
 
 1. **research-orchestrator** (LLM) receives a research question and breaks it into sub-questions.

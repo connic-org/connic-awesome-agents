@@ -4,6 +4,14 @@ Automatically enriches and qualifies new signups. When someone fills in your
 signup form, this agent researches their company, scores fit against your ideal
 customer profile, and stores the result so your team can prioritize outreach.
 
+```bash
+pip install connic-composer-sdk
+connic init my-project --templates=lead-enricher   # new project
+connic init . --templates=lead-enricher            # existing project
+```
+
+[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+
 ## What it does
 
 - Triggered by a webhook when a new signup arrives

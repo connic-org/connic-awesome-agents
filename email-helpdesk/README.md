@@ -2,6 +2,14 @@
 
 End-to-end email support automation. Classifies incoming emails, filters auto-replies and spam before the LLM runs, drafts contextual replies using the knowledge base, and sends them via SMTP.
 
+```bash
+pip install connic-composer-sdk
+connic init my-project --templates=email-helpdesk   # new project
+connic init . --templates=email-helpdesk            # existing project
+```
+
+[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+
 ## How It Works
 
 1. The **Email inbound connector** polls an IMAP mailbox for new messages.

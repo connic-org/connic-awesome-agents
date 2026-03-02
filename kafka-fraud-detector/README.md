@@ -2,6 +2,14 @@
 
 Real-time transaction fraud detection on a Kafka event stream. Scores every transaction using velocity analysis, geo-anomaly detection, and knowledge base pattern matching. High-risk transactions are blocked and escalated.
 
+```bash
+pip install connic-composer-sdk
+connic init my-project --templates=kafka-fraud-detector   # new project
+connic init . --templates=kafka-fraud-detector            # existing project
+```
+
+[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+
 ## How It Works
 
 1. Transactions flow in via a **Kafka inbound** connector.

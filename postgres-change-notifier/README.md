@@ -2,6 +2,14 @@
 
 Intelligent database change monitoring via PostgreSQL LISTEN/NOTIFY. Analyzes change events, classifies significance, and routes notifications to the right team. Perfect for audit trailing and real-time alerting on critical data changes.
 
+```bash
+pip install connic-composer-sdk
+connic init my-project --templates=postgres-change-notifier   # new project
+connic init . --templates=postgres-change-notifier            # existing project
+```
+
+[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+
 ## How It Works
 
 1. A PostgreSQL trigger fires `NOTIFY` on table changes.

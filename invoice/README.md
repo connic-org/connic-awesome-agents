@@ -2,6 +2,14 @@
 
 Extract structured data from invoices and validate totals automatically. A sequential pipeline pairs an LLM extractor with a deterministic validator for reliable, auditable results.
 
+```bash
+pip install connic-composer-sdk
+connic init my-project --templates=invoice   # new project
+connic init . --templates=invoice            # existing project
+```
+
+[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+
 ## How It Works
 
 1. **invoice-extractor** (LLM) reads the raw invoice text, extracts every field, and uses calculator tools to cross-check the math independently.
