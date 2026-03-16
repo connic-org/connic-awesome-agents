@@ -32,29 +32,41 @@ connic init . --templates=email-helpdesk            # existing project
 
 ## Connector Setup
 
+Add both connectors from the agent detail page in the [Connic dashboard](https://connic.co).
+
 **Email inbound** (IMAP):
 
 | Setting | Value |
 |---------|-------|
+| Mode | Inbound (IMAP) |
 | IMAP host | `imap.example.com` |
 | IMAP port | `993` |
-| Use SSL | `true` |
-| Username | `support@example.com` |
-| Mailbox | `INBOX` |
-| Filter unread only | `true` |
+| Use SSL/TLS | `true` |
+| IMAP username | `support@example.com` |
+| IMAP password | Your email password or app-specific password |
+| Mailbox/folder | `INBOX` |
+| Unread only | `true` |
 | Mark as read | `true` |
+| Filter by sender (optional) | `@example.com` (only process emails from this domain) |
+| Filter by subject (optional) | `[Support]` (only process emails with this in the subject) |
 | Linked agent | `helpdesk-pipeline` |
 
 **Email outbound** (SMTP):
 
 | Setting | Value |
 |---------|-------|
+| Mode | Outbound (SMTP) |
 | SMTP host | `smtp.example.com` |
 | SMTP port | `587` |
-| Use TLS | `true` |
+| Use TLS (STARTTLS) | `true` |
+| SMTP username | `support@example.com` |
+| SMTP password | Your SMTP password or app-specific password |
 | From address | `support@example.com` |
 | From name | `Company Support` |
+| Default recipient (optional) | Leave empty (the agent output includes the `to` field) |
 | Linked agent | `email-responder` |
+
+If your mail server is in a private network, enable **Connect via Bridge** on both connectors and run the [Connic Bridge](https://connic.co/docs/v1/connectors/bridge) in your network.
 
 ## Structure
 

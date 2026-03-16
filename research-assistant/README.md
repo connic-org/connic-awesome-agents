@@ -33,11 +33,21 @@ connic init . --templates=research-assistant            # existing project
 | Output schema | `schemas/research-report.json` |
 | Custom tools | Confidence assessment and citation formatting |
 
-## Suggested Connectors
+## Connector Setup
 
-- **HTTP Webhook (sync)** for on-demand research requests via API
+Add an **HTTP Webhook (sync)** connector from the agent detail page in the [Connic dashboard](https://connic.co) for on-demand research requests:
+
+| Setting | Value |
+|---------|-------|
+| Mode | Sync (Request-Response) |
+| Linked agent | `research-orchestrator` |
+
+After creating the connector, open its detail page to copy the auto-generated **Webhook URL** and **Secret Key**. POST your research question to that URL and receive the structured report in the response. Authenticate with the `X-Connic-Secret` header or a `?secret=` query parameter. Sync mode has a 5-minute timeout, which is sufficient given the agent's 180-second timeout.
+
+**Other connector options:**
+
 - **WebSocket (sync, streaming)** for real-time research with progressive updates
-- **Cron inbound** for scheduled market research or competitive analysis
+- **Cron inbound** for scheduled market research or competitive analysis (see the [compliance-auditor](../compliance-auditor) template for Cron setup)
 - **MCP server** to expose research capabilities to IDE-based AI assistants
 
 ## Structure

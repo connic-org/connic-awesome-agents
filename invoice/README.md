@@ -28,12 +28,22 @@ connic init . --templates=invoice            # existing project
 | `retry_options` | Extractor retries up to 5 times |
 | `timeout` | 45-second hard limit per extraction |
 
-## Suggested Connectors
+## Connector Setup
 
-- **HTTP Webhook (sync)** for real-time API calls from your ERP
-- **S3 inbound** to process invoices dropped into a bucket
-- **Email inbound** to extract invoices from email attachments
-- **Kafka inbound** to consume invoice events from a message bus
+Add an **HTTP Webhook (sync)** connector from the agent detail page in the [Connic dashboard](https://connic.co) for real-time invoice processing:
+
+| Setting | Value |
+|---------|-------|
+| Mode | Sync (Request-Response) |
+| Linked agent | `invoice-pipeline` |
+
+After creating the connector, open its detail page to copy the auto-generated **Webhook URL** and **Secret Key**. POST invoice data to that URL and receive the structured extraction result in the response. Authenticate with the `X-Connic-Secret` header or a `?secret=` query parameter. Sync mode has a 5-minute timeout.
+
+**Other connector options:**
+
+- **S3 inbound** to process invoices dropped into a bucket (see the [s3-document-pipeline](../s3-document-pipeline) template for S3 setup)
+- **Email inbound** to extract invoices from email attachments (see the [email-helpdesk](../email-helpdesk) template for Email setup)
+- **Kafka inbound** to consume invoice events from a message bus (see the [kafka-fraud-detector](../kafka-fraud-detector) template for Kafka setup)
 
 ## Structure
 

@@ -20,10 +20,23 @@ connic init . --templates=lead-enricher            # existing project
 - Scores fit 0-100 and assigns a status: qualified, nurture, or low
 - Saves the enriched lead to the database with a research summary
 
+## Connector Setup
+
+Add an **HTTP Webhook (inbound)** connector from the agent detail page in the [Connic dashboard](https://connic.co):
+
+| Setting | Value |
+|---------|-------|
+| Mode | Inbound (Fire & Forget) |
+| Linked agent | `lead-enricher` |
+
+After creating the connector, open its detail page to copy the auto-generated **Webhook URL** and **Secret Key**. Send signups to that URL with the secret in the `X-Connic-Secret` header or as a `?secret=` query parameter.
+
+You can also add an **HTTP Webhook (outbound)** connector to forward enrichment results to your CRM or Slack.
+
 ## Setup
 
 1. Deploy the agent to a project at [connic.co](https://connic.co)
-2. Configure a webhook connector to receive signups
+2. Create the webhook connector and link it to the agent (see above)
 3. Optionally seed your ICP criteria so scoring reflects your actual target customer:
 
 ```python

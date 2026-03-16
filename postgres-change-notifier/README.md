@@ -31,17 +31,21 @@ connic init . --templates=postgres-change-notifier            # existing project
 
 ## Connector Setup
 
-Configure a **PostgreSQL inbound** connector:
+Add a **PostgreSQL inbound** connector from the agent detail page in the [Connic dashboard](https://connic.co):
 
 | Setting | Value |
 |---------|-------|
 | Host | `your-db-host` |
 | Port | `5432` |
 | Database | `production` |
-| Channel | `data_changes` |
-| Parse JSON payload | `true` |
+| Username | Your database user |
+| Password | Your database password |
+| Notification channel | `data_changes` |
 | SSL mode | `require` |
+| Parse JSON payload | `true` |
 | Linked agent | `change-analyzer` |
+
+If your database is in a private network, enable **Connect via Bridge** and run the [Connic Bridge](https://connic.co/docs/v1/connectors/bridge) in your network.
 
 Add an **HTTP Webhook (outbound)** connector to forward notifications to Slack, Teams, or PagerDuty.
 

@@ -34,26 +34,35 @@ connic init . --templates=sqs-order-processor            # existing project
 
 ## Connector Setup
 
+Add both connectors from the agent detail page in the [Connic dashboard](https://connic.co).
+
 **SQS inbound** (orders):
 
 | Setting | Value |
 |---------|-------|
+| Mode | Inbound (Consumer) |
 | Queue URL | `https://sqs.eu-central-1.amazonaws.com/123/orders` |
 | Region | `eu-central-1` |
-| Max messages | `10` |
-| Wait time seconds | `20` (long polling) |
-| Visibility timeout | `60` |
+| AWS Access Key ID | Your IAM access key with SQS permissions |
+| AWS Secret Access Key | Your IAM secret key |
+| Max messages per poll | `10` |
+| Wait time (seconds) | `20` (long polling) |
+| Visibility timeout (seconds) | `60` |
 | Linked agent | `order-pipeline` |
 
 **SQS outbound** (results):
 
 | Setting | Value |
 |---------|-------|
+| Mode | Outbound (Producer) |
 | Queue URL | `https://sqs.eu-central-1.amazonaws.com/123/fulfillment` |
 | Region | `eu-central-1` |
+| AWS Access Key ID | Your IAM access key with SQS permissions |
+| AWS Secret Access Key | Your IAM secret key |
+| Message Group ID (FIFO only) | Set to route by customer for FIFO queues |
 | Linked agent | `order-fulfiller` |
 
-For FIFO queues, set `message_group_id` to route by customer.
+If your SQS queues are in a private network, enable **Connect via Bridge** on both connectors and run the [Connic Bridge](https://connic.co/docs/v1/connectors/bridge) in your network.
 
 ## Structure
 

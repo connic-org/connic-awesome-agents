@@ -33,14 +33,38 @@ connic init . --templates=stripe-dunning            # existing project
 
 ## Connector Setup
 
-Add a **Stripe inbound** connector to your agent from the agent detail page in the Connic dashboard:
+### Stripe inbound
+
+1. From the agent detail page in the [Connic dashboard](https://connic.co), add a **Stripe** connector. Leave the webhook signing secret empty for now and create the connector.
+2. Open the connector detail page and copy the auto-generated **Webhook URL**.
+3. In your [Stripe Dashboard](https://dashboard.stripe.com/webhooks), go to **Developers > Webhooks** and add a new endpoint with the copied URL.
+4. Select the events you want to receive: `invoice.payment_failed`, `customer.subscription.updated`, `customer.subscription.deleted`.
+5. After creating the endpoint in Stripe, copy the **Signing Secret** (starts with `whsec_`).
+6. Back in the Connic dashboard, edit the Stripe connector settings and paste the signing secret, then save.
+7. Link the connector to `payment-analyzer` or `dunning-pipeline`.
 
 | Setting | Value |
 |---------|-------|
-| Webhook secret | `whsec_...` (from Stripe dashboard) |
+| Webhook signing secret | `whsec_...` (from Stripe, see steps above) |
 | Linked agent | `payment-analyzer` or `dunning-pipeline` |
 
-Add an **Email outbound** connector to send the recovery emails. The recovery-composer outputs JSON with `to`, `subject`, `body` fields that the Email outbound connector parses for SMTP delivery.
+### Email outbound
+
+Add an **Email (SMTP)** outbound connector to send the recovery emails:
+
+| Setting | Value |
+|---------|-------|
+| Mode | Outbound (SMTP) |
+| SMTP host | `smtp.example.com` |
+| SMTP port | `587` |
+| Use TLS | `true` |
+| SMTP username | `noreply@example.com` |
+| SMTP password | Your SMTP password or app-specific password |
+| From address | `noreply@example.com` |
+| From name | `Billing Team` |
+| Linked agent | `recovery-composer` |
+
+The recovery-composer outputs JSON with `to`, `subject`, `body` fields that the Email outbound connector parses for SMTP delivery.
 
 ## Structure
 

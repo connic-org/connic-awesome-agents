@@ -34,23 +34,34 @@ connic init . --templates=kafka-fraud-detector            # existing project
 
 ## Connector Setup
 
+Add both connectors from the agent detail page in the [Connic dashboard](https://connic.co).
+
 **Kafka inbound** (transactions):
 
 | Setting | Value |
 |---------|-------|
+| Mode | Inbound (Consumer) |
 | Bootstrap servers | `kafka:9092` |
 | Topic | `transactions` |
-| Group ID | `fraud-detector` |
+| Consumer Group ID | `fraud-detector` (leave empty to auto-generate) |
 | Auto offset reset | `latest` |
+| Security protocol | `PLAINTEXT` (or `SASL_SSL` for secured clusters) |
+| SASL mechanism | `SCRAM-SHA-256` (only when using SASL) |
+| SASL username | Your Kafka username (only when using SASL) |
+| SASL password | Your Kafka password (only when using SASL) |
 | Linked agent | `fraud-scorer` |
 
 **Kafka outbound** (alerts):
 
 | Setting | Value |
 |---------|-------|
+| Mode | Outbound (Producer) |
 | Bootstrap servers | `kafka:9092` |
 | Topic | `fraud-alerts` |
+| Security protocol | `PLAINTEXT` (or `SASL_SSL` for secured clusters) |
 | Linked agent | `fraud-escalator` |
+
+If your Kafka brokers are in a private network, enable **Connect via Bridge** on both connectors and run the [Connic Bridge](https://connic.co/docs/v1/connectors/bridge) in your network.
 
 ## Structure
 

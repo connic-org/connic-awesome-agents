@@ -30,17 +30,24 @@ connic init . --templates=s3-document-pipeline            # existing project
 
 ## Connector Setup
 
-Add an **S3 inbound** connector to your agent from the agent detail page in the Connic dashboard:
+Add an **S3 inbound** connector from the agent detail page in the [Connic dashboard](https://connic.co):
 
 | Setting | Value |
 |---------|-------|
-| Bucket | `your-documents-bucket` |
+| Bucket name | `your-documents-bucket` |
 | Region | `eu-central-1` |
-| Prefix | `inbox/` (optional: only trigger for files in this prefix) |
-| Suffix | `.pdf` (optional: only trigger for PDFs) |
+| AWS Access Key ID | Your IAM access key with S3 permissions |
+| AWS Secret Access Key | Your IAM secret key |
+| Key prefix (optional) | `inbox/` (only trigger for files in this prefix) |
+| Key suffix (optional) | `.pdf` (only trigger for PDFs) |
 | Event types | `created` |
-| Include content | `true` (sends file bytes to the agent) |
-| Max file size | `50` MB |
+| Include file content | `true` (downloads and sends file content to the agent) |
+| Max file size (MB) | `50` |
+| Linked agent | `document-pipeline` |
+
+After creating the connector, open its detail page to copy the auto-generated **Webhook URL**. Configure [S3 Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/NotificationHowTo.html) on your bucket to send events to that URL.
+
+If your S3 bucket is in a private network, enable **Connect via Bridge** and run the [Connic Bridge](https://connic.co/docs/v1/connectors/bridge) in your VPC.
 
 Optionally add an **HTTP Webhook (outbound)** connector to forward classification results to your document management system.
 

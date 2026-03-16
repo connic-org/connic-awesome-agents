@@ -27,12 +27,32 @@ connic init . --templates=customer-support            # existing project
 | Output schema | `schemas/ticket-classification.json` |
 | Middleware context enrichment | Sets `channel` in context for downstream agents |
 
-## Suggested Connectors
+## Connector Setup
 
-- **WebSocket (sync, streaming: true)** for real-time chat support with streaming responses
+Add a **WebSocket** connector from the agent detail page in the [Connic dashboard](https://connic.co) for real-time chat support:
+
+| Setting | Value |
+|---------|-------|
+| Streaming responses | `true` |
+| Require authentication | `true` |
+| Session timeout (seconds) | `3600` (1 hour) |
+| Max messages per session | `100` |
+| Linked agent | `support-pipeline` |
+
+After creating the connector, open its detail page to copy the auto-generated **WebSocket URL** and **Secret Key**. Connect via WebSocket and send the secret as the first message: `{"secret": "..."}`. Each session maintains conversation history across messages.
+
+Optionally add an **HTTP Webhook (outbound)** connector to forward escalations to Slack or PagerDuty:
+
+| Setting | Value |
+|---------|-------|
+| Mode | Outbound (Callback) |
+| Callback URL | `https://your-server.com/escalations` |
+| Linked agent | `support-responder` |
+
+**Other connector options:**
+
 - **HTTP Webhook (sync)** for ticketing system integrations (Zendesk, Intercom)
-- **Email inbound** to process support emails
-- **HTTP Webhook (outbound)** to send escalations to Slack or PagerDuty
+- **Email inbound** to process support emails (see the [email-helpdesk](../email-helpdesk) template)
 
 ## Structure
 
