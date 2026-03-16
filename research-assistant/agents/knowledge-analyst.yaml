@@ -2,7 +2,7 @@ version: "1.0"
 
 name: knowledge-analyst
 type: llm
-model: gemini/gemini-2.5-flash
+model: gemini/gemini-3-flash-preview
 description: "Searches internal knowledge base for existing research and company data"
 
 system_prompt: |

@@ -2,7 +2,7 @@ version: "1.0"
 
 name: fraud-scorer
 type: llm
-model: gemini/gemini-2.5-flash
+model: gemini/gemini-3-flash-preview
 description: "Scores transactions for fraud risk in real-time from a Kafka stream"
 
 system_prompt: |

@@ -2,7 +2,7 @@ version: "1.0"
 
 name: web-researcher
 type: llm
-model: gemini/gemini-2.5-flash
+model: gemini/gemini-3-flash-preview
 description: "Searches the web for current information on a specific sub-question"
 
 system_prompt: |

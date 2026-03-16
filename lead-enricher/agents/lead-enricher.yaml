@@ -2,7 +2,7 @@ version: "1.0"
 
 name: lead-enricher
 type: llm
-model: gemini/gemini-2.5-flash
+model: gemini/gemini-3-flash-preview
 description: "Enriches new signups with company research, ICP scoring, and lead storage"
 
 system_prompt: |

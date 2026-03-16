@@ -2,7 +2,7 @@ version: "1.0"
 
 name: document-intake
 type: llm
-model: gemini/gemini-2.5-pro
+model: gemini/gemini-3.1-pro-preview
 description: "Processes files uploaded to S3 - extracts text, metadata, and structured content"
 
 system_prompt: |

@@ -2,7 +2,7 @@ version: "1.0"
 
 name: email-responder
 type: llm
-model: gemini/gemini-2.5-flash
+model: gemini/gemini-3-flash-preview
 description: "Drafts email replies using knowledge base and classification context"
 
 system_prompt: |

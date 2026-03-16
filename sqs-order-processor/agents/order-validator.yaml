@@ -2,7 +2,7 @@ version: "1.0"
 
 name: order-validator
 type: llm
-model: gemini/gemini-2.5-flash
+model: gemini/gemini-3-flash-preview
 description: "Validates incoming orders from SQS for completeness, fraud signals, and business rules"
 
 system_prompt: |

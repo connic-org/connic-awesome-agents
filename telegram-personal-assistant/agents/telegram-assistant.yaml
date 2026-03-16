@@ -2,7 +2,7 @@ version: "1.0"
 
 name: telegram-assistant
 type: llm
-model: gemini/gemini-2.5-flash
+model: gemini/gemini-3-flash-preview
 description: "A multimodal Telegram personal assistant that handles text, images, voice, files, and video with persistent memory"
 
 system_prompt: |

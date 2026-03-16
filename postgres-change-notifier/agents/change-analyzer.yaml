@@ -2,7 +2,7 @@ version: "1.0"
 
 name: change-analyzer
 type: llm
-model: gemini/gemini-2.5-flash
+model: gemini/gemini-3-flash-preview
 description: "Analyzes PostgreSQL LISTEN/NOTIFY events and decides who to alert"
 
 system_prompt: |

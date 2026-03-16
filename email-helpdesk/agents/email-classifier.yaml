@@ -2,7 +2,7 @@ version: "1.0"
 
 name: email-classifier
 type: llm
-model: gemini/gemini-2.5-flash
+model: gemini/gemini-3-flash-preview
 description: "Classifies incoming emails by intent, urgency, and department"
 
 system_prompt: |

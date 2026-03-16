@@ -2,7 +2,7 @@ version: "1.0"
 
 name: support-triager
 type: llm
-model: gemini/gemini-2.5-flash
+model: gemini/gemini-3-flash-preview
 description: "Classifies incoming support tickets by priority, category, and sentiment"
 
 system_prompt: |

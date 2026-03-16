@@ -2,7 +2,7 @@ version: "1.0"
 
 name: payment-analyzer
 type: llm
-model: gemini/gemini-2.5-flash
+model: gemini/gemini-3-flash-preview
 description: "Analyzes Stripe webhook events and decides on dunning actions"
 
 system_prompt: |

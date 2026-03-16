@@ -2,7 +2,7 @@ version: "1.0"
 
 name: recovery-composer
 type: llm
-model: gemini/gemini-2.5-flash
+model: gemini/gemini-3-flash-preview
 description: "Composes personalized recovery emails based on dunning stage and customer history"
 
 system_prompt: |
