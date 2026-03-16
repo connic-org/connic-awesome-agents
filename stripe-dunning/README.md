@@ -33,7 +33,7 @@ connic init . --templates=stripe-dunning            # existing project
 
 ## Connector Setup
 
-Configure a **Stripe inbound** connector in the Connic dashboard:
+Add a **Stripe inbound** connector to your agent from the agent detail page in the Connic dashboard:
 
 | Setting | Value |
 |---------|-------|

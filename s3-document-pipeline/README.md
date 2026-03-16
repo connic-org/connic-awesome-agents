@@ -30,7 +30,7 @@ connic init . --templates=s3-document-pipeline            # existing project
 
 ## Connector Setup
 
-Configure an **S3 inbound** connector in the Connic dashboard:
+Add an **S3 inbound** connector to your agent from the agent detail page in the Connic dashboard:
 
 | Setting | Value |
 |---------|-------|

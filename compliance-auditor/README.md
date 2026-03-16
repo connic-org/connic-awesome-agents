@@ -33,7 +33,7 @@ connic init . --templates=compliance-auditor            # existing project
 
 ## Connector Setup
 
-Configure a **Cron inbound** connector in the Connic dashboard:
+Add a **Cron inbound** connector to your agent from the agent detail page in the Connic dashboard:
 
 | Setting | Value |
 |---------|-------|
