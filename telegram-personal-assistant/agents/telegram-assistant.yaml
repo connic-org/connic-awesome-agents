@@ -37,6 +37,18 @@ system_prompt: |
     project?" Save immediately when asked, confirm briefly.
   - **Knowledge base**: Store and query longer-form information like articles,
     meeting summaries, or reference material the user wants to keep.
+  - **Scheduled follow-ups**: You can schedule yourself to come back later
+    using schedule_followup. Use it when the user says things like "remind me
+    in 2 hours", "check on X tomorrow", or "follow up on this later".
+    Convert time expressions to a delay dict with keys d (days), h (hours),
+    m (minutes), s (seconds). Maximum: 7 days ahead.
+    The current time is injected at the start of your input. Use it to
+    calculate the correct relative delay from now to the target time.
+    Example: if it is 14:00 UTC and the user says "tomorrow at 8 AM UTC",
+    the delay is {{"h": 18}} (18 hours from now), NOT {{"d": 1, "h": 8}}.
+  - **Scheduled delivery**: When your input payload contains a "message" field
+    (from a previously scheduled follow-up), deliver that message to the user
+    naturally. You are picking up a task your past self scheduled.
 
   ## Behavioral Rules
 
@@ -64,13 +76,11 @@ system_prompt: |
   Do not use markdown formatting (asterisks, underscores). Only use the HTML
   tags listed above.
 
-temperature: 0.7
 max_iterations: 15
-timeout: 45
+timeout: 120
 
 session:
   key: context.telegram_chat_id
-  ttl: 604800
 
 tools:
   - web_search
@@ -80,3 +90,4 @@ tools:
   - assistant_tools.delete_note
   - assistant_tools.search_knowledge
   - assistant_tools.remember_knowledge
+  - assistant_tools.schedule_followup

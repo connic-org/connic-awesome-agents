@@ -1,6 +1,6 @@
 """Personal assistant tools - notes via database, knowledge via RAG."""
 
-from connic.tools import db_insert, db_find, db_delete, query_knowledge, store_knowledge
+from connic.tools import db_insert, db_find, db_delete, query_knowledge, store_knowledge, trigger_agent_at
 
 NOTES_COLLECTION = "notes"
 KNOWLEDGE_NAMESPACE = "personal"
@@ -90,3 +90,38 @@ async def remember_knowledge(content: str, entry_id: str | None = None) -> dict:
     return await store_knowledge(
         content, namespace=KNOWLEDGE_NAMESPACE, entry_id=entry_id
     )
+
+
+AGENT_NAME = "telegram-assistant"
+
+
+async def schedule_followup(task: str, delay: dict, context: dict) -> dict:
+    """Schedule the assistant to follow up later with a reminder or task.
+
+    Use when the user asks to be reminded about something, or wants you to
+    check/do something at a later time (e.g. "remind me in 2 hours",
+    "check the weather tomorrow morning").
+
+    Args:
+        task: What you should do when the scheduled time arrives. Be specific
+              so your future self knows exactly what to tell the user.
+        delay: When to follow up, as a relative offset from now. Dict with keys
+               d (days), h (hours), m (minutes), s (seconds). At least one required.
+               Calculate from the current time provided in your input.
+
+    Returns:
+        Confirmation with the scheduled time.
+    """
+    chat_id = context["telegram_chat_id"]
+
+    result = await trigger_agent_at(
+        agent_name=AGENT_NAME,
+        payload={"chat_id": chat_id, "message": task},
+        delay=delay,
+    )
+
+    return {
+        "scheduled": True,
+        "scheduled_at": result.get("scheduled_at"),
+        "task": task,
+    }
