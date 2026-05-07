@@ -66,7 +66,7 @@ Add both connectors from the agent detail page in the [Connic dashboard](https:/
 | Default recipient (optional) | Leave empty (the agent output includes the `to` field) |
 | Linked agent | `email-responder` |
 
-If your mail server is in a private network, enable **Connect via Bridge** on both connectors and run the [Connic Bridge](https://connic.co/docs/v1/connectors/bridge) in your network.
+If your mail server is in a private network, enable **Connect via Bridge** on both connectors and run the [Connic Bridge](https://connic.co/docs/v1/platform/bridge) in your network.
 
 ## Structure
 

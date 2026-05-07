@@ -45,7 +45,7 @@ Add a **PostgreSQL inbound** connector from the agent detail page in the [Connic
 | Parse JSON payload | `true` |
 | Linked agent | `change-analyzer` |
 
-If your database is in a private network, enable **Connect via Bridge** and run the [Connic Bridge](https://connic.co/docs/v1/connectors/bridge) in your network.
+If your database is in a private network, enable **Connect via Bridge** and run the [Connic Bridge](https://connic.co/docs/v1/platform/bridge) in your network.
 
 Add an **HTTP Webhook (outbound)** connector to forward notifications to Slack, Teams, or PagerDuty.
 

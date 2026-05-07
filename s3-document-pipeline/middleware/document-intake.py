@@ -11,7 +11,7 @@ and optionally content: {text, content_type, size_bytes, encoding}
 import json
 from typing import Any
 
-from connic.core import StopProcessing
+from connic import StopProcessing
 
 SUPPORTED_TYPES = {
     "application/pdf",

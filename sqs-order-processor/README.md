@@ -62,7 +62,7 @@ Add both connectors from the agent detail page in the [Connic dashboard](https:/
 | Message Group ID (FIFO only) | Set to route by customer for FIFO queues |
 | Linked agent | `order-fulfiller` |
 
-If your SQS queues are in a private network, enable **Connect via Bridge** on both connectors and run the [Connic Bridge](https://connic.co/docs/v1/connectors/bridge) in your network.
+If your SQS queues are in a private network, enable **Connect via Bridge** on both connectors and run the [Connic Bridge](https://connic.co/docs/v1/platform/bridge) in your network.
 
 ## Structure
 

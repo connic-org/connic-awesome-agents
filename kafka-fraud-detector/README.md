@@ -61,7 +61,7 @@ Add both connectors from the agent detail page in the [Connic dashboard](https:/
 | Security protocol | `PLAINTEXT` (or `SASL_SSL` for secured clusters) |
 | Linked agent | `fraud-escalator` |
 
-If your Kafka brokers are in a private network, enable **Connect via Bridge** on both connectors and run the [Connic Bridge](https://connic.co/docs/v1/connectors/bridge) in your network.
+If your Kafka brokers are in a private network, enable **Connect via Bridge** on both connectors and run the [Connic Bridge](https://connic.co/docs/v1/platform/bridge) in your network.
 
 ## Structure
 

@@ -47,7 +47,7 @@ Add an **S3 inbound** connector from the agent detail page in the [Connic dashbo
 
 After creating the connector, open its detail page to copy the auto-generated **Webhook URL**. Configure [S3 Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/NotificationHowTo.html) on your bucket to send events to that URL.
 
-If your S3 bucket is in a private network, enable **Connect via Bridge** and run the [Connic Bridge](https://connic.co/docs/v1/connectors/bridge) in your VPC.
+If your S3 bucket is in a private network, enable **Connect via Bridge** and run the [Connic Bridge](https://connic.co/docs/v1/platform/bridge) in your VPC.
 
 Optionally add an **HTTP Webhook (outbound)** connector to forward classification results to your document management system.
 

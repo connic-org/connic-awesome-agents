@@ -7,7 +7,7 @@ before the LLM processes them.
 import json
 from typing import Any
 
-from connic.core import StopProcessing
+from connic import StopProcessing
 
 
 async def before(content: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:

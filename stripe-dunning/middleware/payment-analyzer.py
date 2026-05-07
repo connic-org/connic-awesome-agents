@@ -10,7 +10,7 @@ The Stripe inbound connector delivers the full Stripe event JSON:
 import json
 from typing import Any
 
-from connic.core import StopProcessing
+from connic import StopProcessing
 
 RELEVANT_EVENTS = {
     "invoice.payment_failed",

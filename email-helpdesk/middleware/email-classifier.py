@@ -11,7 +11,7 @@ import json
 import re
 from typing import Any
 
-from connic.core import StopProcessing
+from connic import StopProcessing
 
 AUTO_REPLY_PATTERNS = [
     r"out of office",

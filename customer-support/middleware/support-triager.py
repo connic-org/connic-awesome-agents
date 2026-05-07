@@ -6,7 +6,7 @@ Demonstrates StopProcessing for graceful early exits.
 
 from typing import Any
 
-from connic.core import StopProcessing
+from connic import StopProcessing
 
 BLOCKED_DOMAINS = {"spam.example.com", "throwaway.mail"}
 
