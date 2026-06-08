@@ -2,7 +2,7 @@ version: "1.0"
 
 name: support-triager
 type: llm
-model: gemini/gemini-3-flash-preview
+model: gemini/gemini-3.5-flash
 description: "Classifies incoming support tickets by priority, category, and sentiment"
 
 system_prompt: |
@@ -30,3 +30,17 @@ system_prompt: |
 
 temperature: 0.2
 output_schema: ticket-classification
+
+guardrails:
+  input:
+    - type: prompt_injection
+      mode: block
+    - type: pii
+      mode: redact
+      config:
+        entities: [email, phone]
+    - type: topic_restriction
+      mode: block
+      config:
+        allowed_topics: [billing, technical, account, onboarding, general support]
+        off_topic_message: "I can only help with product support and billing."

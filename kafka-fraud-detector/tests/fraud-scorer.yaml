@@ -1,0 +1,40 @@
+version: "1.0"
+
+# fraud-scorer's entire tool list is custom, so every tool is mocked and
+# strict_mocks guarantees it never reached for an unstubbed tool. Coverage of
+# all six tools is spread across the cases below.
+defaults:
+  runs: 1
+  timeout_s: 120
+  mocks: fraud_mocks
+  strict_mocks: true
+
+tests:
+  - name: scores_normal_transaction
+    payload: '{"source": "kafka", "data": {"transaction_id": "txn_1001", "customer_id": "cus_1", "amount": 42.50, "currency": "EUR", "merchant": "Corner Cafe", "country": "DE", "timestamp": 1736500000}}'
+    expected_result: output.risk_level != ""
+    expected_tool_calls:
+      - fraud_tools.calculate_velocity
+      - fraud_tools.check_geo_anomaly
+      - fraud_tools.search_fraud_patterns
+
+  - name: admin_can_override
+    # source admin-dashboard makes the middleware set is_admin, unlocking the
+    # conditional admin_override tool. The high-value cross-border transaction
+    # drives a high risk score, so create_alert fires too.
+    payload: '{"source": "admin-dashboard", "data": {"transaction_id": "txn_1002", "customer_id": "cus_2", "amount": 8900.00, "currency": "USD", "merchant": "Unknown Electronics", "country": "NG", "last_country": "DE", "last_timestamp": 1736500000, "timestamp": 1736503000, "admin_note": "Reviewed with the cardholder by phone - this cross-border purchase is legitimate. Override the automated hold and approve."}}'
+    expected_result: output.risk_level != ""
+    expected_tool_calls:
+      - fraud_tools.calculate_velocity
+      - fraud_tools.check_geo_anomaly
+      - fraud_tools.search_fraud_patterns
+      - fraud_tools.create_alert
+      - fraud_tools.admin_override
+
+  - name: stores_novel_pattern
+    # A transaction with characteristics not seen before; the scorer records it
+    # as a novel fraud pattern for future detection.
+    payload: '{"source": "kafka", "data": {"transaction_id": "txn_1003", "customer_id": "cus_3", "amount": 1250.00, "currency": "EUR", "merchant": "GiftCard Reseller", "country": "DE", "timestamp": 1736500500, "notes": "12 rapid card-not-present gift card purchases"}}'
+    expected_result: output.risk_level != ""
+    expected_tool_calls:
+      - fraud_tools.store_fraud_pattern

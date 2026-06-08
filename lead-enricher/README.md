@@ -73,6 +73,12 @@ The webhook payload should include at minimum:
 | 40-69 | nurture   | Add to drip sequence       |
 | <40   | low       | No immediate action needed |
 
+## Testing
+
+`connic test` runs the suite in `tests/`. The `lead_tools` are stubbed via
+`tests/mocks/` so cases are deterministic and touch no real database; `web_search`
+runs for real. The deploy gate runs the same suite before every release.
+
 ## Extending
 
 - Chain with an `outreach-drafter` agent that writes a personalized first email

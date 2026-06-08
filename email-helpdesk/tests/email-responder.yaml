@@ -1,0 +1,23 @@
+version: "1.0"
+
+# The responder only calls custom helpdesk tools, so strict_mocks guarantees it
+# never reached for anything unstubbed. The knowledge base is mocked so nothing
+# is written or deleted.
+defaults:
+  runs: 1
+  timeout_s: 90
+  mocks: helpdesk_mocks
+  strict_mocks: true
+
+tests:
+  - name: drafts_reply_from_knowledge
+    payload: '{"intent": "question", "urgency": "low", "department": "general", "language": "en", "sender_name": "Jane", "from_address": "jane@acme.com", "original_subject": "How do I reset my password?", "summary": "Customer cannot reset their password."}'
+    expected_result: output.body != "" and output.to != ""
+    expected_tool_calls:
+      - helpdesk_tools.search_helpdesk_knowledge
+
+  - name: removes_outdated_entry
+    payload: '{"intent": "question", "urgency": "low", "department": "general", "language": "en", "sender_name": "Jane", "from_address": "jane@acme.com", "original_subject": "Password reset steps", "summary": "Customer reports the knowledge base entry hd_old_1 about password reset is outdated and wrong. Remove the stale entry hd_old_1 and reply explaining the current steps."}'
+    expected_result: output.body != "" and output.to != ""
+    expected_tool_calls:
+      - helpdesk_tools.remove_stale_entry

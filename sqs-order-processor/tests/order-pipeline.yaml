@@ -1,0 +1,15 @@
+version: "1.0"
+
+# End-to-end through the sequential pipeline: validator approves, then the
+# order-fulfiller tool agent creates the fulfillment record. The validator's
+# tools are mocked (deterministic approval); create_fulfillment is pure and
+# runs for real, so the final output is the genuine fulfillment record.
+defaults:
+  runs: 1
+  timeout_s: 90
+  mocks: order_mocks
+
+tests:
+  - name: clean_order_is_fulfilled
+    payload: '{"order_id": "A200", "customer_id": "c9", "payment_method": "credit_card", "items": [{"sku": "SKU1", "price": 25, "quantity": 1}], "shipping_address": {"country": "DE", "city": "Berlin", "postal_code": "10115"}, "total": 25}'
+    expected_result: output.fulfilled == true and output.order_id == "A200"

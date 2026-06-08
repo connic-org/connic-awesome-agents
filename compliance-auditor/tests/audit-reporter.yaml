@@ -1,0 +1,17 @@
+version: "1.0"
+
+# The reporter only calls one custom tool (get_audit_history), so strict_mocks
+# guarantees it never reached for anything unstubbed. Raw-text output, so we
+# assert completion rather than schema fields.
+defaults:
+  runs: 1
+  timeout_s: 60
+  mocks: compliance_mocks
+  strict_mocks: true
+
+tests:
+  - name: formats_executive_report
+    payload: '{"prompt": "Findings: GDPR Art. 32 - encryption at rest missing (high). Data retention policy allows 90 days, exceeds 14-day max (medium). Overall posture: yellow."}'
+    expected_result: status == "completed"
+    expected_tool_calls:
+      - compliance_tools.get_audit_history

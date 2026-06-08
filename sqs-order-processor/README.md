@@ -64,6 +64,31 @@ Add both connectors from the agent detail page in the [Connic dashboard](https:/
 
 If your SQS queues are in a private network, enable **Connect via Bridge** on both connectors and run the [Connic Bridge](https://connic.co/docs/v1/platform/bridge) in your network.
 
+## Testing
+
+`connic test` runs the suites in `tests/`. `order_tools` is stubbed via
+`tests/mocks/order_mocks.py`, so cases are deterministic and write nothing — the
+validator's tool calls are still recorded and asserted. `tests/order-pipeline.yaml`
+runs the full validate-then-fulfill chain end to end.
+
+## Optional: human-in-the-loop approvals
+
+To require a human decision before the warehouse is notified, add an
+[approval](https://connic.co/docs/v1/platform/approvals) block to
+`agents/order-fulfiller.yaml`:
+
+```yaml
+approval:
+  tools:
+    - order_tools.create_fulfillment
+  timeout: 3600
+  message: "Approve fulfillment before the warehouse is notified."
+  on_rejection: continue   # rejection feeds back to the agent instead of failing
+```
+
+This pauses each run until someone approves it on the Approvals page, so it is
+left out of the active config — the deploy-gate test suite runs non-interactively.
+
 ## Structure
 
 ```

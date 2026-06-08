@@ -45,6 +45,12 @@ After creating the connector, open its detail page to copy the auto-generated **
 - **Email inbound** to extract invoices from email attachments (see the [email-helpdesk](../email-helpdesk) template for Email setup)
 - **Kafka inbound** to consume invoice events from a message bus (see the [kafka-fraud-detector](../kafka-fraud-detector) template for Kafka setup)
 
+## Testing
+
+`connic test` runs the suite in `tests/`. The calculator and validation tools are
+pure math, so they run for real and deterministically - no mocks needed. The deploy
+gate runs the same suite before every release.
+
 ## Structure
 
 ```

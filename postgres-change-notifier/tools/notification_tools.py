@@ -88,31 +88,29 @@ def classify_change(
 
 
 def dispatch(
-    channel: str,
-    title: str,
-    message: str,
-    severity: str = "info",
-    metadata: dict[str, Any] | None = None,
+    payload: dict[str, Any] | None = None,
+    context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Format a notification payload for webhook delivery.
 
-    The outbound HTTP webhook connector will deliver this to the
-    configured endpoint (Slack, Teams, PagerDuty, etc.).
+    This runs as a tool agent (notification-dispatcher), so it receives the
+    triggering agent's payload directly. The outbound HTTP webhook connector
+    delivers the result to the configured endpoint (Slack, Teams, PagerDuty…).
 
     Args:
-        channel: Target channel (ops-team, security-team, sales-team)
-        title: Notification title
-        message: Notification body
-        severity: info, warning, or critical
-        metadata: Additional context (table, operation, record IDs)
+        payload: The notification to send, with keys: channel (ops-team,
+            security-team, sales-team), title, message, and optional severity
+            (info, warning, critical) and metadata (table, operation, ids).
+        context: Auto-injected run context.
 
     Returns:
         Structured notification ready for outbound webhook delivery
     """
+    payload = payload or {}
     return {
-        "channel": channel,
-        "title": title,
-        "message": message,
-        "severity": severity,
-        "metadata": metadata or {},
+        "channel": payload.get("channel", "ops-team"),
+        "title": payload.get("title", "Database change"),
+        "message": payload.get("message", ""),
+        "severity": payload.get("severity", "info"),
+        "metadata": payload.get("metadata", {}),
     }

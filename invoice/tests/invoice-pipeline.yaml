@@ -1,0 +1,14 @@
+version: "1.0"
+
+# End-to-end through the sequential pipeline: the extractor pulls structured
+# numbers from the invoice text, then the validator tool agent runs a pure-math
+# pass on them. Both the calculator tools and validate_totals are deterministic
+# and run for real - no mocks needed.
+defaults:
+  runs: 1
+  timeout_s: 120
+
+tests:
+  - name: consistent_invoice_validates
+    payload: '{"text":"Invoice from Acme GmbH. Number INV-001. 3 widgets at 10.00 EUR each. Subtotal 30.00 EUR. VAT 19% = 5.70 EUR. Total 35.70 EUR."}'
+    expected_result: output.valid == true

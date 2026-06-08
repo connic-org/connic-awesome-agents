@@ -1,0 +1,18 @@
+version: "1.0"
+
+# The triager has no custom tools, so a single file with these cases gives full
+# coverage. No mocks are needed.
+defaults:
+  runs: 1
+  timeout_s: 90
+
+tests:
+  - name: classifies_billing_issue
+    payload: '{"text":"I was charged twice for my subscription this month and need a refund."}'
+    expected_result: output.category == "billing"
+
+  - name: blocks_spam_domain
+    # The before() middleware raises StopProcessing for blocked domains, so the
+    # LLM never classifies the ticket.
+    payload: '{"text":"Cheap deals, reply now! Contact us at deals@spam.example.com"}'
+    expected_result: status == "completed"

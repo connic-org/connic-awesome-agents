@@ -1,0 +1,24 @@
+version: "1.0"
+
+# The responder's entire tool list is custom file tools, so strict_mocks holds:
+# every tool call is one we stubbed, and nothing touches the knowledge base.
+# Output is raw text, so cases assert the run completed.
+defaults:
+  runs: 1
+  timeout_s: 120
+  mocks: support_mocks
+  strict_mocks: true
+
+tests:
+  - name: answers_from_knowledge_base
+    payload: '{"priority":"medium","category":"account","sentiment":"neutral","summary":"User cannot reset their password.","text":"I cannot reset my password. After you draft the reply, save the solution for future tickets."}'
+    expected_result: status == "completed"
+    expected_tool_calls:
+      - support_tools.search_solutions
+      - support_tools.save_solution
+
+  - name: escalates_unsolvable_ticket
+    payload: '{"priority":"critical","category":"technical","sentiment":"angry","summary":"Full production outage with data loss.","text":"Our entire production database is down and we are losing data. This needs a specialist immediately."}'
+    expected_result: status == "completed"
+    expected_tool_calls:
+      - support_tools.format_escalation

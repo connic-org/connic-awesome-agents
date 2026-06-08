@@ -4,7 +4,7 @@ Agents work with leads in business terms (save_lead, get_icp_criteria) rather
 than constructing filter dicts or managing collection names and namespaces.
 """
 
-from connic.tools import db_insert, db_find, query_knowledge
+from connic.tools import db_upsert, db_find, query_knowledge
 
 LeadStatus = str  # "qualified" | "nurture" | "low"
 
@@ -32,23 +32,28 @@ async def save_lead(
         notes: Research summary and score reasoning (2-4 sentences).
 
     Returns:
-        The inserted lead document including its system-assigned id.
+        The upsert result with "operation" ("inserted" or "updated") and
+        "upserted_id". Keyed by email, so re-enriching the same signup updates
+        the existing lead instead of creating a duplicate.
     """
     status: LeadStatus = (
         "qualified" if score >= 70 else "nurture" if score >= 40 else "low"
     )
-    result = await db_insert("leads", {
-        "email":         email,
-        "name":          name,
-        "company":       company,
-        "score":         score,
-        "status":        status,
-        "industry":      industry,
-        "company_size":  company_size,
-        "funding_stage": funding_stage,
-        "notes":         notes,
-    })
-    return result["inserted"][0]
+    return await db_upsert(
+        "leads",
+        filter={"email": email},
+        update={
+            "name":          name,
+            "company":       company,
+            "score":         score,
+            "status":        status,
+            "industry":      industry,
+            "company_size":  company_size,
+            "funding_stage": funding_stage,
+            "notes":         notes,
+        },
+        insert_only={"first_enriched_by": "lead-enricher"},
+    )
 
 
 async def get_lead(email: str) -> dict | None:

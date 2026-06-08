@@ -2,6 +2,7 @@
 
 import uuid
 import time
+import zlib
 from typing import Any
 
 
@@ -57,7 +58,8 @@ def check_inventory(
         sku = item.get("sku", "unknown")
         quantity = item.get("quantity", 1)
         available = True
-        stock = max(0, 100 - hash(sku) % 120)
+        # Deterministic per-SKU stock (crc32, not hash() which varies per process).
+        stock = 50 + zlib.crc32(sku.encode()) % 200
 
         if stock < quantity:
             available = False
@@ -77,25 +79,29 @@ def check_inventory(
 
 
 def create_fulfillment(
-    order_id: str,
-    validation_status: str,
-    items: list[dict[str, Any]] | None = None,
-    shipping_address: dict[str, Any] | None = None,
+    payload: dict[str, Any] | None = None,
+    context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Create a fulfillment record for an approved order.
 
-    Only creates a record if the order was approved. Rejected or
-    needs_review orders are returned with instructions.
+    Runs as a tool agent after order-validator, so it receives the validation
+    result as its payload. Only creates a record if the order was approved;
+    rejected or needs_review orders are returned with instructions.
 
     Args:
-        order_id: Unique order identifier
-        validation_status: approved, needs_review, or rejected
-        items: Order line items for picking
-        shipping_address: Where to ship
+        payload: The validation result, with keys: order_id, validation_status
+            (approved, needs_review, or rejected), items, and shipping_address.
+        context: Auto-injected run context.
 
     Returns:
         Fulfillment record or rejection notice
     """
+    payload = payload or {}
+    order_id = payload.get("order_id")
+    validation_status = payload.get("validation_status")
+    items = payload.get("items")
+    shipping_address = payload.get("shipping_address")
+
     if validation_status != "approved":
         return {
             "fulfilled": False,

@@ -73,6 +73,10 @@ AFTER INSERT OR UPDATE OR DELETE ON orders
 FOR EACH ROW EXECUTE FUNCTION notify_data_change();
 ```
 
+## Testing
+
+Run `connic test` from the project root. The suite covers `change-analyzer` (high- and low-significance changes) and the `notification-dispatcher` tool agent. The custom classification and audit tools are mocked via `tests/mocks/notification_mocks.py`; `trigger_agent` and the pure `dispatch` tool run for real.
+
 ## Structure
 
 ```

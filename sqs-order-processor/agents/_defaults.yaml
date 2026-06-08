@@ -1,0 +1,4 @@
+# Project-wide agent defaults. Every agent inherits these and overrides only
+# what it needs (order-validator keeps its own tighter timeout).
+reasoning_effort: low
+timeout: 60

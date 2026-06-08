@@ -1,0 +1,13 @@
+version: "1.0"
+
+# End-to-end through the sequential pipeline: intake extracts the document, then
+# the classifier routes it. No custom tools, so no mocks. The invoice text is
+# supplied inline via content.text the way the middleware reads it.
+defaults:
+  runs: 1
+  timeout_s: 150
+
+tests:
+  - name: invoice_is_classified_and_routed
+    payload: '{"bucket": "documents-inbox", "key": "inbox/INV-2025-0042.txt", "size": 612, "content": {"content_type": "text/plain", "encoding": "utf-8", "text": "INVOICE\n\nAcme Supplies GmbH\nInvoice Number: INV-2025-0042\nIssue Date: 2025-11-14\nBill To: Northwind Trading Ltd\n\nIndustrial floor mats  10  45.00 EUR  450.00 EUR\nSafety signage pack     4  22.50 EUR   90.00 EUR\n\nSubtotal   540.00 EUR\nVAT (19%)  102.60 EUR\nTotal Due  642.60 EUR\n\nPayment terms: net 30."}}'
+    expected_result: output.category != "" and output.route_to != ""

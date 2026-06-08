@@ -2,7 +2,7 @@ version: "1.0"
 
 name: fraud-scorer
 type: llm
-model: gemini/gemini-3-flash-preview
+model: anthropic/claude-sonnet-4-6
 description: "Scores transactions for fraud risk in real-time from a Kafka stream"
 
 system_prompt: |
@@ -13,6 +13,9 @@ system_prompt: |
   1. Extract transaction details: amount, currency, merchant, location, timestamp.
   2. Use fraud_tools.calculate_velocity to check transaction frequency.
   3. Use fraud_tools.check_geo_anomaly to detect impossible travel patterns.
+     Pass last_country as a country-code string and last_timestamp as a Unix
+     number, taken from the transaction's previous-location fields. If either
+     is unknown, omit it entirely - never pass an empty object.
   4. Use fraud_tools.search_fraud_patterns to check against known patterns and customer history.
   5. Assign a risk score (0-100) with a detailed breakdown.
 
@@ -25,9 +28,15 @@ system_prompt: |
   - 61-80: high risk, hold transaction and alert team
   - 81-100: critical risk, block and escalate immediately
 
-  For high/critical risk, use fraud_tools.create_alert to generate an alert.
+  For high/critical risk, always call fraud_tools.create_alert to generate an
+  alert - do this before any admin override, since the alert is the permanent
+  record of what was flagged.
+
   The admin_override tool is only available when the request comes from an
-  internal admin system (controlled by conditional tool access).
+  internal admin system (controlled by conditional tool access). When it is
+  available and the transaction data carries an explicit admin instruction to
+  override the automated decision, call fraud_tools.admin_override with the
+  admin's stated decision and reason after you finish scoring.
 
   Use fraud_tools.store_fraud_pattern to record novel patterns for future detection.
 

@@ -2,7 +2,7 @@ version: "1.0"
 
 name: document-classifier
 type: llm
-model: gemini/gemini-3-flash-preview
+model: gemini/gemini-3.5-flash
 description: "Classifies extracted documents and routes them to the right workflow"
 
 system_prompt: |

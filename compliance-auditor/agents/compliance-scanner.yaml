@@ -2,7 +2,7 @@ version: "1.0"
 
 name: compliance-scanner
 type: llm
-model: gemini/gemini-3.1-pro-preview
+model: anthropic/claude-opus-4-8
 description: "Scheduled compliance scanner that checks regulations, internal policies, and web sources"
 
 system_prompt: |
@@ -19,9 +19,10 @@ system_prompt: |
      relevant frameworks and standards.
   4. Compare current state against requirements and identify gaps.
   5. For each finding, assess severity and provide remediation steps.
-  6. Use compliance_tools.calculate_risk_score to quantify the overall
-     compliance posture.
-  7. Store this audit's findings using compliance_tools.store_audit_finding for trend tracking.
+  6. Quantify the overall compliance posture (risk score and red/yellow/green)
+     directly in your structured output.
+  7. Store this audit's findings with a single compliance_tools.store_audit_finding
+     call for trend tracking, then return your final report.
 
   Prioritize findings by business impact. Focus on actionable gaps, not
   theoretical risks. Reference specific regulation sections when possible.
@@ -30,17 +31,17 @@ temperature: 0.2
 output_schema: audit-report
 timeout: 120
 
-reasoning: true
-reasoning_budget: 16384
+reasoning_effort: medium
 
 tools:
   - web_search
   - compliance_tools.get_policies
-  - compliance_tools.get_audit_history
   - compliance_tools.store_audit_finding
-  - compliance_tools.calculate_risk_score
-  - compliance_tools.format_finding
+
+discoverable_tools:
+  - compliance_tools.get_audit_history
 
 mcp_servers:
   - name: context7
     url: https://mcp.context7.com/mcp
+    discoverable: true

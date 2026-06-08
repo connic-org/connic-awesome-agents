@@ -1,0 +1,33 @@
+version: "1.0"
+
+# Custom tools mocked so nothing is written and no real inventory service is
+# touched. strict_mocks guarantees the validator never reached for a tool we did
+# not stub (it only calls custom tools, so this holds).
+defaults:
+  runs: 1
+  timeout_s: 60
+  mocks: order_mocks
+  strict_mocks: true
+
+tests:
+  - name: approves_clean_order
+    payload: '{"order_id": "A123", "customer_id": "c1", "payment_method": "credit_card", "items": [{"sku": "SKU1", "price": 10, "quantity": 2}], "shipping_address": {"country": "DE", "city": "Berlin", "postal_code": "10115"}, "total": 20}'
+    expected_result: output.validation_status == "approved"
+    expected_tool_calls:
+      - order_tools.calculate_order_total
+      - order_tools.check_inventory
+
+  - name: flags_total_mismatch
+    payload: '{"order_id": "A124", "customer_id": "c1", "items": [{"sku": "SKU1", "price": 10, "quantity": 2}], "shipping_address": {"country": "DE", "city": "Berlin", "postal_code": "10115"}, "total": 999}'
+    expected_result: output.validation_status != "approved"
+    expected_tool_calls:
+      - order_tools.calculate_order_total
+
+  - name: rejects_empty_order_in_middleware
+    # The before() middleware short-circuits empty orders before the LLM runs,
+    # so no validation tools are called.
+    payload: '{"order_id": "A125", "customer_id": "c1", "items": []}'
+    expected_result: output.status == "rejected"
+    expected_no_tool_calls:
+      - order_tools.calculate_order_total
+      - order_tools.check_inventory

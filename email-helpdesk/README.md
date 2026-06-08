@@ -28,6 +28,7 @@ connic init . --templates=email-helpdesk            # existing project
 | `StopProcessing` middleware | Filters auto-replies and spam headers |
 | Middleware context enrichment | Extracts `from_address`, `sender_name`, `original_subject` into context |
 | Knowledge base (full CRUD) | `query_knowledge`, `store_knowledge`, `delete_knowledge` |
+| Guardrails | Input PII redaction on the classifier; system-prompt-leakage and PII-leakage blocking on the responder output |
 | Output schemas | `email-classification.json` (classifier), `email-reply.json` (responder with `to`/`subject`/`body` for SMTP) |
 
 ## Connector Setup
@@ -67,6 +68,10 @@ Add both connectors from the agent detail page in the [Connic dashboard](https:/
 | Linked agent | `email-responder` |
 
 If your mail server is in a private network, enable **Connect via Bridge** on both connectors and run the [Connic Bridge](https://connic.co/docs/v1/platform/bridge) in your network.
+
+## Testing
+
+Run `connic test` from the project root. The suite covers `email-classifier` (including the middleware dropping auto-replies) and `email-responder`. The custom helpdesk tools are mocked via `tests/mocks/helpdesk_mocks.py`; the responder runs with `strict_mocks` since it only calls custom tools.
 
 ## Structure
 

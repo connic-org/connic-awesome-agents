@@ -1,0 +1,4 @@
+# Project-wide agent defaults. Every agent inherits these and overrides only
+# what it needs (the orchestrator raises reasoning_effort and timeout).
+reasoning_effort: low
+timeout: 90

@@ -190,16 +190,23 @@ def admin_override(
 
 
 def format_escalation(
-    alert: dict[str, Any],
+    payload: dict[str, Any] | None = None,
+    context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Format a fraud alert for Kafka outbound delivery.
 
+    Runs as a tool agent, so it receives the fraud alert as its payload (either
+    the alert dict directly, or wrapped under an "alert" key).
+
     Args:
-        alert: The fraud alert payload from create_alert
+        payload: The fraud alert from create_alert (risk_level, customer_id, …).
+        context: Auto-injected run context.
 
     Returns:
         Kafka-ready message with routing key and payload
     """
+    payload = payload or {}
+    alert = payload.get("alert", payload)
     risk_level = alert.get("risk_level", "medium")
     return {
         "topic": f"fraud-alerts-{risk_level}",

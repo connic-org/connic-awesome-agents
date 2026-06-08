@@ -32,6 +32,10 @@ connic init . --templates=kafka-fraud-detector            # existing project
 | Output schema | `schemas/fraud-assessment.json` |
 | Middleware context enrichment | Sets `is_admin` and `customer_id` in context |
 
+## Testing
+
+Run `connic test` from the project root. The suite (`tests/`) covers `fraud-scorer` (normal scoring, admin override, novel-pattern storage) and `fraud-escalator`. The scorer's custom tools are mocked via `tests/mocks/fraud_mocks.py`; the pure `format_escalation` tool runs for real in the escalator test.
+
 ## Connector Setup
 
 Add both connectors from the agent detail page in the [Connic dashboard](https://connic.co).

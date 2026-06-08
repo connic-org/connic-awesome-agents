@@ -2,7 +2,7 @@ version: "1.0"
 
 name: email-classifier
 type: llm
-model: gemini/gemini-3-flash-preview
+model: gemini/gemini-3.5-flash
 description: "Classifies incoming emails by intent, urgency, and department"
 
 system_prompt: |
@@ -27,3 +27,10 @@ system_prompt: |
 
 temperature: 0.2
 output_schema: email-classification
+
+guardrails:
+  input:
+    - type: pii
+      mode: redact
+      config:
+        entities: [phone, credit_card]

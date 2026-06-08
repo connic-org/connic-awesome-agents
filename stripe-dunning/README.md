@@ -31,6 +31,10 @@ connic init . --templates=stripe-dunning            # existing project
 | Output schemas | `payment-analysis.json`, `recovery-email.json` |
 | Custom tools | `payment_tools.py` for retry delay calculation and amount formatting |
 
+## Testing
+
+Run `connic test` from the project root. The suite (`tests/`) covers `payment-analyzer` (including the middleware filtering irrelevant events) and the full `dunning-pipeline` end-to-end. The custom payment tools are mocked via `tests/mocks/payment_mocks.py`; `trigger_agent` runs for real so the recovery-composer is exercised.
+
 ## Connector Setup
 
 ### Stripe inbound
@@ -65,6 +69,23 @@ Add an **Email (SMTP)** outbound connector to send the recovery emails:
 | Linked agent | `recovery-composer` |
 
 The recovery-composer outputs JSON with `to`, `subject`, `body` fields that the Email outbound connector parses for SMTP delivery.
+
+## Optional: call the Stripe API directly
+
+Instead of (or alongside) the `payment_tools`, the analyzer can call Stripe's
+own API through [API spec tools](https://connic.co/docs/v1/composer/api-spec-tools).
+Upload the Stripe OpenAPI spec to the project, then reference operations with the
+`api:` prefix in `agents/payment-analyzer.yaml`:
+
+```yaml
+tools:
+  - api:stripe.get_customer          # single operation
+  - api:stripe.list_invoices
+  - payment_tools.calculate_retry_delay   # file-based tools still work
+```
+
+This is left out of the active config because it needs an uploaded spec the
+template can't ship.
 
 ## Structure
 

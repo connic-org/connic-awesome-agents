@@ -1,0 +1,14 @@
+version: "1.0"
+
+# End-to-end through the sequential pipeline: the analyzer decides the dunning
+# action (payment tools mocked, trigger_agent runs for real), then the
+# recovery-composer writes the email. The final output is the recovery email.
+defaults:
+  runs: 1
+  timeout_s: 160
+  mocks: payment_mocks
+
+tests:
+  - name: failed_payment_produces_recovery_email
+    payload: '{"id": "evt_3", "object": "event", "type": "invoice.payment_failed", "created": 1736500200, "data": {"object": {"customer": "cus_def456", "customer_email": "sam@example.com", "customer_name": "Sam Lee", "amount_due": 2900, "currency": "usd", "attempt_count": 2, "last_payment_error": {"code": "insufficient_funds"}}}}'
+    expected_result: output.subject != "" and output.to != ""

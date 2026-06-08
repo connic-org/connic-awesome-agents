@@ -26,10 +26,10 @@ connic init . --templates=research-assistant            # existing project
 | `trigger_agent` orchestration | `research-orchestrator.yaml` dispatches to specialists |
 | `web_search` tool | `web-researcher.yaml` for internet research |
 | Knowledge base (RAG) | `knowledge-analyst.yaml` for internal data |
-| `reasoning: true` | Orchestrator uses extended reasoning for synthesis |
-| `reasoning_budget: 32768` | Large reasoning budget for complex analysis |
+| `reasoning_effort: high` | Orchestrator uses extended reasoning for synthesis |
+| `discoverable_tools` | Orchestrator's `research_tools` are progressively discovered |
 | `max_iterations: 50` | Allows many tool calls for thorough research |
-| `timeout: 180` | Extended timeout for multi-agent coordination |
+| `timeout: 170` | Extended timeout for multi-agent coordination |
 | Output schema | `schemas/research-report.json` |
 | Custom tools | Confidence assessment and citation formatting |
 
@@ -42,13 +42,17 @@ Add an **HTTP Webhook (sync)** connector from the agent detail page in the [Conn
 | Mode | Sync (Request-Response) |
 | Linked agent | `research-orchestrator` |
 
-After creating the connector, open its detail page to copy the auto-generated **Webhook URL** and **Secret Key**. POST your research question to that URL and receive the structured report in the response. Authenticate with the `X-Connic-Secret` header or a `?secret=` query parameter. Sync mode has a 5-minute timeout, which is sufficient given the agent's 180-second timeout.
+After creating the connector, open its detail page to copy the auto-generated **Webhook URL** and **Secret Key**. POST your research question to that URL and receive the structured report in the response. Authenticate with the `X-Connic-Secret` header or a `?secret=` query parameter. Sync mode has a 5-minute timeout, which is sufficient given the agent's 170-second timeout.
 
 **Other connector options:**
 
 - **WebSocket (sync, streaming)** for real-time research with progressive updates
 - **Cron inbound** for scheduled market research or competitive analysis (see the [compliance-auditor](../compliance-auditor) template for Cron setup)
 - **MCP server** to expose research capabilities to IDE-based AI assistants
+
+## Testing
+
+Run `connic test` to execute the suites in `tests/`. The custom `research_tools` are mocked (`tests/mocks/research_mocks.py`) so no knowledge base is touched, while `web_search`, `web_read_page`, `trigger_agent`, and the child agents run for real. The orchestrator suite is intentionally a single minimal case since it drives a flagship model and live specialists.
 
 ## Structure
 

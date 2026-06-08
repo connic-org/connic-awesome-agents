@@ -1,0 +1,16 @@
+version: "1.0"
+
+# email-classifier has no custom tools. The middleware filters auto-replies and
+# system emails with StopProcessing before the LLM runs.
+defaults:
+  runs: 1
+  timeout_s: 60
+
+tests:
+  - name: classifies_question
+    payload: '{"from": "Jane Doe <jane@acme.com>", "from_address": "jane@acme.com", "to": "support@example.com", "subject": "How do I reset my password?", "body_text": "I forgot my password and cannot log in. How do I reset it?"}'
+    expected_result: output.intent == "question"
+
+  - name: drops_auto_reply
+    payload: '{"from": "Bob <bob@acme.com>", "from_address": "bob@acme.com", "to": "support@example.com", "subject": "Out of Office", "body_text": "I am currently out of office until next Monday and will reply on my return."}'
+    expected_result: status == "completed"

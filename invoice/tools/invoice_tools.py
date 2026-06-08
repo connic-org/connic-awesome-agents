@@ -44,24 +44,29 @@ def calculate_tax(amount: float, rate: float = 0.19) -> dict[str, float]:
 
 
 def validate_totals(
-    subtotal: float,
-    tax_amount: float,
-    total: float,
-    tax_rate: float = 0.19,
-    tolerance: float = 0.02,
+    payload: dict[str, Any] | None = None,
+    context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Validate that invoice totals are mathematically correct.
 
+    Runs as a tool agent after invoice-extractor, so it receives the extracted
+    invoice as its payload.
+
     Args:
-        subtotal: The subtotal before tax
-        tax_amount: The tax amount on the invoice
-        total: The total amount on the invoice
-        tax_rate: Expected tax rate as decimal
-        tolerance: Acceptable rounding difference in currency units
+        payload: The extracted invoice, with keys: subtotal, tax_amount, total,
+            and optional tax_rate (default 0.19) and tolerance (default 0.02).
+        context: Auto-injected run context.
 
     Returns:
         Dict with valid (bool), checks performed, and any discrepancies
     """
+    payload = payload or {}
+    subtotal = payload.get("subtotal", 0.0)
+    tax_amount = payload.get("tax_amount", 0.0)
+    total = payload.get("total", 0.0)
+    tax_rate = payload.get("tax_rate", 0.19)
+    tolerance = payload.get("tolerance", 0.02)
+
     expected_tax = round(subtotal * tax_rate, 2)
     expected_total = round(subtotal + expected_tax, 2)
 

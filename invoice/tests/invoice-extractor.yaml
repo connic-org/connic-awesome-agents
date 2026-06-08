@@ -1,0 +1,21 @@
+version: "1.0"
+
+# The calculator tools (add, multiply, calculate_tax) are pure math with no
+# side effects, so they run for real and deterministically - no mocks needed.
+defaults:
+  runs: 1
+  timeout_s: 90
+
+tests:
+  - name: extracts_single_line_invoice
+    payload: '{"text":"Invoice from Acme GmbH. Number INV-001. 3 widgets at 10.00 EUR each. VAT 19%. Total 35.70 EUR. Verify the tax with the calculator tools."}'
+    expected_result: output.total > 0 and output.vendor != ""
+    expected_tool_calls:
+      - invoice_tools.calculate_tax
+
+  - name: extracts_multi_line_invoice
+    payload: '{"text":"Invoice from Globex Ltd. Number INV-002. Line 1: 2 chairs at 50.00 EUR each. Line 2: 4 lamps at 12.50 EUR each. VAT 19%. Verify each line total and the tax using the calculator tools."}'
+    expected_result: output.total > 0 and output.vendor != ""
+    expected_tool_calls:
+      - invoice_tools.multiply
+      - invoice_tools.add

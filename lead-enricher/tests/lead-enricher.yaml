@@ -1,0 +1,24 @@
+version: "1.0"
+
+# The three lead_tools are mocked so no database or knowledge base is touched.
+# web_search is predefined and runs for real, so strict_mocks is intentionally
+# omitted.
+defaults:
+  runs: 1
+  timeout_s: 90
+  mocks: lead_mocks
+
+tests:
+  - name: enriches_new_signup
+    payload: '{"email":"jane@acme.com","name":"Jane Doe","company":"Acme Inc"}'
+    expected_result: status == "completed"
+    expected_tool_calls:
+      - lead_tools.get_lead
+      - lead_tools.get_icp_criteria
+      - lead_tools.save_lead
+
+  - name: looks_up_icp_rubric
+    payload: '{"email":"sam@example.com","name":"Sam Lee","company":"Example Co"}'
+    expected_result: status == "completed"
+    expected_tool_calls:
+      - lead_tools.get_icp_criteria

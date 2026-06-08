@@ -1,0 +1,16 @@
+version: "1.0"
+
+# web_search and web_read_page are predefined tools that run for real, so there
+# is nothing custom to mock and strict_mocks is omitted. A tiny, stable question
+# keeps the real search cheap. Output is raw text, so the case asserts the run
+# completed.
+defaults:
+  runs: 1
+  timeout_s: 120
+
+tests:
+  - name: answers_from_web
+    payload: '{"question":"What is the capital of France?"}'
+    expected_result: status == "completed"
+    expected_tool_calls:
+      - web_search

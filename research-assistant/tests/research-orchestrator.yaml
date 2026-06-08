@@ -1,0 +1,21 @@
+version: "1.0"
+
+# One minimal case: this agent is expensive (flagship model, real child agents).
+# The research_tools are mocked, but trigger_agent is predefined and the child
+# agents run in-process for real, so strict_mocks is omitted. The tiny internal
+# question steers the orchestrator to delegate to knowledge-analyst.
+defaults:
+  runs: 1
+  timeout_s: 170
+  mocks: research_mocks
+
+tests:
+  - name: delegates_and_synthesizes
+    payload: '{"question":"Summarize our internal data retention policy in one paragraph."}'
+    expected_result: status == "completed"
+    expected_child_agents:
+      knowledge-analyst:
+        expected_triggered: 1
+    expected_tool_calls:
+      - research_tools.save_research_report
+      - research_tools.assess_confidence

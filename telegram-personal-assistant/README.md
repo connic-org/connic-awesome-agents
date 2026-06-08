@@ -87,6 +87,10 @@ Add a second **Telegram** connector for sending replies:
 
 The middleware in `telegram-assistant.py` extracts the `chat_id` from each incoming message and includes it in the agent's response as `{"chat_id": ..., "text": "..."}`, so the outbound connector knows which chat to reply to.
 
+## Testing
+
+Run `connic test` to execute `tests/telegram-assistant.yaml`. The six `assistant_tools` are mocked (`tests/mocks/assistant_mocks.py`) so no database, knowledge base, or scheduled trigger is touched, while `web_search` and `web_read_page` run for real. Each payload carries a top-level `chat_id` so the middleware resolves the session key and wraps the reply as `{"chat_id": ..., "text": ...}`.
+
 ## Structure
 
 ```

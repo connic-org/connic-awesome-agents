@@ -2,7 +2,7 @@ version: "1.0"
 
 name: email-responder
 type: llm
-model: gemini/gemini-3-flash-preview
+model: openai/gpt-5.5
 description: "Drafts email replies using knowledge base and classification context"
 
 system_prompt: |
@@ -42,3 +42,12 @@ tools:
   - helpdesk_tools.search_helpdesk_knowledge
   - helpdesk_tools.save_helpdesk_solution
   - helpdesk_tools.remove_stale_entry
+
+guardrails:
+  output:
+    - type: system_prompt_leakage
+      mode: block
+    - type: pii_leakage
+      mode: block
+      config:
+        entities: [credit_card, ssn]

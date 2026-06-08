@@ -1,0 +1,23 @@
+version: "1.0"
+
+# The custom classification and audit tools are mocked so nothing is written to
+# the database. trigger_agent runs for real (it cannot be mocked), so the
+# dispatcher is exercised on significant changes.
+defaults:
+  runs: 1
+  timeout_s: 115
+  mocks: notification_mocks
+
+tests:
+  - name: high_significance_update
+    payload: '{"table": "users", "operation": "DELETE", "old": {"id": "u_42", "email": "a@b.com", "role": "admin"}, "new": null, "_postgres": {"channel": "data_changes"}}'
+    expected_result: output.significance != ""
+    expected_tool_calls:
+      - notification_tools.classify_change
+      - notification_tools.log_audit_event
+
+  - name: low_significance_change
+    payload: '{"table": "logs", "operation": "INSERT", "old": null, "new": {"id": "log_1", "level": "info", "message": "request handled"}, "_postgres": {"channel": "data_changes"}}'
+    expected_result: output.significance != ""
+    expected_tool_calls:
+      - notification_tools.classify_change

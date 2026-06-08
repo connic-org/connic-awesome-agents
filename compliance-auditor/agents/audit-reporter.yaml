@@ -2,7 +2,7 @@ version: "1.0"
 
 name: audit-reporter
 type: llm
-model: gemini/gemini-3-flash-preview
+model: gemini/gemini-3.5-flash
 description: "Formats audit findings into an executive summary and detailed report"
 
 system_prompt: |

@@ -2,7 +2,7 @@ version: "1.0"
 
 name: research-orchestrator
 type: llm
-model: gemini/gemini-3.1-pro-preview
+model: anthropic/claude-opus-4-8
 description: "Orchestrates multi-source research by dispatching to specialist agents"
 
 system_prompt: |
@@ -24,8 +24,16 @@ system_prompt: |
   3. Dispatch all sub-questions using trigger_agent (you can run multiple
      in parallel by calling trigger_agent multiple times).
   4. Once all results are back, synthesize them into a coherent report.
-  5. Use research_tools.assess_confidence to rate the overall confidence.
-  6. Save the final report using research_tools.save_research_report for future reference.
+  5. Use research_tools.assess_confidence to rate the overall confidence. Pass
+     source_count (int), sources_agree (bool), and has_primary_sources (bool).
+  6. Save the final report using research_tools.save_research_report, passing the
+     full report text as content.
+
+  Match effort to scope: a narrow, single-domain question needs one specialist
+  call, not a full fan-out. Never dispatch the same specialist with the same
+  sub-question twice, and make at most 4 trigger_agent calls in total before you
+  synthesize. Reserve multiple specialists for genuinely broad, cross-domain
+  questions.
 
   Quality standards:
   - Always cross-reference web results against knowledge base data
@@ -36,14 +44,15 @@ system_prompt: |
 temperature: 0.3
 output_schema: research-report
 
-reasoning: true
-reasoning_budget: 32768
+reasoning_effort: medium
 
-max_iterations: 50
-timeout: 180
+max_iterations: 25
+timeout: 170
 
 tools:
   - trigger_agent
+
+discoverable_tools:
   - research_tools.save_research_report
   - research_tools.assess_confidence
   - research_tools.format_citation

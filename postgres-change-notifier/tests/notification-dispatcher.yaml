@@ -1,0 +1,13 @@
+version: "1.0"
+
+# notification-dispatcher is a tool agent that calls dispatch(channel, title,
+# message, severity, metadata). The tool is pure, so it runs for real and the
+# output is the webhook-ready notification.
+defaults:
+  runs: 1
+  timeout_s: 60
+
+tests:
+  - name: formats_ops_notification
+    payload: '{"channel": "ops-team", "title": "Order cancelled", "message": "Order o_99 was cancelled", "severity": "warning", "metadata": {"table": "orders", "operation": "UPDATE"}}'
+    expected_result: output.channel == "ops-team"

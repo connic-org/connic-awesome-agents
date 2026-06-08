@@ -54,6 +54,12 @@ Optionally add an **HTTP Webhook (outbound)** connector to forward escalations t
 - **HTTP Webhook (sync)** for ticketing system integrations (Zendesk, Intercom)
 - **Email inbound** to process support emails (see the [email-helpdesk](../email-helpdesk) template)
 
+## Testing
+
+`connic test` runs the suite in `tests/`. The `support_tools` are stubbed via
+`tests/mocks/` so cases are deterministic and touch no real knowledge base. The
+deploy gate runs the same suite before every release.
+
 ## Structure
 
 ```

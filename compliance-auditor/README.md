@@ -26,8 +26,8 @@ connic init . --templates=compliance-auditor            # existing project
 | MCP server integration | Context7 for framework documentation lookup |
 | Knowledge base (RAG) | Retrieves internal compliance policies semantically |
 | Database | Stores and queries audit history via `db_find` / `db_insert` |
-| `reasoning: true` | Deep analysis with transparent reasoning chain |
-| `reasoning_budget: 16384` | Extended thinking for complex compliance analysis |
+| `reasoning_effort: high` | Deep analysis with transparent reasoning chain |
+| `discoverable_tools` | Scanner loads audit-history, risk-scoring, and finding-format tools (and the MCP server) on demand |
 | Output schema | `schemas/audit-report.json` |
 | `timeout: 120` | Extended timeout for thorough multi-source research |
 
@@ -42,6 +42,10 @@ Add a **Cron inbound** connector to your agent from the agent detail page in the
 | Linked agent | `compliance-scanner` |
 
 Optionally add an **HTTP Webhook (outbound)** or **Email outbound** connector to distribute the report.
+
+## Testing
+
+Run `connic test` from the project root. The custom compliance tools are mocked via `tests/mocks/compliance_mocks.py`; `web_search` and the context7 MCP server run for real, so the scanner cases are kept minimal. The reporter suite runs with `strict_mocks` since it only calls custom tools.
 
 ## Structure
 

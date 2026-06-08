@@ -1,0 +1,12 @@
+version: "1.0"
+
+# fraud-escalator is a tool agent that calls format_escalation(alert). The tool
+# is pure, so it runs for real and the output is the Kafka-ready message.
+defaults:
+  runs: 1
+  timeout_s: 60
+
+tests:
+  - name: formats_alert_for_kafka
+    payload: '{"alert": {"alert_type": "fraud", "customer_id": "cus_2", "risk_score": 88, "risk_level": "critical", "reason": "Impossible travel and high-value purchase", "transaction_id": "txn_1002"}}'
+    expected_result: '"topic" in output and output.key != ""'

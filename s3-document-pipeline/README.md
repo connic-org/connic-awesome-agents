@@ -28,6 +28,10 @@ connic init . --templates=s3-document-pipeline            # existing project
 | `retry_options` | Intake retries 3 times on transient failures |
 | Multimodal input | Processes images, PDFs, and text files |
 
+## Testing
+
+Run `connic test` from the project root. The suite (`tests/`) covers `document-intake` and the full `document-pipeline` end-to-end. Both agents are tool-less, so no mocks are needed; payloads mimic the S3 inbound connector shape with the document text supplied inline.
+
 ## Connector Setup
 
 Add an **S3 inbound** connector from the agent detail page in the [Connic dashboard](https://connic.co):

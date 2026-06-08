@@ -1,0 +1,30 @@
+version: "1.0"
+
+# Custom payment tools are mocked so nothing is written to the database. The
+# analyzer also calls trigger_agent (a predefined tool that runs for real), so
+# strict_mocks is omitted.
+defaults:
+  runs: 1
+  timeout_s: 120
+  mocks: payment_mocks
+
+tests:
+  - name: handles_failed_payment
+    payload: '{"id": "evt_1", "object": "event", "type": "invoice.payment_failed", "created": 1736500000, "data": {"object": {"customer": "cus_abc123", "customer_email": "jane@example.com", "customer_name": "Jane Doe", "amount_due": 4999, "currency": "eur", "attempt_count": 1, "last_payment_error": {"code": "card_declined"}}}}'
+    expected_result: output.dunning_action != ""
+    expected_tool_calls:
+      - payment_tools.get_customer_history
+      - payment_tools.record_payment_event
+      - payment_tools.calculate_retry_delay
+    expected_child_agents:
+      recovery-composer:
+        expected_triggered: 1
+
+  - name: ignores_irrelevant_event
+    # The before() middleware raises StopProcessing for non-dunning event types
+    # before the LLM runs, so no payment tools are called.
+    payload: '{"id": "evt_2", "object": "event", "type": "charge.succeeded", "created": 1736500100, "data": {"object": {"customer": "cus_xyz789"}}}'
+    expected_no_tool_calls:
+      - payment_tools.get_customer_history
+      - payment_tools.record_payment_event
+      - payment_tools.calculate_retry_delay
