@@ -43,10 +43,6 @@ Add a **Cron inbound** connector to your agent from the agent detail page in the
 
 Optionally add an **HTTP Webhook (outbound)** or **Email outbound** connector to distribute the report.
 
-## Testing
-
-Run `connic test` from the project root. The custom compliance tools are mocked via `tests/mocks/compliance_mocks.py`; `web_search` and the context7 MCP server run for real, so the scanner cases are kept minimal. The reporter suite runs with `strict_mocks` since it only calls custom tools.
-
 ## Structure
 
 ```
