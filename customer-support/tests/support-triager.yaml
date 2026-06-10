@@ -12,7 +12,8 @@ tests:
     expected_result: output.category == "billing"
 
   - name: blocks_spam_domain
-    # The before() middleware raises StopProcessing for blocked domains, so the
-    # LLM never classifies the ticket.
+    # The topic_restriction guardrail (block mode) intercepts spam before the
+    # middleware runs, so the LLM never classifies the ticket and the run's
+    # assertion status reads "blocked".
     payload: '{"text":"Cheap deals, reply now! Contact us at deals@spam.example.com"}'
-    expected_result: status == "completed"
+    expected_result: status == "blocked"

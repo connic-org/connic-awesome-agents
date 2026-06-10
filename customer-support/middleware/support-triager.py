@@ -31,7 +31,7 @@ async def before(content: dict[str, Any], context: dict[str, Any]) -> dict[str, 
                 "Please contact support through our official channels."
             )
 
-    context["channel"] = "websocket" if context.get("connector_id", "").startswith("ws-") else "async"
+    context["channel"] = "websocket" if (context.get("connector_id") or "").startswith("ws-") else "async"
 
     return content
 

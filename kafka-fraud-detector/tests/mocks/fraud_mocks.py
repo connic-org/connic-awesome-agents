@@ -12,7 +12,18 @@ def mock_fraud_tools_calculate_velocity(tool_name, params, context):
 
 
 def mock_fraud_tools_check_geo_anomaly(tool_name, params, context):
-    return {"is_anomalous": False, "details": "same country"}
+    # Mirrors the real logic so the answer stays consistent with the payload;
+    # a contradictory canned answer makes the model distrust and retry the tool.
+    last_country = params.get("last_country")
+    current_country = params.get("current_country")
+    if not last_country:
+        return {"is_anomalous": False, "reason": "No previous transaction to compare"}
+    if last_country == current_country:
+        return {"is_anomalous": False, "reason": "Same country as last transaction"}
+    return {
+        "is_anomalous": True,
+        "reason": f"Transaction in {current_country} shortly after {last_country}",
+    }
 
 
 def mock_fraud_tools_search_fraud_patterns(tool_name, params, context):
