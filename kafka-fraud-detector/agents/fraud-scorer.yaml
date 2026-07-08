@@ -30,7 +30,9 @@ system_prompt: |
 
   For high/critical risk, always call fraud_tools.create_alert to generate an
   alert - do this before any admin override, since the alert is the permanent
-  record of what was flagged.
+  record of what was flagged. High/critical alerts are automatically forwarded
+  to the fraud-escalator agent for Kafka outbound delivery; you do not need to
+  dispatch them yourself.
 
   The admin_override tool is only available when the request comes from an
   internal admin system (controlled by conditional tool access). When it is

@@ -1,8 +1,9 @@
 """Fraud detection and scoring tools."""
 
+import json
 import time
 from typing import Any
-from connic.tools import query_knowledge, store_knowledge
+from connic.tools import query_knowledge, store_knowledge, trigger_agent
 
 
 async def search_fraud_patterns(query: str) -> list[dict]:
@@ -132,7 +133,7 @@ def check_geo_anomaly(
     }
 
 
-def create_alert(
+async def create_alert(
     customer_id: str,
     risk_score: int,
     risk_level: str,
@@ -140,6 +141,9 @@ def create_alert(
     transaction_id: str | None = None,
 ) -> dict[str, Any]:
     """Create a fraud alert for the security team.
+
+    High/critical alerts are forwarded to the fraud-escalator agent, which
+    formats them for Kafka outbound delivery.
 
     Args:
         customer_id: Customer who triggered the alert
@@ -151,7 +155,7 @@ def create_alert(
     Returns:
         Structured alert payload
     """
-    return {
+    alert = {
         "alert_type": "fraud",
         "customer_id": customer_id,
         "risk_score": risk_score,
@@ -161,6 +165,13 @@ def create_alert(
         "created_at": time.time(),
         "requires_action": risk_level in ("high", "critical"),
     }
+    if risk_level in ("high", "critical"):
+        await trigger_agent(
+            agent_name="fraud-escalator",
+            payload=json.dumps({"alert": alert}),
+            wait_for_response=False,
+        )
+    return alert
 
 
 def admin_override(

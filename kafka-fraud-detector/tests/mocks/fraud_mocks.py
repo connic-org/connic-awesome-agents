@@ -31,6 +31,7 @@ def mock_fraud_tools_search_fraud_patterns(tool_name, params, context):
 
 
 def mock_fraud_tools_create_alert(tool_name, params, context):
+    # Also keeps the real tool's trigger_agent call to fraud-escalator from firing.
     return {"alert_id": "al_test_1", "risk_level": params.get("risk_level")}
 
 

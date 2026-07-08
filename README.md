@@ -51,7 +51,7 @@ Every Connic feature is demonstrated in at least one template:
 
 | Feature | Template |
 |---------|----------|
-| `trigger_agent` (agent-to-agent) | stripe-dunning, postgres-change-notifier, research-assistant |
+| `trigger_agent` (agent-to-agent) | stripe-dunning, postgres-change-notifier, research-assistant, kafka-fraud-detector |
 | `query_knowledge` / `store_knowledge` (RAG) | lead-enricher, customer-support, kafka-fraud-detector, compliance-auditor, research-assistant, telegram-personal-assistant |
 | `delete_knowledge` | email-helpdesk |
 | `db_find` / `db_upsert` (database) | lead-enricher, stripe-dunning, postgres-change-notifier, compliance-auditor, telegram-personal-assistant |

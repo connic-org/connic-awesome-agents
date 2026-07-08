@@ -17,7 +17,7 @@ connic init . --templates=kafka-fraud-detector            # existing project
 3. **fraud-scorer** (LLM) runs velocity checks, geo-anomaly detection, and knowledge base lookups to produce a risk score.
 4. Conditional tool access: `admin_override` is only available when `context.is_admin == True`.
 5. Concurrency control ensures transactions from the same customer are processed sequentially (queued by `customer_id`).
-6. High-risk alerts are sent to **fraud-escalator** (Tool agent) for Kafka outbound delivery.
+6. For high/critical risk, `create_alert` forwards the alert (via `trigger_agent`) to **fraud-escalator** (Tool agent) for Kafka outbound delivery.
 
 ## Connic Features Used
 
@@ -29,6 +29,8 @@ connic init . --templates=kafka-fraud-detector            # existing project
 | Concurrency control | `concurrency.key: "data.customer_id"` with `on_conflict: queue` |
 | Knowledge base | Stores and retrieves fraud patterns |
 | Tool agent | `fraud-escalator.yaml` for deterministic alert formatting |
+| `trigger_agent` from a custom tool | `create_alert` forwards high/critical alerts to `fraud-escalator` |
+| Tool hooks | `hooks/fraud-scorer.py` guards `admin_override`, normalises transaction ids |
 | Output schema | `schemas/fraud-assessment.json` |
 | Middleware context enrichment | Sets `is_admin` and `customer_id` in context |
 
@@ -72,13 +74,21 @@ If your Kafka brokers are in a private network, enable **Connect via Bridge** on
 ```
 kafka-fraud-detector/
   agents/
+    _defaults.yaml           # Shared agent defaults (reasoning effort, timeout)
     fraud-scorer.yaml        # LLM fraud scoring with conditional tools
     fraud-escalator.yaml     # Tool agent for alert formatting
   tools/
     fraud_tools.py           # Velocity, geo-anomaly, alerting, admin override
+  hooks/
+    fraud-scorer.py          # Tool hooks: admin gate, id normalisation, logging
   middleware/
     fraud-scorer.py          # Extracts Kafka metadata, sets is_admin flag
   schemas/
     fraud-assessment.json    # Risk assessment output schema
+  tests/
+    fraud-scorer.yaml        # Scorer suite (custom tools mocked)
+    fraud-escalator.yaml     # Escalator suite (real format_escalation)
+    mocks/
+      fraud_mocks.py         # Mock returns for the scorer's tools
   requirements.txt
 ```
