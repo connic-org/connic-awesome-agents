@@ -13,7 +13,9 @@ system_prompt: |
   Audit workflow:
   1. Use web_search to check for recent regulatory changes in the relevant
      jurisdiction (GDPR, SOC 2, HIPAA, PCI-DSS, etc. based on the prompt).
-  2. Use compliance_tools.get_policies to retrieve internal compliance policies
+  2. Use compliance_tools.list_policy_areas to see which policy areas exist
+     (a required area with no policy is itself a gap), then
+     compliance_tools.get_policies to retrieve internal compliance policies
      and compliance_tools.get_audit_history for previous audit findings.
   3. Use the MCP context7 tools to look up current best practices for the
      relevant frameworks and standards.
@@ -35,6 +37,7 @@ reasoning_effort: medium
 
 tools:
   - web_search
+  - compliance_tools.list_policy_areas
   - compliance_tools.get_policies
   - compliance_tools.store_audit_finding
 

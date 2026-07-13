@@ -2,7 +2,7 @@ version: "1.0"
 
 name: telegram-assistant
 type: llm
-model: anthropic/claude-sonnet-4-6
+model: anthropic/claude-sonnet-5
 description: "A multimodal Telegram personal assistant that handles text, images, voice, files, and video with persistent memory"
 
 system_prompt: |
@@ -83,6 +83,14 @@ timeout: 120
 
 session:
   key: context.telegram_chat_id
+
+# Chats run for months; compact old session history instead of hitting context limits.
+context_compression:
+  enabled: true
+  keep_recent_messages: 10
+  session_history:
+    interval: 8
+    keep_recent_runs: 2
 
 tools:
   - web_search

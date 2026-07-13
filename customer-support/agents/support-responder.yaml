@@ -2,7 +2,7 @@ version: "1.0"
 
 name: support-responder
 type: llm
-model: openai/gpt-5.5
+model: openai/gpt-5.6-sol
 description: "Drafts empathetic support responses using the knowledge base for accurate answers"
 
 system_prompt: |

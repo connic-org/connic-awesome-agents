@@ -33,6 +33,8 @@ connic init . --templates=kafka-fraud-detector            # existing project
 | Tool hooks | `hooks/fraud-scorer.py` guards `admin_override`, normalises transaction ids |
 | Output schema | `schemas/fraud-assessment.json` |
 | Middleware context enrichment | Sets `is_admin` and `customer_id` in context |
+| `fallback_model` | Cross-provider fallback (`gemini/gemini-3.5-flash`) so a provider outage does not drop transaction scoring |
+| `reasoning_effort` | `high` for the risk breakdown, overriding the project-default `low` |
 
 ## Testing
 

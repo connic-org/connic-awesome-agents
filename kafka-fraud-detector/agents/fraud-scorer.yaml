@@ -2,7 +2,8 @@ version: "1.0"
 
 name: fraud-scorer
 type: llm
-model: anthropic/claude-sonnet-4-6
+model: anthropic/claude-sonnet-5
+fallback_model: gemini/gemini-3.5-flash
 description: "Scores transactions for fraud risk in real-time from a Kafka stream"
 
 system_prompt: |
@@ -43,6 +44,7 @@ system_prompt: |
   Use fraud_tools.store_fraud_pattern to record novel patterns for future detection.
 
 temperature: 0.1
+reasoning_effort: high
 output_schema: fraud-assessment
 
 concurrency:

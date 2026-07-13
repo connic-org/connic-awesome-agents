@@ -55,7 +55,7 @@ Each feature below is demonstrated in at least one template:
 | `trigger_agent` (agent-to-agent) | stripe-dunning, postgres-change-notifier, research-assistant, kafka-fraud-detector |
 | `query_knowledge` / `store_knowledge` (RAG) | lead-enricher, customer-support, kafka-fraud-detector, compliance-auditor, research-assistant, telegram-personal-assistant, knowledge-copilot |
 | `delete_knowledge` | email-helpdesk |
-| `kb_list_namespaces` | knowledge-copilot |
+| `kb_list_namespaces` | compliance-auditor, knowledge-copilot |
 | `db_find` / `db_upsert` (database) | lead-enricher, stripe-dunning, postgres-change-notifier, compliance-auditor, telegram-personal-assistant, knowledge-copilot |
 | `web_search` | lead-enricher, compliance-auditor, research-assistant, telegram-personal-assistant |
 | Output schemas | All templates except the chat-style agents (telegram-personal-assistant, knowledge-copilot) and lead-enricher |
@@ -64,20 +64,20 @@ Each feature below is demonstrated in at least one template:
 | `StopProcessing` middleware | customer-support, s3-document-pipeline, stripe-dunning, email-helpdesk, sqs-order-processor, knowledge-copilot |
 | Tool hooks (`before` / `after`) | kafka-fraud-detector |
 | Guardrails (input / output) | customer-support, email-helpdesk, knowledge-copilot |
-| `data_exfiltration` guardrail + `run_after_on_block` | knowledge-copilot |
+| `data_exfiltration` guardrail | email-helpdesk, knowledge-copilot |
+| `run_after_on_block` | knowledge-copilot |
 | Discoverable tools | compliance-auditor, research-assistant |
 | A/B testing variant | customer-support |
 | Agent tests (`connic test`) | All templates |
 | `_defaults.yaml` (cascading config) | All templates |
 | Persistent sessions | telegram-personal-assistant, knowledge-copilot |
-| `context_compression` (incl. `session_history` compaction) | knowledge-copilot |
+| `context_compression` (incl. `session_history` compaction) | telegram-personal-assistant, knowledge-copilot |
 | Middleware context injection | customer-support, stripe-dunning, kafka-fraud-detector, email-helpdesk, sqs-order-processor, telegram-personal-assistant, knowledge-copilot |
 | Context in tools | customer-support, kafka-fraud-detector, knowledge-copilot |
 | MCP server integration | compliance-auditor |
 | `max_iterations` | lead-enricher, customer-support, research-assistant |
-| `reasoning_effort` | compliance-auditor, research-assistant, _defaults (all) |
-| `reasoning_budget` | knowledge-copilot |
-| `fallback_model` | knowledge-copilot |
+| `reasoning_effort` | compliance-auditor, research-assistant, kafka-fraud-detector, knowledge-copilot, _defaults (all) |
+| `fallback_model` | kafka-fraud-detector, sqs-order-processor, stripe-dunning, knowledge-copilot |
 | `retry_options` | invoice, s3-document-pipeline |
 | `timeout` | lead-enricher, invoice, compliance-auditor, research-assistant, sqs-order-processor |
 
@@ -85,10 +85,12 @@ Each feature below is demonstrated in at least one template:
 
 Templates use a deliberate mix of providers and their latest models to show
 Connic's model-agnostic runtime: `gemini/gemini-3.5-flash` for fast/cheap
-classification and validation, `openai/gpt-5.5` for customer-facing drafting,
-and `anthropic/claude-opus-4-8` / `claude-sonnet-4-6` for deep reasoning.
-knowledge-copilot pairs its Anthropic primary with a `gemini/gemini-2.5-pro`
-fallback because both providers accept the raw `reasoning_budget` it sets.
+classification and validation, `openai/gpt-5.6-sol` for customer-facing drafting,
+and `anthropic/claude-opus-4-8` / `claude-sonnet-5` for deep reasoning.
+Every agent with a `fallback_model` pairs providers so a primary outage does
+not drop events: knowledge-copilot and kafka-fraud-detector fall back from
+Anthropic to `gemini/gemini-3.5-flash`, sqs-order-processor and stripe-dunning
+fall back to `anthropic/claude-sonnet-5` from a different primary provider.
 
 ### Not enabled by default
 

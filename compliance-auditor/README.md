@@ -25,6 +25,7 @@ connic init . --templates=compliance-auditor            # existing project
 | `web_search` tool | Checks for new regulatory developments |
 | MCP server integration | Context7 for framework documentation lookup |
 | Knowledge base (RAG) | Retrieves internal compliance policies semantically |
+| `kb_list_namespaces` | `list_policy_areas` discovers which policy areas exist before retrieval |
 | Database | Stores and queries audit history via `db_find` / `db_insert` |
 | `reasoning_effort: high` | Deep analysis with transparent reasoning chain |
 | `discoverable_tools` | Scanner loads audit-history, risk-scoring, and finding-format tools (and the MCP server) on demand |

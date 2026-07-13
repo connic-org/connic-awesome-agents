@@ -50,6 +50,7 @@ asks how it can help. When media includes a caption, it uses that as the questio
 | `db_insert` / `db_find` / `db_delete` (database) | `assistant_tools.py` - note CRUD in `notes` collection |
 | `query_knowledge` / `store_knowledge` (RAG) | `assistant_tools.py` - personal knowledge base in `personal` namespace |
 | Middleware multimodal passthrough | `middleware/telegram-assistant.py` preserves all media parts for the LLM |
+| `context_compression` | Compacts stored session history so months-long chats never hit context limits |
 
 ## Connector Setup
 

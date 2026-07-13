@@ -1,7 +1,7 @@
 """Compliance audit tools for risk scoring and finding formatting."""
 
 from typing import Any
-from connic.tools import query_knowledge, db_insert, db_find
+from connic.tools import query_knowledge, db_insert, db_find, kb_list_namespaces
 
 
 async def get_policies(topic: str) -> list[dict]:
@@ -18,6 +18,25 @@ async def get_policies(topic: str) -> list[dict]:
     """
     result = await query_knowledge(topic, namespace="policies", max_results=5)
     return result.get("results", [])
+
+
+async def list_policy_areas(parent: str | None = None) -> Any:
+    """List the policy areas covered by the internal knowledge base.
+
+    Policy areas are hierarchical namespaces separated by dots (e.g.
+    "policies.security.access-control"). Use this before retrieving policies
+    to see what exists - a regulatory requirement with no matching policy
+    area is itself a potential gap.
+
+    Args:
+        parent: Optional policy area to list the children of
+                (e.g. "policies.security"). Defaults to the top-level
+                "policies" namespace.
+
+    Returns:
+        Child area entries with name, entry_count, and has_children.
+    """
+    return await kb_list_namespaces(parent=parent or "policies")
 
 
 async def get_audit_history(

@@ -7,6 +7,10 @@ database. web_search and the MCP server still run for real.
 """
 
 
+def mock_compliance_tools_list_policy_areas(tool_name, params, context):
+    return [{"name": "policies.data-retention", "entry_count": 3, "has_children": False}]
+
+
 def mock_compliance_tools_get_policies(tool_name, params, context):
     return [{"content": "Data retention max 14 days", "score": 0.8}]
 

@@ -2,7 +2,7 @@ version: "1.0"
 
 name: email-responder
 type: llm
-model: openai/gpt-5.5
+model: openai/gpt-5.6-sol
 description: "Drafts email replies using knowledge base and classification context"
 
 system_prompt: |
@@ -51,3 +51,5 @@ guardrails:
       mode: block
       config:
         entities: [credit_card, ssn]
+    - type: data_exfiltration
+      mode: block

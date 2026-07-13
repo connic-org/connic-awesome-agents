@@ -2,10 +2,8 @@ version: "1.0"
 
 name: knowledge-copilot
 type: llm
-model: anthropic/claude-sonnet-4-6
-# Different provider for outage resilience. Gemini 2.5 also accepts a raw
-# reasoning budget, so the reasoning_budget below is honored on fallback too.
-fallback_model: gemini/gemini-2.5-pro
+model: anthropic/claude-sonnet-5
+fallback_model: gemini/gemini-3.5-flash
 description: "Long-running internal knowledge copilot that answers from the project knowledge base over WebSocket, with per-user sessions that survive weeks of conversation"
 
 system_prompt: |
@@ -53,10 +51,8 @@ system_prompt: |
 temperature: 0.3
 max_iterations: 15
 
-# The raw thinking-token budget replaces the inherited low effort; auto lets
-# the budget govern reasoning depth.
-reasoning_effort: auto
-reasoning_budget: 2048
+# Answers chain topic discovery into scoped searches; the project-default low is too shallow.
+reasoning_effort: medium
 
 # One session per portal user, kept for 30 days of inactivity.
 session:

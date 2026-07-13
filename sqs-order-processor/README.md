@@ -31,6 +31,7 @@ connic init . --templates=sqs-order-processor            # existing project
 | `StopProcessing` middleware | Rejects malformed orders before LLM |
 | Output schema | `schemas/order-validation.json` |
 | Custom tools | Total calculation, inventory check, fulfillment creation |
+| `fallback_model` | `order-validator` falls back to `anthropic/claude-sonnet-5` so queued orders keep processing during a provider outage |
 
 ## Connector Setup
 

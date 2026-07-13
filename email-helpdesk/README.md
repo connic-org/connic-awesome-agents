@@ -28,7 +28,7 @@ connic init . --templates=email-helpdesk            # existing project
 | `StopProcessing` middleware | Filters auto-replies and spam headers |
 | Middleware context enrichment | Extracts `from_address`, `sender_name`, `original_subject` into context |
 | Knowledge base (full CRUD) | `query_knowledge`, `store_knowledge`, `delete_knowledge` |
-| Guardrails | Input PII redaction on the classifier; system-prompt-leakage and PII-leakage blocking on the responder output |
+| Guardrails | Input PII redaction on the classifier; system-prompt-leakage, PII-leakage, and data-exfiltration blocking on the responder output |
 | Output schemas | `email-classification.json` (classifier), `email-reply.json` (responder with `to`/`subject`/`body` for SMTP) |
 
 ## Connector Setup

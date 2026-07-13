@@ -25,8 +25,8 @@ connic init . --templates=knowledge-copilot            # existing project
 | Persistent sessions | `knowledge-copilot.yaml` - `session.key: context.user_id` with 30 day TTL |
 | `context_compression` | Keeps 12 recent messages verbatim, 60k prompt-token budget |
 | `session_history` compaction | Compacts stored history every 5 runs, keeping 2 recent runs unsummarized |
-| `fallback_model` | Anthropic primary, `gemini/gemini-2.5-pro` fallback (both accept a raw reasoning budget) |
-| `reasoning_budget` | 2048 thinking tokens instead of an effort level |
+| `fallback_model` | Anthropic primary, `gemini/gemini-3.5-flash` fallback for provider outages |
+| `reasoning_effort` | `medium`, overriding the project-default `low` for multi-step retrieval answers |
 | `kb_list_namespaces` | Wrapped by `copilot_tools.list_topics` for topic discovery |
 | `query_knowledge` (RAG) | Wrapped by `copilot_tools.search_docs` with optional topic scoping |
 | `db_insert` (database) | `copilot_tools.report_gap` writes to the `knowledge_gaps` collection |

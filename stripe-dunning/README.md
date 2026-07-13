@@ -30,6 +30,7 @@ connic init . --templates=stripe-dunning            # existing project
 | Middleware context enrichment | Extracts `stripe_customer_id`, `customer_email`, `customer_name` into context |
 | Output schemas | `payment-analysis.json`, `recovery-email.json` |
 | Custom tools | `payment_tools.py` for retry delay calculation and amount formatting |
+| `fallback_model` | `recovery-composer` falls back to `anthropic/claude-sonnet-5` so payment events are not dropped during a provider outage |
 
 ## Testing
 
