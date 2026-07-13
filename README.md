@@ -18,10 +18,11 @@ Production-ready agent templates for the [Connic](https://connic.co) platform. E
 | [research-assistant](./research-assistant) | Multi-agent research orchestration | trigger_agent, web_search, discoverable tools, parallel dispatch |
 | [sqs-order-processor](./sqs-order-processor) | Order validation and fulfillment | SQS queues, concurrency keys, tool agent, timeout |
 | [telegram-personal-assistant](./telegram-personal-assistant) | Persistent Telegram chatbot with memory | Telegram, persistent sessions, web_search, database, knowledge base |
+| [knowledge-copilot](./knowledge-copilot) | Long-running internal docs copilot | WebSocket sessions, context compression, fallback model, reasoning budget, data_exfiltration guardrail |
 
 ## Feature Coverage
 
-Every Connic feature is demonstrated in at least one template:
+Each feature below is demonstrated in at least one template:
 
 ### Connectors
 
@@ -30,7 +31,7 @@ Every Connic feature is demonstrated in at least one template:
 | HTTP Webhook | lead-enricher, customer-support, invoice |
 | Cron | compliance-auditor |
 | Kafka (in + out) | kafka-fraud-detector |
-| WebSocket | customer-support |
+| WebSocket | customer-support, knowledge-copilot |
 | MCP Server | compliance-auditor |
 | AWS SQS (in + out) | sqs-order-processor |
 | AWS S3 | s3-document-pipeline |
@@ -52,26 +53,31 @@ Every Connic feature is demonstrated in at least one template:
 | Feature | Template |
 |---------|----------|
 | `trigger_agent` (agent-to-agent) | stripe-dunning, postgres-change-notifier, research-assistant, kafka-fraud-detector |
-| `query_knowledge` / `store_knowledge` (RAG) | lead-enricher, customer-support, kafka-fraud-detector, compliance-auditor, research-assistant, telegram-personal-assistant |
+| `query_knowledge` / `store_knowledge` (RAG) | lead-enricher, customer-support, kafka-fraud-detector, compliance-auditor, research-assistant, telegram-personal-assistant, knowledge-copilot |
 | `delete_knowledge` | email-helpdesk |
-| `db_find` / `db_upsert` (database) | lead-enricher, stripe-dunning, postgres-change-notifier, compliance-auditor, telegram-personal-assistant |
+| `kb_list_namespaces` | knowledge-copilot |
+| `db_find` / `db_upsert` (database) | lead-enricher, stripe-dunning, postgres-change-notifier, compliance-auditor, telegram-personal-assistant, knowledge-copilot |
 | `web_search` | lead-enricher, compliance-auditor, research-assistant, telegram-personal-assistant |
-| Output schemas | All templates |
+| Output schemas | All templates except the chat-style agents (telegram-personal-assistant, knowledge-copilot) and lead-enricher |
 | Conditional tools | kafka-fraud-detector |
 | Concurrency control (key + on_conflict) | kafka-fraud-detector, sqs-order-processor |
-| `StopProcessing` middleware | customer-support, s3-document-pipeline, stripe-dunning, email-helpdesk, sqs-order-processor |
+| `StopProcessing` middleware | customer-support, s3-document-pipeline, stripe-dunning, email-helpdesk, sqs-order-processor, knowledge-copilot |
 | Tool hooks (`before` / `after`) | kafka-fraud-detector |
-| Guardrails (input / output) | customer-support, email-helpdesk |
+| Guardrails (input / output) | customer-support, email-helpdesk, knowledge-copilot |
+| `data_exfiltration` guardrail + `run_after_on_block` | knowledge-copilot |
 | Discoverable tools | compliance-auditor, research-assistant |
 | A/B testing variant | customer-support |
 | Agent tests (`connic test`) | All templates |
 | `_defaults.yaml` (cascading config) | All templates |
-| Persistent sessions | telegram-personal-assistant |
-| Middleware context injection | customer-support, stripe-dunning, kafka-fraud-detector, email-helpdesk, sqs-order-processor, telegram-personal-assistant |
-| Context in tools | customer-support, kafka-fraud-detector |
+| Persistent sessions | telegram-personal-assistant, knowledge-copilot |
+| `context_compression` (incl. `session_history` compaction) | knowledge-copilot |
+| Middleware context injection | customer-support, stripe-dunning, kafka-fraud-detector, email-helpdesk, sqs-order-processor, telegram-personal-assistant, knowledge-copilot |
+| Context in tools | customer-support, kafka-fraud-detector, knowledge-copilot |
 | MCP server integration | compliance-auditor |
 | `max_iterations` | lead-enricher, customer-support, research-assistant |
 | `reasoning_effort` | compliance-auditor, research-assistant, _defaults (all) |
+| `reasoning_budget` | knowledge-copilot |
+| `fallback_model` | knowledge-copilot |
 | `retry_options` | invoice, s3-document-pipeline |
 | `timeout` | lead-enricher, invoice, compliance-auditor, research-assistant, sqs-order-processor |
 
@@ -81,6 +87,8 @@ Templates use a deliberate mix of providers and their latest models to show
 Connic's model-agnostic runtime: `gemini/gemini-3.5-flash` for fast/cheap
 classification and validation, `openai/gpt-5.5` for customer-facing drafting,
 and `anthropic/claude-opus-4-8` / `claude-sonnet-4-6` for deep reasoning.
+knowledge-copilot pairs its Anthropic primary with a `gemini/gemini-2.5-pro`
+fallback because both providers accept the raw `reasoning_budget` it sets.
 
 ### Not enabled by default
 

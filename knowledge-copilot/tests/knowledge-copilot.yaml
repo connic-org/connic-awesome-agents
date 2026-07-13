@@ -1,0 +1,32 @@
+version: "1.0"
+
+# All three copilot_tools are custom file tools, so strict_mocks holds: every
+# tool call is one we stubbed, and no knowledge base or database is touched.
+# Each payload carries the top-level user_id the before() middleware resolves
+# into the session key. Output is raw text (plus the provenance footer from
+# after()), so cases assert the run completed and the right tools were called.
+defaults:
+  runs: 1
+  timeout_s: 120
+  mocks: copilot_mocks
+  strict_mocks: true
+
+tests:
+  - name: discovers_topics
+    payload: '{"user_id": "u_401", "message": "I am new here. Which areas do the internal docs cover? List the topics for me."}'
+    expected_result: status == "completed"
+    expected_tool_calls:
+      - copilot_tools.list_topics
+
+  - name: answers_from_docs
+    payload: '{"user_id": "u_401", "message": "What is the rollback procedure for a bad deploy? Check the engineering docs."}'
+    expected_result: status == "completed"
+    expected_tool_calls:
+      - copilot_tools.search_docs
+
+  - name: reports_docs_gap
+    payload: '{"user_id": "u_402", "message": "Do we have a policy on bringing dogs to the office? Search the docs, and if they have nothing on it, log it as a docs gap."}'
+    expected_result: status == "completed"
+    expected_tool_calls:
+      - copilot_tools.search_docs
+      - copilot_tools.report_gap
