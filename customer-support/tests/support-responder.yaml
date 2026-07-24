@@ -1,7 +1,7 @@
 version: "1.0"
 
 # The responder's entire tool list is custom file tools, so strict_mocks holds:
-# every tool call is one we stubbed, and nothing touches the knowledge base.
+# every tool call is one we stubbed, and nothing touches Retrieval.
 # Output is raw text, so cases assert the run completed.
 defaults:
   runs: 1
@@ -10,7 +10,7 @@ defaults:
   strict_mocks: true
 
 tests:
-  - name: answers_from_knowledge_base
+  - name: answers_from_retrieval
     payload: '{"priority":"medium","category":"account","sentiment":"neutral","summary":"User cannot reset their password.","text":"I cannot reset my password. After you draft the reply, save the solution for future tickets."}'
     expected_result: status == "completed"
     expected_tool_calls:

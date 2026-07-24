@@ -1,10 +1,10 @@
-"""Lead enrichment tools - domain wrappers over db_* and knowledge primitives.
+"""Lead enrichment tools - domain wrappers over db_* and retrieval primitives.
 
 Agents work with leads in business terms (save_lead, get_icp_criteria) rather
 than constructing filter dicts or managing collection names and namespaces.
 """
 
-from connic.tools import db_upsert, db_find, query_knowledge
+from connic.tools import db_upsert, db_find, retrieval_query
 
 LeadStatus = str  # "qualified" | "nurture" | "low"
 
@@ -73,10 +73,10 @@ async def get_lead(email: str) -> dict | None:
 async def get_icp_criteria(industry: str | None = None) -> dict:
     """Retrieve the ideal customer profile (ICP) scoring criteria.
 
-    Reads from the knowledge base (namespace "icp"). Seed it once with
-    store_knowledge to describe your target customer, e.g.:
+    Reads from Retrieval (namespace "icp"). Seed it once with
+    retrieval_store to describe your target customer, e.g.:
 
-        store_knowledge(
+        retrieval_store(
             "Target: B2B SaaS companies with 20-500 employees, Series A or later,
              using modern cloud infra. High fit: fintech, HR tech, devtools.",
             namespace="icp",
@@ -89,13 +89,13 @@ async def get_icp_criteria(industry: str | None = None) -> dict:
         industry: Optional industry to narrow the criteria query.
 
     Returns:
-        Dict with source ("knowledge_base" or "default") and criteria list.
+        Dict with source ("retrieval" or "default") and criteria list.
     """
     query = f"ideal customer profile scoring criteria {industry or ''}".strip()
-    result = await query_knowledge(query, namespace="icp", max_results=3)
+    result = await retrieval_query(query, namespace="icp", max_results=3)
     items = result.get("results", [])
     if items:
-        return {"source": "knowledge_base", "criteria": [r["content"] for r in items]}
+        return {"source": "retrieval", "criteria": [r["content"] for r in items]}
     return {
         "source": "default",
         "criteria": [

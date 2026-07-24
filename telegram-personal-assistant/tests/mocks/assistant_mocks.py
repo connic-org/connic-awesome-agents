@@ -3,7 +3,7 @@
 Keeps the suite deterministic and free of side effects: the assistant still
 reaches for the real tools (the calls are recorded and asserted), but the runner
 substitutes these return values instead of executing them, so no database,
-knowledge base, or scheduled trigger is touched.
+Retrieval data, or a scheduled trigger is touched.
 """
 
 
@@ -24,7 +24,7 @@ def mock_assistant_tools_search_knowledge(tool_name, params, context):
 
 
 def mock_assistant_tools_remember_knowledge(tool_name, params, context):
-    return {"entry_id": "kb_test_1"}
+    return {"entry_id": "retrieval_test_1"}
 
 
 def mock_assistant_tools_schedule_followup(tool_name, params, context):

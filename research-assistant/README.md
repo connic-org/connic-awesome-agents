@@ -1,6 +1,6 @@
 # Research Assistant
 
-Multi-agent research system that decomposes complex questions, dispatches specialist agents for web and knowledge base research in parallel, and synthesizes findings into a structured report with confidence scoring.
+Multi-agent research system that decomposes complex questions, dispatches specialist agents for web and Retrieval research in parallel, and synthesizes findings into a structured report with confidence scoring.
 
 ```bash
 pip install connic-composer-sdk
@@ -8,16 +8,16 @@ connic init my-project --templates=research-assistant   # new project
 connic init . --templates=research-assistant            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
 1. **research-orchestrator** (LLM) receives a research question and breaks it into sub-questions.
 2. Uses `trigger_agent` to dispatch sub-questions to specialists:
    - **web-researcher** searches the internet using `web_search`
-   - **knowledge-analyst** searches the internal knowledge base
+   - **knowledge-analyst** searches internal Retrieval
 3. The orchestrator synthesizes all results, identifies conflicts, assesses confidence, and produces a structured report.
-4. The final report is stored in the knowledge base for future reference.
+4. The final report is stored in Retrieval for future reference.
 
 ## Connic Features Used
 
@@ -25,7 +25,7 @@ connic init . --templates=research-assistant            # existing project
 |---------|-------|
 | `trigger_agent` orchestration | `research-orchestrator.yaml` dispatches to specialists |
 | `web_search` tool | `web-researcher.yaml` for internet research |
-| Knowledge base (RAG) | `knowledge-analyst.yaml` for internal data |
+| Managed semantic retrieval | `knowledge-analyst.yaml` for internal data |
 | `reasoning_effort: high` | Orchestrator uses extended reasoning for synthesis |
 | `discoverable_tools` | Orchestrator's `research_tools` are progressively discovered |
 | `max_iterations: 50` | Allows many tool calls for thorough research |
@@ -52,7 +52,7 @@ After creating the connector, open its detail page to copy the auto-generated **
 
 ## Testing
 
-Run `connic test` to execute the suites in `tests/`. The custom `research_tools` are mocked (`tests/mocks/research_mocks.py`) so no knowledge base is touched, while `web_search`, `web_read_page`, `trigger_agent`, and the child agents run for real. The orchestrator suite is intentionally a single minimal case since it drives a flagship model and live specialists.
+Run `connic test` to execute the suites in `tests/`. The custom `research_tools` are mocked (`tests/mocks/research_mocks.py`) so no Retrieval data is touched, while `web_search`, `web_read_page`, `trigger_agent`, and the child agents run for real. The orchestrator suite is intentionally a single minimal case since it drives a flagship model and live specialists.
 
 ## Structure
 
@@ -61,7 +61,7 @@ research-assistant/
   agents/
     research-orchestrator.yaml  # Decomposes questions, dispatches, synthesizes
     web-researcher.yaml         # Internet research specialist
-    knowledge-analyst.yaml      # Internal knowledge base specialist
+    knowledge-analyst.yaml      # Internal Retrieval specialist
   tools/
     research_tools.py           # Confidence assessment, citation formatting
   schemas/

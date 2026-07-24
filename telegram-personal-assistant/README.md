@@ -3,7 +3,7 @@
 A multimodal Telegram personal assistant that handles text, images, voice memos,
 files, and video. It remembers conversations, searches the web, saves personal
 notes, and stores longer-form knowledge for later retrieval. Showcases how a
-single agent can combine sessions, database, knowledge base, web search, and
+single agent can combine sessions, database, Retrieval, web search, and
 multimodal input into a fully featured personal assistant.
 
 ```bash
@@ -12,7 +12,7 @@ connic init my-project --templates=telegram-personal-assistant   # new project
 connic init . --templates=telegram-personal-assistant            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## What it does
 
@@ -48,7 +48,7 @@ asks how it can help. When media includes a caption, it uses that as the questio
 | Persistent sessions | `telegram-assistant.yaml` - `session.key: context.telegram_chat_id` with 7 day TTL |
 | `web_search` / `web_read_page` | Built-in tools for real-time internet lookups |
 | `db_insert` / `db_find` / `db_delete` (database) | `assistant_tools.py` - note CRUD in `notes` collection |
-| `query_knowledge` / `store_knowledge` (RAG) | `assistant_tools.py` - personal knowledge base in `personal` namespace |
+| `retrieval_query` / `retrieval_store` | `assistant_tools.py` - personal Retrieval in `personal` namespace |
 | Middleware multimodal passthrough | `middleware/telegram-assistant.py` preserves all media parts for the LLM |
 | `context_compression` | Compacts stored session history so months-long chats never hit context limits |
 
@@ -90,7 +90,7 @@ The middleware in `telegram-assistant.py` extracts the `chat_id` from each incom
 
 ## Testing
 
-Run `connic test` to execute `tests/telegram-assistant.yaml`. The six `assistant_tools` are mocked (`tests/mocks/assistant_mocks.py`) so no database, knowledge base, or scheduled trigger is touched, while `web_search` and `web_read_page` run for real. Each payload carries a top-level `chat_id` so the middleware resolves the session key and wraps the reply as `{"chat_id": ..., "text": ...}`.
+Run `connic test` to execute `tests/telegram-assistant.yaml`. The six `assistant_tools` are mocked (`tests/mocks/assistant_mocks.py`) so no database, Retrieval data, or scheduled trigger is touched, while `web_search` and `web_read_page` run for real. Each payload carries a top-level `chat_id` so the middleware resolves the session key and wraps the reply as `{"chat_id": ..., "text": ...}`.
 
 ## Structure
 
@@ -123,7 +123,7 @@ Bot:  You have a flight to Berlin on March 15th at 8am.
 
 User: [sends a PDF document]
 Bot:  This is a 12-page contract for... Here are the key points: ...
-      Want me to save a summary to your knowledge base?
+      Want me to save a summary to Retrieval?
 ```
 
 ## Extending

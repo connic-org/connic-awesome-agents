@@ -10,13 +10,13 @@ connic init my-project --templates=lead-enricher   # new project
 connic init . --templates=lead-enricher            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## What it does
 
 - Triggered by a webhook when a new signup arrives
 - Web-searches the company to find size, industry, funding stage, and tech signals
-- Loads your ICP scoring rubric from the knowledge base (or uses a sensible default)
+- Loads your ICP scoring rubric from Retrieval (or uses a sensible default)
 - Scores fit 0-100 and assigns a status: qualified, nurture, or low
 - Saves the enriched lead to the database with a research summary
 
@@ -40,9 +40,9 @@ You can also add an **HTTP Webhook (outbound)** connector to forward enrichment 
 3. Optionally seed your ICP criteria so scoring reflects your actual target customer:
 
 ```python
-from connic.tools import store_knowledge
+from connic.tools import retrieval_store
 
-await store_knowledge(
+await retrieval_store(
     "Target customer: B2B SaaS companies with 20-500 employees, Series A or later. "
     "High-fit industries: fintech, HR tech, devtools, e-commerce infra. "
     "Strong signals: recent funding, hiring engineers, using modern cloud stack.",

@@ -36,7 +36,7 @@ Each template should demonstrate at least 3-4 Connic platform features. Check th
 
 - Agent types: LLM, sequential, tool
 - Connectors: HTTP, Cron, Kafka, WebSocket, MCP, SQS, S3, PostgreSQL, Email, Stripe
-- Built-in tools: `trigger_agent`, `query_knowledge`, `store_knowledge`, `delete_knowledge`, `web_search`
+- Built-in tools: `trigger_agent`, `retrieval_query`, `retrieval_store`, `retrieval_delete`, `web_search`
 - Conditional tools, concurrency control, MCP server integration
 - Middleware: `StopProcessing`, context enrichment, request validation
 - Output schemas, reasoning config, retry options, timeouts, max_concurrent_runs

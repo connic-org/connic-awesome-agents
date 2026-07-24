@@ -3,7 +3,7 @@
 Keeps the suite deterministic and side-effect free: the agent still reaches for
 get_lead / get_icp_criteria / save_lead (the calls are recorded and asserted),
 but the runner substitutes these return values instead of touching the database
-or knowledge base. web_search is a predefined tool and runs for real.
+or Retrieval data. web_search is a predefined tool and runs for real.
 """
 
 

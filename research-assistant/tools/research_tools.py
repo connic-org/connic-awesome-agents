@@ -1,11 +1,11 @@
 """Research assistant tools for synthesis and quality assessment."""
 
 from typing import Any
-from connic.tools import query_knowledge, store_knowledge
+from connic.tools import retrieval_query, retrieval_store
 
 
 async def search_internal_knowledge(query: str) -> list[dict]:
-    """Search the internal research knowledge base for existing findings.
+    """Search internal research Retrieval for existing findings.
 
     Args:
         query: Topic or question to search for.
@@ -13,7 +13,7 @@ async def search_internal_knowledge(query: str) -> list[dict]:
     Returns:
         List of matching knowledge entries with content and relevance score.
     """
-    result = await query_knowledge(query, namespace="research", max_results=5)
+    result = await retrieval_query(query, namespace="research", max_results=5)
     return result.get("results", [])
 
 
@@ -21,7 +21,7 @@ async def save_research_report(
     content: str,
     report_id: str | None = None,
 ) -> dict:
-    """Store a completed research report in the knowledge base for future reference.
+    """Store a completed research report in Retrieval for future reference.
 
     Args:
         content: The research report or summary.
@@ -30,7 +30,7 @@ async def save_research_report(
     Returns:
         Store result with entry_id.
     """
-    return await store_knowledge(content, namespace="research", entry_id=report_id)
+    return await retrieval_store(content, namespace="research", entry_id=report_id)
 
 
 def assess_confidence(
@@ -106,7 +106,7 @@ def format_citation(
     Args:
         title: Title of the source
         url: URL if available
-        source_type: Type of source (web, knowledge_base, official_docs)
+        source_type: Type of source (web, retrieval, official_docs)
         date: Publication or retrieval date
 
     Returns:

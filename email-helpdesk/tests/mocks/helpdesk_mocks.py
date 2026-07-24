@@ -2,7 +2,7 @@
 
 Keeps the suite deterministic and free of side effects: the responder reaches
 for the real tools (the calls are still recorded and asserted), but the runner
-substitutes these return values instead of touching the knowledge base.
+substitutes these return values instead of touching Retrieval.
 """
 
 

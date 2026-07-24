@@ -1,8 +1,8 @@
 version: "1.0"
 
 # The analyst's entire tool list is the one custom file tool, so strict_mocks
-# holds: every tool call is one we stubbed and nothing touches the knowledge
-# base. Output is raw text, so the case asserts the run completed.
+# holds: every tool call is one we stubbed and nothing touches Retrieval.
+# Output is raw text, so the case asserts the run completed.
 defaults:
   runs: 1
   timeout_s: 60

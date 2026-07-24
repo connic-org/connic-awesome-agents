@@ -8,7 +8,7 @@ connic init my-project --templates=s3-document-pipeline   # new project
 connic init . --templates=s3-document-pipeline            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
@@ -25,7 +25,7 @@ connic init . --templates=s3-document-pipeline            # existing project
 | Sequential agent | `document-pipeline.yaml` |
 | `StopProcessing` middleware | `middleware/document-intake.py` rejects unsupported file types |
 | Output schemas | `schemas/intake-result.json`, `schemas/classification-result.json` |
-| `retry_options` | Intake retries 3 times on transient failures |
+| `retry_options` | Each intake model request gets up to 3 attempts on transient failures |
 | Multimodal input | Processes images, PDFs, and text files |
 
 ## Testing

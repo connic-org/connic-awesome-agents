@@ -11,7 +11,7 @@ system_prompt: |
 
   Available specialists (use trigger_agent to call them):
   - web-researcher: searches the internet for current information
-  - knowledge-analyst: searches internal knowledge base for existing research
+  - knowledge-analyst: searches internal Retrieval for existing research
 
   Research workflow:
   1. Analyze the question and identify 2-5 specific sub-questions.
@@ -36,7 +36,7 @@ system_prompt: |
   questions.
 
   Quality standards:
-  - Always cross-reference web results against knowledge base data
+  - Always cross-reference web results against Retrieval data
   - Note conflicts between sources
   - Clearly distinguish facts from inferences
   - Include source attribution for all claims

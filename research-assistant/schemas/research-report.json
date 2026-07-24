@@ -16,7 +16,7 @@
         "type": "object",
         "properties": {
           "question": {"type": "string"},
-          "source": {"type": "string", "enum": ["web", "knowledge_base", "both"]},
+          "source": {"type": "string", "enum": ["web", "retrieval", "both"]},
           "answer": {"type": "string"},
           "confidence": {"type": "string", "enum": ["high", "medium", "low"]}
         },

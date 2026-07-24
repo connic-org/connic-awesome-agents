@@ -8,7 +8,7 @@ substitutes these return values instead of executing them.
 
 def mock_research_tools_search_internal_knowledge(tool_name, params, context):
     return [{
-        "entry_id": "kb_data_retention_policy",
+        "entry_id": "retrieval_data_retention_policy",
         "content": (
             "Internal Data Retention Policy (v3, 2025): customer PII is retained "
             "for 24 months then anonymized; financial records for 10 years per "

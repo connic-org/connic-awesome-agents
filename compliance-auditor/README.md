@@ -1,6 +1,6 @@
 # Compliance Auditor
 
-Scheduled compliance auditing with real-time regulatory intelligence. Combines web search for regulatory updates, MCP tools for framework documentation, a knowledge base for policy retrieval, and the database for audit history tracking.
+Scheduled compliance auditing with real-time regulatory intelligence. Combines web search for regulatory updates, MCP tools for framework documentation, Retrieval for policy lookup, and the database for audit history tracking.
 
 ```bash
 pip install connic-composer-sdk
@@ -8,12 +8,12 @@ connic init my-project --templates=compliance-auditor   # new project
 connic init . --templates=compliance-auditor            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
 1. A **Cron connector** triggers `compliance-scanner` on a schedule (e.g. weekly).
-2. The scanner searches the web for recent regulatory changes, queries internal policies from the knowledge base, and looks up framework best practices via MCP.
+2. The scanner searches the web for recent regulatory changes, queries internal policies from Retrieval, and looks up framework best practices via MCP.
 3. It identifies compliance gaps, scores overall risk, and stores findings.
 4. **audit-reporter** transforms raw findings into an executive summary and detailed report.
 
@@ -24,8 +24,8 @@ connic init . --templates=compliance-auditor            # existing project
 | **Cron inbound connector** | Scheduled weekly/monthly audits |
 | `web_search` tool | Checks for new regulatory developments |
 | MCP server integration | Context7 for framework documentation lookup |
-| Knowledge base (RAG) | Retrieves internal compliance policies semantically |
-| `kb_list_namespaces` | `list_policy_areas` discovers which policy areas exist before retrieval |
+| Managed semantic retrieval | Retrieves internal compliance policies semantically |
+| `retrieval_list_namespaces` | `list_policy_areas` discovers which policy areas exist before retrieval |
 | Database | Stores and queries audit history via `db_find` / `db_insert` |
 | `reasoning_effort: high` | Deep analysis with transparent reasoning chain |
 | `discoverable_tools` | Scanner loads audit-history, risk-scoring, and finding-format tools (and the MCP server) on demand |

@@ -1,11 +1,11 @@
-"""Support tools for escalation and knowledge management."""
+"""Support tools for escalation and managed semantic retrieval."""
 
 from typing import Any
-from connic.tools import query_knowledge, store_knowledge
+from connic.tools import retrieval_query, retrieval_store
 
 
 async def search_solutions(query: str) -> list[dict]:
-    """Search the support knowledge base for solutions matching the query.
+    """Search support Retrieval for solutions matching the query.
 
     Args:
         query: Describe the customer's issue (e.g. "password reset not working").
@@ -13,7 +13,7 @@ async def search_solutions(query: str) -> list[dict]:
     Returns:
         List of matching solution entries with content and relevance score.
     """
-    result = await query_knowledge(query, namespace="solutions", max_results=3)
+    result = await retrieval_query(query, namespace="solutions", max_results=3)
     return result.get("results", [])
 
 
@@ -21,7 +21,7 @@ async def save_solution(
     content: str,
     entry_id: str | None = None,
 ) -> dict:
-    """Store a reusable solution in the knowledge base for future tickets.
+    """Store a reusable solution in Retrieval for future tickets.
 
     Args:
         content: The solution text. Include the problem description for better retrieval.
@@ -30,7 +30,7 @@ async def save_solution(
     Returns:
         Store result with entry_id.
     """
-    return await store_knowledge(content, namespace="solutions", entry_id=entry_id)
+    return await retrieval_store(content, namespace="solutions", entry_id=entry_id)
 
 
 def format_escalation(

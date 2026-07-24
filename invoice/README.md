@@ -8,7 +8,7 @@ connic init my-project --templates=invoice   # new project
 connic init . --templates=invoice            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
@@ -25,7 +25,7 @@ connic init . --templates=invoice            # existing project
 | Tool agent (no LLM) | `invoice-validator.yaml` |
 | Output schema | `schemas/invoice.json` |
 | Middleware (audit trail) | `middleware/invoice-extractor.py` |
-| `retry_options` | Extractor retries up to 5 times |
+| `retry_options` | Each extractor model request gets up to 5 attempts |
 | `timeout` | 45-second hard limit per extraction |
 
 ## Connector Setup

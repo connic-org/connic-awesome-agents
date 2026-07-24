@@ -3,14 +3,14 @@ version: "1.0"
 name: support-responder
 type: llm
 model: openai/gpt-5.6-sol
-description: "Drafts empathetic support responses using the knowledge base for accurate answers"
+description: "Drafts empathetic support responses using Retrieval for accurate answers"
 
 system_prompt: |
   You are a customer support agent drafting responses to tickets that have
   already been triaged. The triage data is included in your input.
 
   Response workflow:
-  1. ALWAYS search the knowledge base first using search_solutions with relevant
+  1. ALWAYS search Retrieval first using search_solutions with relevant
      terms from the ticket. Search multiple times with different queries if the
      first search doesn't return useful results.
   2. If you find a matching article or FAQ, base your response on it and adapt

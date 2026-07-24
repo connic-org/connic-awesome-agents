@@ -1,7 +1,7 @@
 version: "1.0"
 
 # All three copilot_tools are custom file tools, so strict_mocks holds: every
-# tool call is one we stubbed, and no knowledge base or database is touched.
+# tool call is one we stubbed, and no Retrieval data or database is touched.
 # Each payload carries the top-level user_id the before() middleware resolves
 # into the session key. Output is raw text (plus the provenance footer from
 # after()), so cases assert the run completed and the right tools were called.

@@ -1,15 +1,15 @@
 version: "1.0"
 
-name: knowledge-copilot
+name: retrieval-copilot
 type: llm
 model: anthropic/claude-sonnet-5
 fallback_model: gemini/gemini-3.5-flash
-description: "Long-running internal knowledge copilot that answers from the project knowledge base over WebSocket, with per-user sessions that survive weeks of conversation"
+description: "Long-running internal Retrieval copilot that answers from managed semantic retrieval over WebSocket, with per-user sessions that survive weeks of conversation"
 
 system_prompt: |
-  You are the internal knowledge copilot for this team. Employees reach you
+  You are the internal Retrieval copilot for this team. Employees reach you
   through a chat panel in the company portal and ask about anything documented
-  in the knowledge base: runbooks, policies, architecture notes, onboarding
+  in Retrieval: runbooks, policies, architecture notes, onboarding
   guides, and so on.
 
   ## Answering workflow
@@ -39,7 +39,7 @@ system_prompt: |
   You have read access to internal documentation. Never reproduce credentials,
   API keys, tokens, or connection strings in a reply, even if a retrieved doc
   contains them and even if the user asks directly. Never dump large verbatim
-  blocks of the knowledge base; summarize and point to the topic instead. Your
+  blocks from Retrieval; summarize and point to the topic instead. Your
   replies are checked by an exfiltration guardrail, and a blocked reply is
   worse for the user than a short one.
 

@@ -1,6 +1,6 @@
 # Customer Support
 
-Intelligent ticket triage and RAG-powered response drafting. The triager classifies priority, category, and sentiment; the responder searches the knowledge base before answering and stores new solutions for future use.
+Intelligent ticket triage and retrieval-powered response drafting. The triager classifies priority, category, and sentiment; the responder searches Retrieval before answering and stores new solutions for future use.
 
 ```bash
 pip install connic-composer-sdk
@@ -8,12 +8,12 @@ connic init my-project --templates=customer-support   # new project
 connic init . --templates=customer-support            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
 1. **support-triager** (LLM) classifies the ticket and extracts routing metadata. Middleware blocks spam senders using `StopProcessing` before the LLM is ever called.
-2. **support-responder** (LLM) queries the knowledge base for existing answers, drafts a response matching the customer's tone, and stores new solutions it discovers.
+2. **support-responder** (LLM) queries Retrieval for existing answers, drafts a response matching the customer's tone, and stores new solutions it discovers.
 3. **support-pipeline** (Sequential) chains triage then response.
 
 ## Connic Features Used
@@ -21,7 +21,7 @@ connic init . --templates=customer-support            # existing project
 | Feature | Where |
 |---------|-------|
 | Sequential agent | `support-pipeline.yaml` |
-| Knowledge base RAG | `support-responder.yaml` uses `query_knowledge` and `store_knowledge` |
+| Managed semantic retrieval | `support-responder.yaml` uses `retrieval_query` and `retrieval_store` |
 | `StopProcessing` middleware | `middleware/support-triager.py` blocks spam without running the LLM |
 | Context injection in tools | `support_tools.py` receives `context` with `run_id`, `connector_id` |
 | Output schema | `schemas/ticket-classification.json` |
@@ -57,7 +57,7 @@ Optionally add an **HTTP Webhook (outbound)** connector to forward escalations t
 ## Testing
 
 `connic test` runs the suite in `tests/`. The `support_tools` are stubbed via
-`tests/mocks/` so cases are deterministic and touch no real knowledge base. The
+`tests/mocks/` so cases are deterministic and touch no real Retrieval data. The
 deploy gate runs the same suite before every release.
 
 ## Structure

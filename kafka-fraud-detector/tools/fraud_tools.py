@@ -3,7 +3,7 @@
 import json
 import time
 from typing import Any
-from connic.tools import query_knowledge, store_knowledge, trigger_agent
+from connic.tools import retrieval_query, retrieval_store, trigger_agent
 
 
 async def search_fraud_patterns(query: str) -> list[dict]:
@@ -16,7 +16,7 @@ async def search_fraud_patterns(query: str) -> list[dict]:
     Returns:
         List of matching fraud pattern entries with relevance scores.
     """
-    result = await query_knowledge(query, namespace="fraud-patterns", max_results=5)
+    result = await retrieval_query(query, namespace="fraud-patterns", max_results=5)
     return result.get("results", [])
 
 
@@ -34,7 +34,7 @@ async def store_fraud_pattern(
     Returns:
         Store result with entry_id.
     """
-    return await store_knowledge(content, namespace="fraud-patterns", entry_id=pattern_id)
+    return await retrieval_store(content, namespace="fraud-patterns", entry_id=pattern_id)
 
 
 _velocity_store: dict[str, list[float]] = {}

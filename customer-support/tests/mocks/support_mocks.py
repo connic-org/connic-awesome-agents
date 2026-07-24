@@ -3,7 +3,7 @@
 Keeps the suite deterministic and side-effect free: the responder still reaches
 for search_solutions / save_solution / format_escalation (the calls are recorded
 and asserted), but the runner substitutes these return values instead of
-touching the knowledge base or emitting an escalation.
+touching Retrieval or emitting an escalation.
 """
 
 

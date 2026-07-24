@@ -1,6 +1,6 @@
 # Email Helpdesk
 
-End-to-end email support automation. Classifies incoming emails, filters auto-replies and spam before the LLM runs, drafts contextual replies using the knowledge base, and sends them via SMTP.
+End-to-end email support automation. Classifies incoming emails, filters auto-replies and spam before the LLM runs, drafts contextual replies using Retrieval, and sends them via SMTP.
 
 ```bash
 pip install connic-composer-sdk
@@ -8,14 +8,14 @@ connic init my-project --templates=email-helpdesk   # new project
 connic init . --templates=email-helpdesk            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
 1. The **Email inbound connector** polls an IMAP mailbox for new messages.
 2. Middleware catches auto-replies and spam headers with `StopProcessing` (zero tokens used).
 3. **email-classifier** (LLM) determines intent, urgency, department, and language.
-4. **email-responder** (LLM) searches the knowledge base, drafts a reply in the sender's language, and outputs structured JSON (`to`, `subject`, `body`) matching the Email outbound connector format.
+4. **email-responder** (LLM) searches Retrieval, drafts a reply in the sender's language, and outputs structured JSON (`to`, `subject`, `body`) matching the Email outbound connector format.
 5. The **Email outbound connector** parses the agent's JSON output and sends the reply via SMTP.
 
 ## Connic Features Used
@@ -27,7 +27,7 @@ connic init . --templates=email-helpdesk            # existing project
 | Sequential agent | `helpdesk-pipeline.yaml` |
 | `StopProcessing` middleware | Filters auto-replies and spam headers |
 | Middleware context enrichment | Extracts `from_address`, `sender_name`, `original_subject` into context |
-| Knowledge base (full CRUD) | `query_knowledge`, `store_knowledge`, `delete_knowledge` |
+| Retrieval (full CRUD) | `retrieval_query`, `retrieval_store`, `retrieval_delete` |
 | Guardrails | Input PII redaction on the classifier; system-prompt-leakage, PII-leakage, and data-exfiltration blocking on the responder output |
 | Output schemas | `email-classification.json` (classifier), `email-reply.json` (responder with `to`/`subject`/`body` for SMTP) |
 

@@ -8,7 +8,7 @@ connic init my-project --templates=sqs-order-processor   # new project
 connic init . --templates=sqs-order-processor            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 

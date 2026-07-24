@@ -2,7 +2,7 @@
 
 Keeps the suite deterministic and free of side effects: the scanner reaches for
 the real tools (the calls are still recorded and asserted), but the runner
-substitutes these return values instead of touching the knowledge base or
+substitutes these return values instead of touching Retrieval or
 database. web_search and the MCP server still run for real.
 """
 

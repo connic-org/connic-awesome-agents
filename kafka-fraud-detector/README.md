@@ -1,6 +1,6 @@
 # Kafka Fraud Detector
 
-Real-time transaction fraud detection on a Kafka event stream. Scores every transaction using velocity analysis, geo-anomaly detection, and knowledge base pattern matching. High-risk transactions are blocked and escalated.
+Real-time transaction fraud detection on a Kafka event stream. Scores every transaction using velocity analysis, geo-anomaly detection, and Retrieval pattern matching. High-risk transactions are blocked and escalated.
 
 ```bash
 pip install connic-composer-sdk
@@ -8,13 +8,13 @@ connic init my-project --templates=kafka-fraud-detector   # new project
 connic init . --templates=kafka-fraud-detector            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
 1. Transactions flow in via a **Kafka inbound** connector.
 2. Middleware extracts customer metadata and sets the `is_admin` flag.
-3. **fraud-scorer** (LLM) runs velocity checks, geo-anomaly detection, and knowledge base lookups to produce a risk score.
+3. **fraud-scorer** (LLM) runs velocity checks, geo-anomaly detection, and Retrieval lookups to produce a risk score.
 4. Conditional tool access: `admin_override` is only available when `context.is_admin == True`.
 5. Concurrency control ensures transactions from the same customer are processed sequentially (queued by `customer_id`).
 6. For high/critical risk, `create_alert` forwards the alert (via `trigger_agent`) to **fraud-escalator** (Tool agent) for Kafka outbound delivery.
@@ -27,7 +27,7 @@ connic init . --templates=kafka-fraud-detector            # existing project
 | **Kafka outbound connector** | Publishes fraud alerts to alert topics |
 | Conditional tools | `admin_override` only available when `context.is_admin == True` |
 | Concurrency control | `concurrency.key: "data.customer_id"` with `on_conflict: queue` |
-| Knowledge base | Stores and retrieves fraud patterns |
+| Managed semantic retrieval | Stores and retrieves fraud patterns |
 | Tool agent | `fraud-escalator.yaml` for deterministic alert formatting |
 | `trigger_agent` from a custom tool | `create_alert` forwards high/critical alerts to `fraud-escalator` |
 | Tool hooks | `hooks/fraud-scorer.py` guards `admin_override`, normalises transaction ids |

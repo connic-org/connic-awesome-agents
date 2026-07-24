@@ -3,7 +3,7 @@
 Keeps the suite deterministic and free of side effects: the scorer reaches for
 the real tools (the calls are still recorded and asserted), but the runner
 substitutes these return values instead of touching the velocity store, the
-knowledge base, or the alert pipeline.
+Retrieval data, or the alert pipeline.
 """
 
 

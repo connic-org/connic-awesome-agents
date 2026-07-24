@@ -8,7 +8,7 @@ connic init my-project --templates=stripe-dunning   # new project
 connic init . --templates=stripe-dunning            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
@@ -74,7 +74,7 @@ The recovery-composer outputs JSON with `to`, `subject`, `body` fields that the 
 ## Optional: call the Stripe API directly
 
 Instead of (or alongside) the `payment_tools`, the analyzer can call Stripe's
-own API through [API spec tools](https://connic.co/docs/v1/composer/api-spec-tools).
+own API through [API spec tools](https://connic.co/docs/v1/build/tools/api-spec).
 Upload the Stripe OpenAPI spec to the project, then reference operations with the
 `api:` prefix in `agents/payment-analyzer.yaml`:
 

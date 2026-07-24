@@ -6,19 +6,19 @@ Production-ready agent templates for the [Connic](https://connic.co) platform. E
 
 | Template | Use Case | Highlights |
 |----------|----------|------------|
-| [lead-enricher](./lead-enricher) | Automatic signup enrichment and ICP scoring | web_search, knowledge base, `db_upsert` |
+| [lead-enricher](./lead-enricher) | Automatic signup enrichment and ICP scoring | web_search, Retrieval, `db_upsert` |
 | [invoice](./invoice) | Invoice data extraction and validation | Sequential pipeline, tool agent, retry, middleware audit trail |
 | [customer-support](./customer-support) | Ticket triage and RAG-powered response | WebSocket streaming, guardrails, A/B variant, StopProcessing spam filter |
 | [s3-document-pipeline](./s3-document-pipeline) | Automated document processing from S3 | S3 trigger, multimodal input, file type validation |
-| [stripe-dunning](./stripe-dunning) | Payment recovery for failed subscriptions | Stripe webhooks, trigger_agent, knowledge base history |
+| [stripe-dunning](./stripe-dunning) | Payment recovery for failed subscriptions | Stripe webhooks, trigger_agent, Retrieval history |
 | [kafka-fraud-detector](./kafka-fraud-detector) | Real-time transaction fraud scoring | Kafka streams, conditional tools, tool hooks, concurrency control |
 | [compliance-auditor](./compliance-auditor) | Scheduled compliance auditing | Cron trigger, web_search, MCP, discoverable tools, reasoning |
 | [postgres-change-notifier](./postgres-change-notifier) | Database change monitoring and alerting | PostgreSQL LISTEN/NOTIFY, trigger_agent, audit trail |
-| [email-helpdesk](./email-helpdesk) | End-to-end email support automation | Email IMAP/SMTP, guardrails, StopProcessing, full knowledge CRUD |
+| [email-helpdesk](./email-helpdesk) | End-to-end email support automation | Email IMAP/SMTP, guardrails, StopProcessing, full Retrieval CRUD |
 | [research-assistant](./research-assistant) | Multi-agent research orchestration | trigger_agent, web_search, discoverable tools, parallel dispatch |
 | [sqs-order-processor](./sqs-order-processor) | Order validation and fulfillment | SQS queues, concurrency keys, tool agent, timeout |
-| [telegram-personal-assistant](./telegram-personal-assistant) | Persistent Telegram chatbot with memory | Telegram, persistent sessions, web_search, database, knowledge base |
-| [knowledge-copilot](./knowledge-copilot) | Long-running internal docs copilot | WebSocket sessions, context compression, fallback model, reasoning budget, data_exfiltration guardrail |
+| [telegram-personal-assistant](./telegram-personal-assistant) | Persistent Telegram chatbot with memory | Telegram, persistent sessions, web_search, database, Retrieval |
+| [retrieval-copilot](./retrieval-copilot) | Long-running internal docs copilot | WebSocket sessions, context compression, fallback model, reasoning budget, data_exfiltration guardrail |
 
 ## Feature Coverage
 
@@ -31,7 +31,7 @@ Each feature below is demonstrated in at least one template:
 | HTTP Webhook | lead-enricher, customer-support, invoice |
 | Cron | compliance-auditor |
 | Kafka (in + out) | kafka-fraud-detector |
-| WebSocket | customer-support, knowledge-copilot |
+| WebSocket | customer-support, retrieval-copilot |
 | MCP Server | compliance-auditor |
 | AWS SQS (in + out) | sqs-order-processor |
 | AWS S3 | s3-document-pipeline |
@@ -53,31 +53,31 @@ Each feature below is demonstrated in at least one template:
 | Feature | Template |
 |---------|----------|
 | `trigger_agent` (agent-to-agent) | stripe-dunning, postgres-change-notifier, research-assistant, kafka-fraud-detector |
-| `query_knowledge` / `store_knowledge` (RAG) | lead-enricher, customer-support, kafka-fraud-detector, compliance-auditor, research-assistant, telegram-personal-assistant, knowledge-copilot |
-| `delete_knowledge` | email-helpdesk |
-| `kb_list_namespaces` | compliance-auditor, knowledge-copilot |
-| `db_find` / `db_upsert` (database) | lead-enricher, stripe-dunning, postgres-change-notifier, compliance-auditor, telegram-personal-assistant, knowledge-copilot |
+| `retrieval_query` / `retrieval_store` | lead-enricher, customer-support, kafka-fraud-detector, compliance-auditor, research-assistant, telegram-personal-assistant, retrieval-copilot |
+| `retrieval_delete` | email-helpdesk |
+| `retrieval_list_namespaces` | compliance-auditor, retrieval-copilot |
+| `db_find` / `db_upsert` (database) | lead-enricher, stripe-dunning, postgres-change-notifier, compliance-auditor, telegram-personal-assistant, retrieval-copilot |
 | `web_search` | lead-enricher, compliance-auditor, research-assistant, telegram-personal-assistant |
-| Output schemas | All templates except the chat-style agents (telegram-personal-assistant, knowledge-copilot) and lead-enricher |
+| Output schemas | All templates except the chat-style agents (telegram-personal-assistant, retrieval-copilot) and lead-enricher |
 | Conditional tools | kafka-fraud-detector |
 | Concurrency control (key + on_conflict) | kafka-fraud-detector, sqs-order-processor |
-| `StopProcessing` middleware | customer-support, s3-document-pipeline, stripe-dunning, email-helpdesk, sqs-order-processor, knowledge-copilot |
+| `StopProcessing` middleware | customer-support, s3-document-pipeline, stripe-dunning, email-helpdesk, sqs-order-processor, retrieval-copilot |
 | Tool hooks (`before` / `after`) | kafka-fraud-detector |
-| Guardrails (input / output) | customer-support, email-helpdesk, knowledge-copilot |
-| `data_exfiltration` guardrail | email-helpdesk, knowledge-copilot |
-| `run_after_on_block` | knowledge-copilot |
+| Guardrails (input / output) | customer-support, email-helpdesk, retrieval-copilot |
+| `data_exfiltration` guardrail | email-helpdesk, retrieval-copilot |
+| `run_after_on_block` | retrieval-copilot |
 | Discoverable tools | compliance-auditor, research-assistant |
 | A/B testing variant | customer-support |
 | Agent tests (`connic test`) | All templates |
 | `_defaults.yaml` (cascading config) | All templates |
-| Persistent sessions | telegram-personal-assistant, knowledge-copilot |
-| `context_compression` (incl. `session_history` compaction) | telegram-personal-assistant, knowledge-copilot |
-| Middleware context injection | customer-support, stripe-dunning, kafka-fraud-detector, email-helpdesk, sqs-order-processor, telegram-personal-assistant, knowledge-copilot |
-| Context in tools | customer-support, kafka-fraud-detector, knowledge-copilot |
+| Persistent sessions | telegram-personal-assistant, retrieval-copilot |
+| `context_compression` (incl. `session_history` compaction) | telegram-personal-assistant, retrieval-copilot |
+| Middleware context injection | customer-support, stripe-dunning, kafka-fraud-detector, email-helpdesk, sqs-order-processor, telegram-personal-assistant, retrieval-copilot |
+| Context in tools | customer-support, kafka-fraud-detector, retrieval-copilot |
 | MCP server integration | compliance-auditor |
 | `max_iterations` | lead-enricher, customer-support, research-assistant |
-| `reasoning_effort` | compliance-auditor, research-assistant, kafka-fraud-detector, knowledge-copilot, _defaults (all) |
-| `fallback_model` | kafka-fraud-detector, sqs-order-processor, stripe-dunning, knowledge-copilot |
+| `reasoning_effort` | compliance-auditor, research-assistant, kafka-fraud-detector, retrieval-copilot, _defaults (all) |
+| `fallback_model` | kafka-fraud-detector, sqs-order-processor, stripe-dunning, retrieval-copilot |
 | `retry_options` | invoice, s3-document-pipeline |
 | `timeout` | lead-enricher, invoice, compliance-auditor, research-assistant, sqs-order-processor |
 
@@ -88,7 +88,7 @@ Connic's model-agnostic runtime: `gemini/gemini-3.5-flash` for fast/cheap
 classification and validation, `openai/gpt-5.6-sol` for customer-facing drafting,
 and `anthropic/claude-opus-4-8` / `claude-sonnet-5` for deep reasoning.
 Every agent with a `fallback_model` pairs providers so a primary outage does
-not drop events: knowledge-copilot and kafka-fraud-detector fall back from
+not drop events: retrieval-copilot and kafka-fraud-detector fall back from
 Anthropic to `gemini/gemini-3.5-flash`, sqs-order-processor and stripe-dunning
 fall back to `anthropic/claude-sonnet-5` from a different primary provider.
 
@@ -121,7 +121,7 @@ Every template ships a `tests/` suite. `connic test` runs each case against a
 throwaway deployment and exits non-zero on failure, and the deploy gate runs the
 same suite before every release. External tools (Stripe, SQS, S3, email, Kafka,
 Postgres) are stubbed with `tests/mocks/` so cases are deterministic and free of
-side effects — see [the testing docs](https://connic.co/docs/v1/composer/testing).
+side effects — see [the testing docs](https://connic.co/docs/v1/test).
 
 ## Deploy
 

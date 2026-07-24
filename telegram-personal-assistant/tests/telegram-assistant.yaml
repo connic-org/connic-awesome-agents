@@ -1,6 +1,6 @@
 version: "1.0"
 
-# The six assistant_tools are mocked so no database, knowledge base, or
+# The six assistant_tools are mocked so no database, Retrieval data, or
 # scheduled trigger is touched. web_search and web_read_page are predefined and
 # run for real, so strict_mocks is omitted. Each payload carries the top-level
 # chat_id the before() middleware extracts into the session key; the after()
@@ -31,7 +31,7 @@ tests:
       - assistant_tools.delete_note
 
   - name: remembers_then_recalls
-    payload: '{"chat_id": 12345, "text": "Save this to my knowledge base: our Q3 launch retro concluded the onboarding flow needs a guided tour and clearer empty states. Then tell me what I have stored about the launch retro."}'
+    payload: '{"chat_id": 12345, "text": "Save this to Retrieval: our Q3 launch retro concluded the onboarding flow needs a guided tour and clearer empty states. Then tell me what I have stored about the launch retro."}'
     expected_result: output.text != ""
     expected_tool_calls:
       - assistant_tools.remember_knowledge

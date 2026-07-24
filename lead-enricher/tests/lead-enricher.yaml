@@ -1,6 +1,6 @@
 version: "1.0"
 
-# The three lead_tools are mocked so no database or knowledge base is touched.
+# The three lead_tools are mocked so no database or Retrieval data is touched.
 # web_search is predefined and runs for real, so strict_mocks is intentionally
 # omitted.
 defaults:

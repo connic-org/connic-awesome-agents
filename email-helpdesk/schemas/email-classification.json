@@ -38,7 +38,7 @@
     "key_topics": {
       "type": "array",
       "items": {"type": "string"},
-      "description": "Main topics for knowledge base search"
+      "description": "Main topics for Retrieval search"
     }
   },
   "required": ["intent", "urgency", "department", "summary", "from_address", "original_subject"]

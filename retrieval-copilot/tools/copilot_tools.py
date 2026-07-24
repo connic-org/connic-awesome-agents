@@ -1,14 +1,14 @@
-"""Knowledge copilot tools - topic discovery, scoped search, and gap reporting."""
+"""Retrieval copilot tools - topic discovery, scoped search, and gap reporting."""
 
 from typing import Any
 
-from connic.tools import db_insert, kb_list_namespaces, query_knowledge
+from connic.tools import db_insert, retrieval_list_namespaces, retrieval_query
 
 GAPS_COLLECTION = "knowledge_gaps"
 
 
 async def list_topics(parent: str | None = None) -> Any:
-    """List knowledge base topics to discover where documentation lives.
+    """List Retrieval topics to discover where documentation lives.
 
     Topics are hierarchical namespaces separated by dots (e.g.
     "engineering.deploys"). Call without arguments to see the top level,
@@ -21,7 +21,7 @@ async def list_topics(parent: str | None = None) -> Any:
     Returns:
         Topic entries with name, entry_count, and has_children.
     """
-    return await kb_list_namespaces(parent=parent)
+    return await retrieval_list_namespaces(parent=parent)
 
 
 async def search_docs(
@@ -35,13 +35,13 @@ async def search_docs(
         query: What you are looking for (e.g. "rollback procedure for a bad deploy").
         topic: Optional topic from list_topics to scope the search
                (e.g. "engineering.deploys"). Sub-topics are included.
-               Omit to search the whole knowledge base.
+               Omit to search all Retrieval content.
         context: Auto-injected run context.
 
     Returns:
         Matching doc chunks with content, source topic, and relevance score.
     """
-    result = await query_knowledge(query, namespace=topic, max_results=5)
+    result = await retrieval_query(query, namespace=topic, max_results=5)
     hits = result.get("results", [])
 
     # Record consulted topics so the after middleware can build the provenance footer.

@@ -1,4 +1,4 @@
-"""Middleware for knowledge-copilot.
+"""Middleware for retrieval-copilot.
 
 Before:
   Resolves the portal user ID from the WebSocket payload into context so the
@@ -37,5 +37,5 @@ async def after(response: str, context: dict[str, Any]) -> str:
     if topics:
         reply += "\n\n[Sources: " + ", ".join(sorted(set(topics))) + "]"
     else:
-        reply += "\n\n[No knowledge base sources consulted]"
+        reply += "\n\n[No Retrieval sources consulted]"
     return reply

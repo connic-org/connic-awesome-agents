@@ -3,14 +3,14 @@ version: "1.0"
 name: email-responder
 type: llm
 model: openai/gpt-5.6-sol
-description: "Drafts email replies using knowledge base and classification context"
+description: "Drafts email replies using Retrieval and classification context"
 
 system_prompt: |
   You draft replies to helpdesk emails. The previous agent (email-classifier)
   has classified the email with intent, urgency, department, and sender details.
 
   Response workflow:
-  1. Search the knowledge base first using search_helpdesk_knowledge with relevant terms.
+  1. Search Retrieval first using search_helpdesk_knowledge with relevant terms.
      Try multiple search terms if the first doesn't return good results.
   2. Draft a reply that:
      - Addresses the sender by name (from classification data)

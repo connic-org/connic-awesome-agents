@@ -8,7 +8,7 @@ connic init my-project --templates=postgres-change-notifier   # new project
 connic init . --templates=postgres-change-notifier            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/composer/overview#installation)
+[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 

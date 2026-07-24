@@ -3,7 +3,7 @@
 Keeps the suite deterministic and free of side effects: the copilot still
 reaches for the real tools (the calls are recorded and asserted), but the
 runner substitutes these return values instead of executing them, so no
-knowledge base or database is touched.
+Retrieval data or the database is touched.
 """
 
 

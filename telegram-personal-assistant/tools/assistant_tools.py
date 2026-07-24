@@ -1,6 +1,6 @@
 """Personal assistant tools - notes via database, knowledge via RAG."""
 
-from connic.tools import db_insert, db_find, db_delete, query_knowledge, store_knowledge, trigger_agent_at
+from connic.tools import db_insert, db_find, db_delete, retrieval_query, retrieval_store, trigger_agent_at
 
 NOTES_COLLECTION = "notes"
 KNOWLEDGE_NAMESPACE = "personal"
@@ -58,7 +58,7 @@ async def delete_note(note_id: str) -> dict:
 
 
 async def search_knowledge(query: str) -> list[dict]:
-    """Search the personal knowledge base for longer-form stored information.
+    """Search personal Retrieval for longer-form stored information.
 
     Use this for articles, meeting summaries, reference material, or anything
     the user stored with remember_knowledge.
@@ -69,12 +69,12 @@ async def search_knowledge(query: str) -> list[dict]:
     Returns:
         List of matching knowledge entries with content and relevance score.
     """
-    result = await query_knowledge(query, namespace=KNOWLEDGE_NAMESPACE, max_results=5)
+    result = await retrieval_query(query, namespace=KNOWLEDGE_NAMESPACE, max_results=5)
     return result.get("results", [])
 
 
 async def remember_knowledge(content: str, entry_id: str | None = None) -> dict:
-    """Store information in the personal knowledge base for later retrieval.
+    """Store information in personal Retrieval for later retrieval.
 
     Best for longer content like summaries, articles, how-tos, or reference
     material. For short facts and reminders, use save_note instead.
@@ -87,7 +87,7 @@ async def remember_knowledge(content: str, entry_id: str | None = None) -> dict:
     Returns:
         Store result with entry_id.
     """
-    return await store_knowledge(
+    return await retrieval_store(
         content, namespace=KNOWLEDGE_NAMESPACE, entry_id=entry_id
     )
 

@@ -1,27 +1,27 @@
 """Compliance audit tools for risk scoring and finding formatting."""
 
 from typing import Any
-from connic.tools import query_knowledge, db_insert, db_find, kb_list_namespaces
+from connic.tools import retrieval_query, db_insert, db_find, retrieval_list_namespaces
 
 
 async def get_policies(topic: str) -> list[dict]:
     """Retrieve internal compliance policies relevant to the given topic.
 
-    Searches the knowledge base semantically - describe what you're looking
+    Searches Retrieval semantically - describe what you're looking
     for in natural language.
 
     Args:
         topic: Regulatory area or topic (e.g. "data retention", "GDPR", "access control").
 
     Returns:
-        List of matching policy entries from the knowledge base.
+        List of matching policy entries from Retrieval.
     """
-    result = await query_knowledge(topic, namespace="policies", max_results=5)
+    result = await retrieval_query(topic, namespace="policies", max_results=5)
     return result.get("results", [])
 
 
 async def list_policy_areas(parent: str | None = None) -> Any:
-    """List the policy areas covered by the internal knowledge base.
+    """List the policy areas covered by internal Retrieval.
 
     Policy areas are hierarchical namespaces separated by dots (e.g.
     "policies.security.access-control"). Use this before retrieving policies
@@ -36,7 +36,7 @@ async def list_policy_areas(parent: str | None = None) -> Any:
     Returns:
         Child area entries with name, entry_count, and has_children.
     """
-    return await kb_list_namespaces(parent=parent or "policies")
+    return await retrieval_list_namespaces(parent=parent or "policies")
 
 
 async def get_audit_history(
