@@ -2,7 +2,7 @@ version: "1.0"
 
 name: audit-reporter
 type: llm
-model: gemini/gemini-3.5-flash
+model: connic/gpt-5.6-terra
 description: "Formats audit findings into an executive summary and detailed report"
 
 system_prompt: |

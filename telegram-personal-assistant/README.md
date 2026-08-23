@@ -1,7 +1,7 @@
 # Telegram Personal Assistant
 
-A multimodal Telegram personal assistant that handles text, images, voice memos,
-files, and video. It remembers conversations, searches the web, saves personal
+A multimodal Telegram personal assistant that handles text, images, and documents.
+It remembers conversations, searches the web, saves personal
 notes, and stores longer-form knowledge for later retrieval. Showcases how a
 single agent can combine sessions, database, Retrieval, web search, and
 multimodal input into a fully featured personal assistant.
@@ -16,7 +16,7 @@ connic init . --templates=telegram-personal-assistant            # existing proj
 
 ## What it does
 
-- Processes multimodal input: text, images, voice messages, audio, video, documents
+- Processes text, images, and supported documents
 - Maintains multi-turn conversations via persistent sessions (7 day TTL)
 - Searches the web on demand for current events, facts, documentation, etc.
 - Saves and retrieves quick notes (reminders, facts, passwords) in the database
@@ -33,10 +33,7 @@ LLM receives the full multimodal content:
 |------------|---------------------|
 | Text | Answers questions, conversations, task help |
 | Photos / Images | Describes content, reads text (OCR), analyzes charts |
-| Voice memos | Responds to spoken content |
-| Audio files | Processes and responds to audio content |
 | Documents (PDF, etc.) | Summarizes, answers questions, extracts info |
-| Video / Video notes | Analyzes visual content |
 
 When media arrives without text, the agent proactively describes the content and
 asks how it can help. When media includes a caption, it uses that as the question.
@@ -118,7 +115,7 @@ User: [sends a photo of a restaurant menu]
 Bot:  I can see a menu from "Trattoria Roma". The pasta dishes range from
       12-18 EUR. Want me to save this or help you pick something?
 
-User: [sends a voice memo: "What did I save about my flight?"]
+User: What did I save about my flight?
 Bot:  You have a flight to Berlin on March 15th at 8am.
 
 User: [sends a PDF document]

@@ -2,7 +2,7 @@ version: "1.0"
 
 name: knowledge-analyst
 type: llm
-model: gemini/gemini-3.5-flash
+model: connic/gpt-5.6-terra
 description: "Searches internal Retrieval for existing research and company data"
 
 system_prompt: |

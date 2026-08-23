@@ -2,7 +2,7 @@ version: "1.0"
 
 name: fraud-scorer
 type: llm
-model: anthropic/claude-sonnet-5
+model: connic/gpt-5.6-terra  # or anthropic/claude-sonnet-5 with Anthropic BYOK configured
 fallback_model: gemini/gemini-3.5-flash
 description: "Scores transactions for fraud risk in real-time from a Kafka stream"
 

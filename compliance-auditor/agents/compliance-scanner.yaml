@@ -2,7 +2,7 @@ version: "1.0"
 
 name: compliance-scanner
 type: llm
-model: anthropic/claude-opus-4-8
+model: connic/gpt-5.6-sol
 description: "Scheduled compliance scanner that checks regulations, internal policies, and web sources"
 
 system_prompt: |

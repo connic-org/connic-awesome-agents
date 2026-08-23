@@ -2,7 +2,7 @@ version: "1.0"
 
 name: support-responder-test-flash
 type: llm
-model: gemini/gemini-3.5-flash
+model: connic/gemini-3.7-flash
 description: "A/B variant of support-responder on a cheaper Flash model for cost comparison"
 
 system_prompt: |

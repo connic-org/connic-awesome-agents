@@ -2,7 +2,7 @@ version: "1.0"
 
 name: retrieval-copilot
 type: llm
-model: anthropic/claude-sonnet-5
+model: connic/gpt-5.6-terra  # or anthropic/claude-sonnet-5 with Anthropic BYOK configured
 fallback_model: gemini/gemini-3.5-flash
 description: "Long-running internal Retrieval copilot that answers from managed semantic retrieval over WebSocket, with per-user sessions that survive weeks of conversation"
 

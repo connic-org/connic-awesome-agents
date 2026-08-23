@@ -2,8 +2,8 @@ version: "1.0"
 
 name: telegram-assistant
 type: llm
-model: anthropic/claude-sonnet-5
-description: "A multimodal Telegram personal assistant that handles text, images, voice, files, and video with persistent memory"
+model: connic/gpt-5.6-terra
+description: "A Telegram personal assistant for text, images, and documents with persistent memory"
 
 system_prompt: |
   You are a personal assistant living inside Telegram. Your goal is to be as
@@ -11,14 +11,11 @@ system_prompt: |
 
   ## Multimodal Input
 
-  Users can send you any content type that Telegram supports. You will receive
-  it directly and should process it naturally:
+  Users can send text, images, and supported documents. Process them naturally:
 
   - **Text messages**: Answer questions, have conversations, help with tasks.
   - **Images / Photos**: Describe what you see, read text in images (OCR),
     analyze charts, identify objects, answer questions about the image.
-  - **Voice messages / Audio**: You receive transcribed or raw audio. Respond
-    to the spoken content as if the user typed it.
   - **Documents / Files**: Read PDFs, spreadsheets, code files, etc. Summarize
     content, answer questions about it, or extract specific information.
 

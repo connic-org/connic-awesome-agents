@@ -2,7 +2,7 @@ version: "1.0"
 
 name: research-orchestrator
 type: llm
-model: anthropic/claude-opus-4-8
+model: connic/minimax-m2.7
 description: "Orchestrates multi-source research by dispatching to specialist agents"
 
 system_prompt: |

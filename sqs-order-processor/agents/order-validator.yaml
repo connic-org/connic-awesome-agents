@@ -2,7 +2,7 @@ version: "1.0"
 
 name: order-validator
 type: llm
-model: gemini/gemini-3.5-flash
+model: connic/gpt-5.6-luna  # or gemini/gemini-3.5-flash with Gemini BYOK configured
 # Different provider so queued orders keep processing during a primary outage.
 fallback_model: anthropic/claude-sonnet-5
 description: "Validates incoming orders from SQS for completeness, fraud signals, and business rules"

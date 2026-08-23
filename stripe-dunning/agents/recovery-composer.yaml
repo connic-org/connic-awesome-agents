@@ -2,7 +2,7 @@ version: "1.0"
 
 name: recovery-composer
 type: llm
-model: openai/gpt-5.6-sol
+model: connic/gpt-5.6-terra  # or openai/gpt-5.6-sol with OpenAI BYOK configured
 # Different provider so failed-payment events are not dropped during a primary outage.
 fallback_model: anthropic/claude-sonnet-5
 description: "Composes personalized recovery emails based on dunning stage and customer history"
