@@ -1,0 +1,2 @@
+# No additional tool dependencies beyond the Connic SDK and Python standard library.
+# Connic installs its SDK and the voice runtime in the deployment environment.

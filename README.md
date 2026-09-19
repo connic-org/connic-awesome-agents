@@ -9,6 +9,7 @@ Production-ready agent templates for the [Connic](https://connic.co) platform. E
 | [lead-enricher](./lead-enricher) | Automatic signup enrichment and ICP scoring | web_search, Retrieval, `db_upsert` |
 | [invoice](./invoice) | Invoice data extraction and validation | Sequential pipeline, tool agent, retry, middleware audit trail |
 | [customer-support](./customer-support) | Ticket triage and RAG-powered response | WebSocket streaming, guardrails, A/B variant, StopProcessing spam filter |
+| [voice-customer-support](./voice-customer-support) | Spoken customer support using Connic Retrieval and mock tickets | Native voice, customer knowledge, Python tools, incoming Twilio/SIP calls |
 | [s3-document-pipeline](./s3-document-pipeline) | Automated document processing from S3 | S3 trigger, multimodal input, file type validation |
 | [stripe-dunning](./stripe-dunning) | Payment recovery for failed subscriptions | Stripe webhooks, trigger_agent, Retrieval history |
 | [kafka-fraud-detector](./kafka-fraud-detector) | Real-time transaction fraud scoring | Kafka streams, conditional tools, tool hooks, concurrency control |
@@ -39,6 +40,7 @@ Each feature below is demonstrated in at least one template:
 | Email (IMAP + SMTP) | email-helpdesk |
 | Stripe | stripe-dunning |
 | Telegram (in + out) | telegram-personal-assistant |
+| Twilio Voice / SIP Voice (inbound) | voice-customer-support |
 
 ### Agent Types
 
@@ -54,11 +56,12 @@ Each feature below is demonstrated in at least one template:
 |---------|----------|
 | `trigger_agent` (agent-to-agent) | stripe-dunning, postgres-change-notifier, research-assistant, kafka-fraud-detector |
 | `retrieval_query` / `retrieval_store` | lead-enricher, customer-support, kafka-fraud-detector, compliance-auditor, research-assistant, telegram-personal-assistant, retrieval-copilot |
+| `retrieval_query` (read-only knowledge access) | voice-customer-support |
 | `retrieval_delete` | email-helpdesk |
 | `retrieval_list_namespaces` | compliance-auditor, retrieval-copilot |
 | `db_find` / `db_upsert` (database) | lead-enricher, stripe-dunning, postgres-change-notifier, compliance-auditor, telegram-personal-assistant, retrieval-copilot |
 | `web_search` | lead-enricher, compliance-auditor, research-assistant, telegram-personal-assistant |
-| Output schemas | All templates except the chat-style agents (telegram-personal-assistant, retrieval-copilot) and lead-enricher |
+| Output schemas | All templates except the conversational agents (telegram-personal-assistant, retrieval-copilot, voice-customer-support) and lead-enricher |
 | Conditional tools | kafka-fraud-detector |
 | Concurrency control (key + on_conflict) | kafka-fraud-detector, sqs-order-processor |
 | `StopProcessing` middleware | customer-support, s3-document-pipeline, stripe-dunning, email-helpdesk, sqs-order-processor, retrieval-copilot |
@@ -68,15 +71,16 @@ Each feature below is demonstrated in at least one template:
 | `run_after_on_block` | retrieval-copilot |
 | Discoverable tools | compliance-auditor, research-assistant |
 | A/B testing variant | customer-support |
-| Agent tests (`connic test`) | All templates |
-| `_defaults.yaml` (cascading config) | All templates |
+| Agent tests (`connic test`) | Text-agent templates |
+| `_defaults.yaml` (cascading config) | Text-agent templates |
 | Persistent sessions | telegram-personal-assistant, retrieval-copilot |
 | `context_compression` (incl. `session_history` compaction) | telegram-personal-assistant, retrieval-copilot |
 | Middleware context injection | customer-support, stripe-dunning, kafka-fraud-detector, email-helpdesk, sqs-order-processor, telegram-personal-assistant, retrieval-copilot |
-| Context in tools | customer-support, kafka-fraud-detector, retrieval-copilot |
+| Context in tools | customer-support, kafka-fraud-detector, retrieval-copilot, voice-customer-support |
+| Native voice (`voice_config`) | voice-customer-support |
 | MCP server integration | compliance-auditor |
 | `max_iterations` | lead-enricher, customer-support, research-assistant |
-| `reasoning_effort` | compliance-auditor, research-assistant, kafka-fraud-detector, retrieval-copilot, _defaults (all) |
+| `reasoning_effort` | compliance-auditor, research-assistant, kafka-fraud-detector, retrieval-copilot, _defaults |
 | `fallback_model` | kafka-fraud-detector, sqs-order-processor, stripe-dunning, retrieval-copilot |
 | `retry_options` | invoice, s3-document-pipeline |
 | `timeout` | lead-enricher, invoice, compliance-auditor, research-assistant, sqs-order-processor |
@@ -91,6 +95,10 @@ Every agent with a `fallback_model` pairs providers so a primary outage does
 not drop events: retrieval-copilot and kafka-fraud-detector fall back from
 Anthropic to `gemini/gemini-3.5-flash`, sqs-order-processor and stripe-dunning
 fall back to `anthropic/claude-sonnet-5` from a different primary provider.
+
+The voice-customer-support demo uses `gemini/gemini-3.8-live` with your own
+Gemini credentials. Voice currently requires a supported native realtime
+provider and does not support managed `connic/*` models or `fallback_model`.
 
 ### Not enabled by default
 
@@ -117,7 +125,7 @@ connic deploy   # Deploy to production (deploy gate runs tests first)
 
 ## Testing
 
-Every template ships a `tests/` suite. `connic test` runs each case against a
+Text-agent templates ship a `tests/` suite. `connic test` runs each case against a
 throwaway deployment and exits non-zero on failure, and the deploy gate runs the
 same suite before every release. External tools (Stripe, SQS, S3, email, Kafka,
 Postgres) are stubbed with `tests/mocks/` so cases are deterministic and free of
