@@ -35,7 +35,7 @@ The assistant can explain documented account actions; it cannot inspect accounts
 | Python tools | Knowledge lookup and mocked ticket creation in `tools/voice_support.py` |
 | Context injection | The mock receipt includes the current `run_id` without asking the caller for it |
 | Conversation controls | Greeting, caller interruptions, turn detection, thinking sound, and idle timeout |
-| Incoming phone connectors | Connectors such as Twilio Voice and SIP Voice link calls to the deployed agent |
+| Incoming phone calls | Connic connectors link calls to the deployed agent |
 | Runs and traces | Inspect speech transcripts and tool execution after a call; Gemini uses native transcription |
 
 ## Knowledge base setup
@@ -51,15 +51,12 @@ The template contains no knowledge documents or seeding script. Populate and mai
 
 1. In **Project Settings > LLM Provider**, save Google Gemini credentials with access to the configured native audio model.
 2. For a project without a connected Git repository, run `connic login` from the example project and enter its login token from the dashboard. Run `connic deploy` to deploy to the default environment, or `connic deploy --env <environment-id>` for a specific environment. For a project connected to Git, deploy through its Git integration instead.
-3. Add an incoming-call connector, such as Twilio Voice or SIP Voice, to the deployed `voice-customer-support` agent. Each voice connector links to exactly one deployed voice agent.
+3. Add an incoming-call connector to the deployed `voice-customer-support` agent. Each voice connector links to exactly one deployed voice agent.
 4. Once your support content is indexed in that environment, call the connected number. Afterward, open the resulting run to inspect transcripts, the knowledge lookup, and any mock ticket result.
 
-| Connector | What you provide | Setup guide |
-|-----------|------------------|-------------|
-| Twilio Voice | An existing voice-capable Twilio number, Account SID, and the Auth Token for its active region. The number must be available for Connic to configure its incoming-call webhook. | [Twilio Voice](https://connic.co/docs/v1/connectors/twilio-voice) |
-| SIP Voice | An existing phone provider or phone system, its SIP connection settings, and the called number or SIP username. Connic runs the SIP service. | [SIP Voice](https://connic.co/docs/v1/connectors/sip) |
+Choose an incoming-call connector from [Connic connectors](https://connic.co/docs/v1/connectors) and follow its setup guide to connect your phone number.
 
-Both routes support incoming calls. Phone provider and model usage charges still apply to live demos, even though the ticket tool is mocked.
+Phone provider and model usage charges still apply to live demos, even though the ticket tool is mocked.
 
 ## Try a conversation
 

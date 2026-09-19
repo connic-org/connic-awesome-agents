@@ -9,7 +9,7 @@ Production-ready agent templates for the [Connic](https://connic.co) platform. E
 | [lead-enricher](./lead-enricher) | Automatic signup enrichment and ICP scoring | web_search, Retrieval, `db_upsert` |
 | [invoice](./invoice) | Invoice data extraction and validation | Sequential pipeline, tool agent, retry, middleware audit trail |
 | [customer-support](./customer-support) | Ticket triage and RAG-powered response | WebSocket streaming, guardrails, A/B variant, StopProcessing spam filter |
-| [voice-customer-support](./voice-customer-support) | Spoken customer support using Connic Retrieval and mock tickets | Native voice, customer knowledge, Python tools, incoming Twilio/SIP calls |
+| [voice-customer-support](./voice-customer-support) | Spoken customer support using Connic Retrieval and mock tickets | Native voice, customer knowledge, Python tools, incoming calls via Connic connectors |
 | [s3-document-pipeline](./s3-document-pipeline) | Automated document processing from S3 | S3 trigger, multimodal input, file type validation |
 | [stripe-dunning](./stripe-dunning) | Payment recovery for failed subscriptions | Stripe webhooks, trigger_agent, Retrieval history |
 | [kafka-fraud-detector](./kafka-fraud-detector) | Real-time transaction fraud scoring | Kafka streams, conditional tools, tool hooks, concurrency control |
@@ -40,7 +40,7 @@ Each feature below is demonstrated in at least one template:
 | Email (IMAP + SMTP) | email-helpdesk |
 | Stripe | stripe-dunning |
 | Telegram (in + out) | telegram-personal-assistant |
-| Twilio Voice / SIP Voice (inbound) | voice-customer-support |
+| Voice connectors (inbound) | voice-customer-support |
 
 ### Agent Types
 
