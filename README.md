@@ -1,6 +1,6 @@
 # Connic Awesome Agents
 
-Production-ready agent templates for the [Connic](https://connic.co) platform. Each template is a complete project showcasing real-world use cases with detailed agent configurations, working tools, functional middleware, and structured output schemas.
+Production-ready agent templates for the [Connic](https://connic.co) platform. Each template is a complete project showcasing a real-world use case and the Connic features it needs.
 
 ## Templates
 
@@ -9,6 +9,7 @@ Production-ready agent templates for the [Connic](https://connic.co) platform. E
 | [lead-enricher](./lead-enricher) | Automatic signup enrichment and ICP scoring | web_search, Retrieval, `db_upsert` |
 | [invoice](./invoice) | Invoice data extraction and validation | Sequential pipeline, tool agent, retry, middleware audit trail |
 | [customer-support](./customer-support) | Ticket triage and RAG-powered response | WebSocket streaming, guardrails, A/B variant, StopProcessing spam filter |
+| [browser-automation-demo](./browser-automation-demo) | Browser automation demo that signs in and creates a Connic project | Browser tools, three human inputs, sensitive password |
 | [voice-customer-support](./voice-customer-support) | Spoken customer support using Connic Retrieval and mock tickets | Native voice, customer knowledge, Python tools, incoming calls via Connic connectors |
 | [s3-document-pipeline](./s3-document-pipeline) | Automated document processing from S3 | S3 trigger, multimodal input, file type validation |
 | [stripe-dunning](./stripe-dunning) | Payment recovery for failed subscriptions | Stripe webhooks, trigger_agent, Retrieval history |
@@ -61,7 +62,9 @@ Each feature below is demonstrated in at least one template:
 | `retrieval_list_namespaces` | compliance-auditor, retrieval-copilot |
 | `db_find` / `db_upsert` (database) | lead-enricher, stripe-dunning, postgres-change-notifier, compliance-auditor, telegram-personal-assistant, retrieval-copilot |
 | `web_search` | lead-enricher, compliance-auditor, research-assistant, telegram-personal-assistant |
-| Output schemas | All templates except the conversational agents (telegram-personal-assistant, retrieval-copilot, voice-customer-support) and lead-enricher |
+| Browser tools | browser-automation-demo |
+| Human input (`approval.inputs`) | browser-automation-demo |
+| Output schemas | All templates except the conversational agents (telegram-personal-assistant, retrieval-copilot, voice-customer-support), lead-enricher, and browser-automation-demo |
 | Conditional tools | kafka-fraud-detector |
 | Concurrency control (key + on_conflict) | kafka-fraud-detector, sqs-order-processor |
 | `StopProcessing` middleware | customer-support, s3-document-pipeline, stripe-dunning, email-helpdesk, sqs-order-processor, retrieval-copilot |
@@ -71,8 +74,8 @@ Each feature below is demonstrated in at least one template:
 | `run_after_on_block` | retrieval-copilot |
 | Discoverable tools | compliance-auditor, research-assistant |
 | A/B testing variant | customer-support |
-| Agent tests (`connic test`) | Text-agent templates |
-| `_defaults.yaml` (cascading config) | Text-agent templates |
+| Agent tests (`connic test`) | Text-agent templates except browser-automation-demo |
+| `_defaults.yaml` (cascading config) | Text-agent templates except browser-automation-demo |
 | Persistent sessions | telegram-personal-assistant, retrieval-copilot |
 | `context_compression` (incl. `session_history` compaction) | telegram-personal-assistant, retrieval-copilot |
 | Middleware context injection | customer-support, stripe-dunning, kafka-fraud-detector, email-helpdesk, sqs-order-processor, telegram-personal-assistant, retrieval-copilot |
