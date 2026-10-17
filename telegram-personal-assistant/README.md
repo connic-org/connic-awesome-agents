@@ -12,7 +12,7 @@ connic init my-project --templates=telegram-personal-assistant   # new project
 connic init . --templates=telegram-personal-assistant            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
+[connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## What it does
 
@@ -38,7 +38,7 @@ LLM receives the full multimodal content:
 When media arrives without text, the agent proactively describes the content and
 asks how it can help. When media includes a caption, it uses that as the question.
 
-## Connic Features Used
+## connic Features Used
 
 | Feature | Where |
 |---------|-------|
@@ -61,7 +61,7 @@ This template requires two Telegram connectors: one inbound to receive messages 
 
 ### 2. Add Telegram inbound connector
 
-From the agent detail page in the [Connic dashboard](https://connic.co), add a **Telegram** connector:
+From the agent detail page in the [connic dashboard](https://connic.co), add a **Telegram** connector:
 
 | Setting | Value |
 |---------|-------|

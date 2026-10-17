@@ -1,6 +1,6 @@
 # Browser Automation Demo
 
-Asks a human for a Connic account email, password, and project title, then opens [connic.co](https://connic.co), signs in, and creates a project using **Deploy via CLI**. The agent returns the new project's name and URL.
+Asks a human for a connic account email, password, and project title, then opens [connic.co](https://connic.co), signs in, and creates a project using **Deploy via CLI**. The agent returns the new project's name and URL.
 
 ```bash
 pip install connic-composer-sdk
@@ -8,20 +8,20 @@ connic init my-project --templates=browser-automation-demo   # new project
 connic init . --templates=browser-automation-demo            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
+[connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How it works
 
-1. `get_connic_email` asks for the Connic account email.
+1. `get_connic_email` asks for the connic account email.
 2. `get_connic_password` asks for the account password in a masked input.
 3. `get_project_title` asks for the title of the new project.
-4. The agent opens the Connic homepage, finds the sign-in flow, and enters the supplied credentials.
+4. The agent opens the connic homepage, finds the sign-in flow, and enters the supplied credentials.
 5. It navigates to project creation, chooses **Deploy via CLI**, and creates a project with the supplied title.
 6. It returns the created project's name and URL.
 
 The prompt describes the task. The agent chooses the browser actions from the page it sees.
 
-## Connic features used
+## connic features used
 
 | Feature | Where |
 |---------|-------|
@@ -31,9 +31,9 @@ The prompt describes the task. The agent chooses the browser actions from the pa
 
 ## Run it
 
-Follow the [Connic quickstart](https://connic.co/docs/v1/quickstart) to run the agent in your project. Start `browser-automation-demo` and leave the input empty.
+Follow the [connic quickstart](https://connic.co/docs/v1/quickstart) to run the agent in your project. Start `browser-automation-demo` and leave the input empty.
 
-The run pauses for each required value. Open the pending request in Connic, provide the email, password, and project title, then submit each response. The password field is masked. The agent resumes from the same run and performs the browser workflow.
+The run pauses for each required value. Open the pending request in connic, provide the email, password, and project title, then submit each response. The password field is masked. The agent resumes from the same run and performs the browser workflow.
 
 The result contains the new project's name and URL. For example:
 

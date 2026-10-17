@@ -8,7 +8,7 @@ connic init my-project --templates=kafka-fraud-detector   # new project
 connic init . --templates=kafka-fraud-detector            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
+[connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
@@ -19,7 +19,7 @@ connic init . --templates=kafka-fraud-detector            # existing project
 5. Concurrency control ensures transactions from the same customer are processed sequentially (queued by `customer_id`).
 6. For high/critical risk, `create_alert` forwards the alert (via `trigger_agent`) to **fraud-escalator** (Tool agent) for Kafka outbound delivery.
 
-## Connic Features Used
+## connic Features Used
 
 | Feature | Where |
 |---------|-------|
@@ -42,7 +42,7 @@ Run `connic test` from the project root. The suite (`tests/`) covers `fraud-scor
 
 ## Connector Setup
 
-Add both connectors from the agent detail page in the [Connic dashboard](https://connic.co).
+Add both connectors from the agent detail page in the [connic dashboard](https://connic.co).
 
 **Kafka inbound** (transactions):
 
@@ -69,7 +69,7 @@ Add both connectors from the agent detail page in the [Connic dashboard](https:/
 | Security protocol | `PLAINTEXT` (or `SASL_SSL` for secured clusters) |
 | Linked agent | `fraud-escalator` |
 
-If your Kafka brokers are in a private network, enable **Connect via Bridge** on both connectors and run the [Connic Bridge](https://connic.co/docs/v1/platform/bridge) in your network.
+If your Kafka brokers are in a private network, enable **Connect via bridge** on both connectors and run the [connic bridge](https://connic.co/docs/v1/platform/bridge) in your network.
 
 ## Structure
 

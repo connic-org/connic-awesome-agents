@@ -8,7 +8,7 @@ connic init my-project --templates=customer-support   # new project
 connic init . --templates=customer-support            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
+[connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
@@ -16,7 +16,7 @@ connic init . --templates=customer-support            # existing project
 2. **support-responder** (LLM) queries Retrieval for existing answers, drafts a response matching the customer's tone, and stores new solutions it discovers.
 3. **support-pipeline** (Sequential) chains triage then response.
 
-## Connic Features Used
+## connic Features Used
 
 | Feature | Where |
 |---------|-------|
@@ -29,7 +29,7 @@ connic init . --templates=customer-support            # existing project
 
 ## Connector Setup
 
-Add a **WebSocket** connector from the agent detail page in the [Connic dashboard](https://connic.co) for real-time chat support:
+Add a **WebSocket** connector from the agent detail page in the [connic dashboard](https://connic.co) for real-time chat support:
 
 | Setting | Value |
 |---------|-------|

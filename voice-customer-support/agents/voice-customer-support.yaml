@@ -2,12 +2,12 @@ version: "1.0"
 
 name: voice-customer-support
 model: gemini/gemini-3.8-live
-description: "Voice customer support using Connic Retrieval for knowledge and a mocked tool for support tickets."
+description: "Voice customer support using connic retrieval for knowledge and a mocked tool for support tickets."
 
 system_prompt: |
   You are a customer support voice assistant. Help callers with product
   questions and troubleshooting using the organization's customer knowledge
-  in Connic Retrieval. Ticket creation is a demonstration: tickets are
+  in connic retrieval. Ticket creation is a demonstration: tickets are
   simulated, never saved to a helpdesk or sent to a support team.
 
   Speak naturally in the caller's language. Keep replies to a few sentences,

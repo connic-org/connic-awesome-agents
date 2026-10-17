@@ -10,7 +10,7 @@ connic init my-project --templates=lead-enricher   # new project
 connic init . --templates=lead-enricher            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
+[connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## What it does
 
@@ -22,7 +22,7 @@ connic init . --templates=lead-enricher            # existing project
 
 ## Connector Setup
 
-Add an **HTTP Webhook (inbound)** connector from the agent detail page in the [Connic dashboard](https://connic.co):
+Add an **HTTP Webhook (inbound)** connector from the agent detail page in the [connic dashboard](https://connic.co):
 
 | Setting | Value |
 |---------|-------|

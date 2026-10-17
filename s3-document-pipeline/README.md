@@ -8,7 +8,7 @@ connic init my-project --templates=s3-document-pipeline   # new project
 connic init . --templates=s3-document-pipeline            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
+[connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
@@ -17,7 +17,7 @@ connic init . --templates=s3-document-pipeline            # existing project
 3. **document-intake** (LLM) extracts text, metadata, entities, and a summary. Middleware rejects unsupported file types with `StopProcessing` before the LLM runs.
 4. **document-classifier** (LLM) classifies the document and decides where it should be routed.
 
-## Connic Features Used
+## connic Features Used
 
 | Feature | Where |
 |---------|-------|
@@ -34,7 +34,7 @@ Run `connic test` from the project root. The suite (`tests/`) covers `document-i
 
 ## Connector Setup
 
-Add an **S3 inbound** connector from the agent detail page in the [Connic dashboard](https://connic.co):
+Add an **S3 inbound** connector from the agent detail page in the [connic dashboard](https://connic.co):
 
 | Setting | Value |
 |---------|-------|
@@ -51,7 +51,7 @@ Add an **S3 inbound** connector from the agent detail page in the [Connic dashbo
 
 After creating the connector, open its detail page to copy the auto-generated **Webhook URL**. Configure [S3 Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/NotificationHowTo.html) on your bucket to send events to that URL.
 
-If your S3 bucket is in a private network, enable **Connect via Bridge** and run the [Connic Bridge](https://connic.co/docs/v1/platform/bridge) in your VPC.
+If your S3 bucket is in a private network, enable **Connect via bridge** and run the [connic bridge](https://connic.co/docs/v1/platform/bridge) in your VPC.
 
 Optionally add an **HTTP Webhook (outbound)** connector to forward classification results to your document management system.
 

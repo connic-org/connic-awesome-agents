@@ -8,7 +8,7 @@ connic init my-project --templates=email-helpdesk   # new project
 connic init . --templates=email-helpdesk            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
+[connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
@@ -18,7 +18,7 @@ connic init . --templates=email-helpdesk            # existing project
 4. **email-responder** (LLM) searches Retrieval, drafts a reply in the sender's language, and outputs structured JSON (`to`, `subject`, `body`) matching the Email outbound connector format.
 5. The **Email outbound connector** parses the agent's JSON output and sends the reply via SMTP.
 
-## Connic Features Used
+## connic Features Used
 
 | Feature | Where |
 |---------|-------|
@@ -33,7 +33,7 @@ connic init . --templates=email-helpdesk            # existing project
 
 ## Connector Setup
 
-Add both connectors from the agent detail page in the [Connic dashboard](https://connic.co).
+Add both connectors from the agent detail page in the [connic dashboard](https://connic.co).
 
 **Email inbound** (IMAP):
 
@@ -67,7 +67,7 @@ Add both connectors from the agent detail page in the [Connic dashboard](https:/
 | Default recipient (optional) | Leave empty (the agent output includes the `to` field) |
 | Linked agent | `email-responder` |
 
-If your mail server is in a private network, enable **Connect via Bridge** on both connectors and run the [Connic Bridge](https://connic.co/docs/v1/platform/bridge) in your network.
+If your mail server is in a private network, enable **Connect via bridge** on both connectors and run the [connic bridge](https://connic.co/docs/v1/platform/bridge) in your network.
 
 ## Testing
 

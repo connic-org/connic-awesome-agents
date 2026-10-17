@@ -8,7 +8,7 @@ connic init my-project --templates=invoice   # new project
 connic init . --templates=invoice            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
+[connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
@@ -16,7 +16,7 @@ connic init . --templates=invoice            # existing project
 2. **invoice-validator** (Tool agent) runs a second, purely deterministic validation pass on the extracted numbers with zero token cost.
 3. **invoice-pipeline** (Sequential) chains both agents so every invoice goes through extraction then validation.
 
-## Connic Features Used
+## connic Features Used
 
 | Feature | Where |
 |---------|-------|
@@ -30,7 +30,7 @@ connic init . --templates=invoice            # existing project
 
 ## Connector Setup
 
-Add an **HTTP Webhook (sync)** connector from the agent detail page in the [Connic dashboard](https://connic.co) for real-time invoice processing:
+Add an **HTTP Webhook (sync)** connector from the agent detail page in the [connic dashboard](https://connic.co) for real-time invoice processing:
 
 | Setting | Value |
 |---------|-------|

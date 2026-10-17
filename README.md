@@ -1,6 +1,6 @@
-# Connic Awesome Agents
+# connic awesome agents
 
-Production-ready agent templates for the [Connic](https://connic.co) platform. Each template is a complete project showcasing a real-world use case and the Connic features it needs.
+Production-ready agent templates for the [connic](https://connic.co) platform. Each template is a complete project showcasing a real-world use case and the connic features it needs.
 
 ## Templates
 
@@ -9,8 +9,8 @@ Production-ready agent templates for the [Connic](https://connic.co) platform. E
 | [lead-enricher](./lead-enricher) | Automatic signup enrichment and ICP scoring | web_search, Retrieval, `db_upsert` |
 | [invoice](./invoice) | Invoice data extraction and validation | Sequential pipeline, tool agent, retry, middleware audit trail |
 | [customer-support](./customer-support) | Ticket triage and RAG-powered response | WebSocket streaming, guardrails, A/B variant, StopProcessing spam filter |
-| [browser-automation-demo](./browser-automation-demo) | Browser automation demo that signs in and creates a Connic project | Browser tools, three human inputs, sensitive password |
-| [voice-customer-support](./voice-customer-support) | Spoken customer support using Connic Retrieval and mock tickets | Native voice, customer knowledge, Python tools, incoming calls via Connic connectors |
+| [browser-automation-demo](./browser-automation-demo) | Browser automation demo that signs in and creates a connic project | Browser tools, three human inputs, sensitive password |
+| [voice-customer-support](./voice-customer-support) | Spoken customer support using connic retrieval and mock tickets | Native voice, customer knowledge, Python tools, incoming calls via connic connectors |
 | [s3-document-pipeline](./s3-document-pipeline) | Automated document processing from S3 | S3 trigger, multimodal input, file type validation |
 | [stripe-dunning](./stripe-dunning) | Payment recovery for failed subscriptions | Stripe webhooks, trigger_agent, Retrieval history |
 | [kafka-fraud-detector](./kafka-fraud-detector) | Real-time transaction fraud scoring | Kafka streams, conditional tools, tool hooks, concurrency control |
@@ -91,7 +91,7 @@ Each feature below is demonstrated in at least one template:
 ### Models
 
 Templates use a deliberate mix of providers and their latest models to show
-Connic's model-agnostic runtime: `gemini/gemini-3.5-flash` for fast/cheap
+connic's model-agnostic runtime: `gemini/gemini-3.5-flash` for fast/cheap
 classification and validation, `openai/gpt-5.6-sol` for customer-facing drafting,
 and `anthropic/claude-opus-4-8` / `claude-sonnet-5` for deep reasoning.
 Every agent with a `fallback_model` pairs providers so a primary outage does
@@ -136,7 +136,7 @@ side effects — see [the testing docs](https://connic.co/docs/v1/test).
 
 ## Deploy
 
-1. **Git integration**: Push to GitHub/GitLab, connect in the [Connic dashboard](https://connic.co)
+1. **Git integration**: Push to GitHub/GitLab, connect in the [connic dashboard](https://connic.co)
 2. **CLI deploy**: `connic login && connic deploy`
 3. **Iterate first**: `connic dev` creates an ephemeral environment with hot-reload
 

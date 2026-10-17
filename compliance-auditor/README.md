@@ -8,7 +8,7 @@ connic init my-project --templates=compliance-auditor   # new project
 connic init . --templates=compliance-auditor            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
+[connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
@@ -17,7 +17,7 @@ connic init . --templates=compliance-auditor            # existing project
 3. It identifies compliance gaps, scores overall risk, and stores findings.
 4. **audit-reporter** transforms raw findings into an executive summary and detailed report.
 
-## Connic Features Used
+## connic Features Used
 
 | Feature | Where |
 |---------|-------|
@@ -34,7 +34,7 @@ connic init . --templates=compliance-auditor            # existing project
 
 ## Connector Setup
 
-Add a **Cron inbound** connector to your agent from the agent detail page in the Connic dashboard:
+Add a **Cron inbound** connector to your agent from the agent detail page in the connic dashboard:
 
 | Setting | Value |
 |---------|-------|

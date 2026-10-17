@@ -17,9 +17,9 @@
 
 <!-- What does this template do and what use case does it serve? -->
 
-### Connic Features Demonstrated
+### connic Features Demonstrated
 
-<!-- List the Connic features this template showcases -->
+<!-- List the connic features this template showcases -->
 
 ### Agents
 

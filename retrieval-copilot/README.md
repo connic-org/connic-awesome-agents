@@ -8,7 +8,7 @@ connic init my-project --templates=retrieval-copilot   # new project
 connic init . --templates=retrieval-copilot            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
+[connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
@@ -18,7 +18,7 @@ connic init . --templates=retrieval-copilot            # existing project
 4. The `after` middleware appends a provenance footer naming the topics consulted (recorded in context by `search_docs`). Guardrail rejections skip the footer because `run_after_on_block: false` is set.
 5. Because sessions run for weeks, `context_compression` recovers from context-window overflows in-run, and `session_history` compaction summarizes older stored runs every 5 runs so the session never grows unbounded.
 
-## Connic Features Used
+## connic Features Used
 
 | Feature | Where |
 |---------|-------|
@@ -37,7 +37,7 @@ connic init . --templates=retrieval-copilot            # existing project
 
 ## Connector Setup
 
-Add a **WebSocket** connector from the agent detail page in the [Connic dashboard](https://connic.co):
+Add a **WebSocket** connector from the agent detail page in the [connic dashboard](https://connic.co):
 
 | Setting | Value |
 |---------|-------|

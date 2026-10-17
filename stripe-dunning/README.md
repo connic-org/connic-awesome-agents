@@ -8,7 +8,7 @@ connic init my-project --templates=stripe-dunning   # new project
 connic init . --templates=stripe-dunning            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
+[connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
@@ -18,7 +18,7 @@ connic init . --templates=stripe-dunning            # existing project
 4. **recovery-composer** (LLM) writes a personalized recovery email matching the dunning stage tone, outputting structured JSON (`to`, `subject`, `body`) for the Email outbound connector.
 5. **dunning-pipeline** (Sequential) chains analysis then email composition.
 
-## Connic Features Used
+## connic Features Used
 
 | Feature | Where |
 |---------|-------|
@@ -40,12 +40,12 @@ Run `connic test` from the project root. The suite (`tests/`) covers `payment-an
 
 ### Stripe inbound
 
-1. From the agent detail page in the [Connic dashboard](https://connic.co), add a **Stripe** connector. Leave the webhook signing secret empty for now and create the connector.
+1. From the agent detail page in the [connic dashboard](https://connic.co), add a **Stripe** connector. Leave the webhook signing secret empty for now and create the connector.
 2. Open the connector detail page and copy the auto-generated **Webhook URL**.
 3. In your [Stripe Dashboard](https://dashboard.stripe.com/webhooks), go to **Developers > Webhooks** and add a new endpoint with the copied URL.
 4. Select the events you want to receive: `invoice.payment_failed`, `customer.subscription.updated`, `customer.subscription.deleted`.
 5. After creating the endpoint in Stripe, copy the **Signing Secret** (starts with `whsec_`).
-6. Back in the Connic dashboard, edit the Stripe connector settings and paste the signing secret, then save.
+6. Back in the connic dashboard, edit the Stripe connector settings and paste the signing secret, then save.
 7. Link the connector to `payment-analyzer` or `dunning-pipeline`.
 
 | Setting | Value |

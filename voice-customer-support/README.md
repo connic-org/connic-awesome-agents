@@ -1,10 +1,10 @@
 # Voice Customer Support
 
-A customer support voice agent that answers from your knowledge base in **Connic Retrieval**. Callers can ask product questions, work through documented troubleshooting, and request a sample support ticket. The agent searches your support content before answering and asks for confirmation before calling the ticket tool.
+A customer support voice agent that answers from your knowledge base in **connic retrieval**. Callers can ask product questions, work through documented troubleshooting, and request a sample support ticket. The agent searches your support content before answering and asks for confirmation before calling the ticket tool.
 
-**Ticket creation is mocked.** The tool returns a `DEMO-…` receipt without saving a helpdesk ticket or notifying anyone. Tool inputs and results can still appear in Connic run traces. Use fictional customer details when trying the example.
+**Ticket creation is mocked.** The tool returns a `DEMO-…` receipt without saving a helpdesk ticket or notifying anyone. Tool inputs and results can still appear in connic run traces. Use fictional customer details when trying the example.
 
-This template uses `gemini/gemini-3.8-live` with your own Google Gemini credentials. Connic manages the voice runtime; model access and billing are through your provider. Add your customer knowledge to Retrieval in the deployment environment before the first call.
+This template uses `gemini/gemini-3.8-live` with your own Google Gemini credentials. connic manages the voice runtime; model access and billing are through your provider. Add your customer knowledge to Retrieval in the deployment environment before the first call.
 
 ```bash
 pip install --upgrade connic-composer-sdk
@@ -14,19 +14,19 @@ connic lint
 python -m unittest discover -s tests -p 'test_voice_support.py'
 ```
 
-Use a Composer SDK release that supports `voice_config`. When working from this repository before the template is published, run the commands inside `voice-customer-support/` directly instead of fetching it with `connic init`.
+Use a composer SDK release that supports `voice_config`. When working from this repository before the template is published, run the commands inside `voice-customer-support/` directly instead of fetching it with `connic init`.
 
 ## How it works
 
 1. The agent greets the caller and asks what they need. Replies are short, with one question or a few troubleshooting steps at a time.
-2. `voice_support.search_knowledge_base` calls Connic's `retrieval_query` in the `support` namespace, including its child namespaces, requesting up to three relevant passages. It returns the full Retrieval response, preserving source IDs, scores, metadata, and any lookup error. The agent has read-only access; customer knowledge is managed in Retrieval, outside the example project.
+2. `voice_support.search_knowledge_base` calls connic's `retrieval_query` in the `support` namespace, including its child namespaces, requesting up to three relevant passages. It returns the full Retrieval response, preserving source IDs, scores, metadata, and any lookup error. The agent has read-only access; customer knowledge is managed in Retrieval, outside the example project.
 3. If the answer is missing, the lookup fails, documented steps fail, or the caller asks for human help, the agent offers a demo ticket. It distinguishes a failed lookup from a search with no relevant results. It collects an issue summary, attempted steps, and a fictional email address, then reads them back for confirmation.
 4. `voice_support.create_mock_ticket` validates the details and confirmation flag, then returns a simulated receipt. Identical inputs in the same run produce the same demo reference. Nothing is stored in a helpdesk and no human handoff occurs.
-5. The agent explains the result and says goodbye when the caller is finished. Connic lets the farewell play before ending the call.
+5. The agent explains the result and says goodbye when the caller is finished. connic lets the farewell play before ending the call.
 
 The assistant can explain documented account actions; it cannot inspect accounts, issue refunds, change subscriptions, check live outages, or transfer a call to a person.
 
-## Connic features used
+## connic features used
 
 | Feature | Where |
 |---------|-------|
@@ -35,7 +35,7 @@ The assistant can explain documented account actions; it cannot inspect accounts
 | Python tools | Knowledge lookup and mocked ticket creation in `tools/voice_support.py` |
 | Context injection | The mock receipt includes the current `run_id` without asking the caller for it |
 | Conversation controls | Greeting, caller interruptions, turn detection, thinking sound, and idle timeout |
-| Incoming phone calls | Connic connectors link calls to the deployed agent |
+| Incoming phone calls | connic connectors link calls to the deployed agent |
 | Runs and traces | Inspect speech transcripts and tool execution after a call; Gemini uses native transcription |
 
 ## Knowledge base setup
@@ -45,7 +45,7 @@ The assistant can explain documented account actions; it cannot inspect accounts
 3. For uploads, check the **Ingestion Activity** panel and wait for indexing to complete. For connected sources, use **Sync now** and inspect the source run for errors and indexed content.
 4. Use **Search** on the Retrieval page with the `support` namespace to check representative customer questions before calling the agent.
 
-The template contains no knowledge documents or seeding script. Populate and maintain the customer knowledge base directly in Connic Retrieval. See the [Retrieval setup guide](https://connic.co/docs/v1/platform/retrieval) for supported formats and source connections.
+The template contains no knowledge documents or seeding script. Populate and maintain the customer knowledge base directly in connic retrieval. See the [Retrieval setup guide](https://connic.co/docs/v1/platform/retrieval) for supported formats and source connections.
 
 ## Connector setup
 
@@ -54,7 +54,7 @@ The template contains no knowledge documents or seeding script. Populate and mai
 3. Add an incoming-call connector to the deployed `voice-customer-support` agent. Each voice connector links to exactly one deployed voice agent.
 4. Once your support content is indexed in that environment, call the connected number. Afterward, open the resulting run to inspect transcripts, the knowledge lookup, and any mock ticket result.
 
-Choose an incoming-call connector from [Connic connectors](https://connic.co/docs/v1/connectors) and follow its setup guide to connect your phone number.
+Choose an incoming-call connector from [connic connectors](https://connic.co/docs/v1/connectors) and follow its setup guide to connect your phone number.
 
 Phone provider and model usage charges still apply to live demos, even though the ticket tool is mocked.
 
@@ -88,7 +88,7 @@ connic lint
 python -m unittest discover -s tests -p 'test_voice_support.py' -v
 ```
 
-The offline tests mock `retrieval_query` and verify its namespace and result limit, unchanged results and errors, and exception propagation. They also verify confirmation, field validation, and deterministic mock receipts without network access or ticket storage. They use Python's standard `unittest` runner and the installed Connic SDK; no Retrieval service or provider credentials are needed. `connic lint` validates the agent and tool definitions with the installed SDK.
+The offline tests mock `retrieval_query` and verify its namespace and result limit, unchanged results and errors, and exception propagation. They also verify confirmation, field validation, and deterministic mock receipts without network access or ticket storage. They use Python's standard `unittest` runner and the installed connic SDK; no Retrieval service or provider credentials are needed. `connic lint` validates the agent and tool definitions with the installed SDK.
 
 ## Structure
 

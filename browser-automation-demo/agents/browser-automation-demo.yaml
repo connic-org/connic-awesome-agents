@@ -2,10 +2,10 @@ version: "1.0"
 
 name: browser-automation-demo
 model: connic/gpt-5.6-sol
-description: "Browser automation demo that signs in to Connic and creates a project"
+description: "Browser automation demo that signs in to connic and creates a project"
 
 system_prompt: |
-  Ask for the user's Connic email, password, and new project title using the
+  Ask for the user's connic email, password, and new project title using the
   three human-input tools.
   Open https://connic.co, sign in, and create a project with that title using
   Deploy via CLI.
@@ -17,12 +17,12 @@ tools:
 approval:
   inputs:
     - get_connic_email:
-        prompt: "Ask for the email address used to sign in to Connic."
-        label: "Connic account email"
+        prompt: "Ask for the email address used to sign in to connic."
+        label: "connic account email"
     - get_connic_password:
-        prompt: "Ask for the password used to sign in to Connic."
-        label: "Connic account password"
+        prompt: "Ask for the password used to sign in to connic."
+        label: "connic account password"
         sensitive: true
     - get_project_title:
-        prompt: "Ask for the title of the new Connic project."
+        prompt: "Ask for the title of the new connic project."
         label: "New project title"

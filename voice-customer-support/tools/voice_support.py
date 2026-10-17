@@ -1,4 +1,4 @@
-"""Search customer knowledge in Connic Retrieval and return simulated ticket receipts."""
+"""Search customer knowledge in connic retrieval and return simulated ticket receipts."""
 
 import hashlib
 import json
@@ -38,7 +38,7 @@ def create_mock_ticket(
         customer_email: Fictional contact email read back and confirmed by the caller.
         priority: low for questions, normal for individual issues, high for a blocked team.
         confirmed: True only after the caller agrees to the summary, email, and demo-only action.
-        context: Automatically injected Connic run context; never supplied by the caller.
+        context: Automatically injected connic run context; never supplied by the caller.
 
     Returns:
         Explicitly simulated receipt, or an error if confirmation or details are missing.

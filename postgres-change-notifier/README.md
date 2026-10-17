@@ -8,7 +8,7 @@ connic init my-project --templates=postgres-change-notifier   # new project
 connic init . --templates=postgres-change-notifier            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
+[connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
@@ -18,7 +18,7 @@ connic init . --templates=postgres-change-notifier            # existing project
 4. **notification-dispatcher** (Tool agent) formats the alert for outbound webhook delivery.
 5. High-significance events are stored in the database for audit trailing.
 
-## Connic Features Used
+## connic Features Used
 
 | Feature | Where |
 |---------|-------|
@@ -31,7 +31,7 @@ connic init . --templates=postgres-change-notifier            # existing project
 
 ## Connector Setup
 
-Add a **PostgreSQL inbound** connector from the agent detail page in the [Connic dashboard](https://connic.co):
+Add a **PostgreSQL inbound** connector from the agent detail page in the [connic dashboard](https://connic.co):
 
 | Setting | Value |
 |---------|-------|
@@ -45,7 +45,7 @@ Add a **PostgreSQL inbound** connector from the agent detail page in the [Connic
 | Parse JSON payload | `true` |
 | Linked agent | `change-analyzer` |
 
-If your database is in a private network, enable **Connect via Bridge** and run the [Connic Bridge](https://connic.co/docs/v1/platform/bridge) in your network.
+If your database is in a private network, enable **Connect via bridge** and run the [connic bridge](https://connic.co/docs/v1/platform/bridge) in your network.
 
 Add an **HTTP Webhook (outbound)** connector to forward notifications to Slack, Teams, or PagerDuty.
 

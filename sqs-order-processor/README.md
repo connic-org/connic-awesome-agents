@@ -8,7 +8,7 @@ connic init my-project --templates=sqs-order-processor   # new project
 connic init . --templates=sqs-order-processor            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
+[connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
@@ -18,7 +18,7 @@ connic init . --templates=sqs-order-processor            # existing project
 4. **order-fulfiller** (Tool agent) creates fulfillment records for approved orders.
 5. Results are sent to an **SQS outbound** connector for downstream processing.
 
-## Connic Features Used
+## connic Features Used
 
 | Feature | Where |
 |---------|-------|
@@ -35,7 +35,7 @@ connic init . --templates=sqs-order-processor            # existing project
 
 ## Connector Setup
 
-Add both connectors from the agent detail page in the [Connic dashboard](https://connic.co).
+Add both connectors from the agent detail page in the [connic dashboard](https://connic.co).
 
 **SQS inbound** (orders):
 
@@ -63,7 +63,7 @@ Add both connectors from the agent detail page in the [Connic dashboard](https:/
 | Message Group ID (FIFO only) | Set to route by customer for FIFO queues |
 | Linked agent | `order-fulfiller` |
 
-If your SQS queues are in a private network, enable **Connect via Bridge** on both connectors and run the [Connic Bridge](https://connic.co/docs/v1/platform/bridge) in your network.
+If your SQS queues are in a private network, enable **Connect via bridge** on both connectors and run the [connic bridge](https://connic.co/docs/v1/platform/bridge) in your network.
 
 ## Testing
 

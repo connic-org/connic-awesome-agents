@@ -9,7 +9,7 @@ venv/
 .ruff_cache/
 .mypy_cache/
 
-# Connic
+# connic
 .connic/
 
 # OS / editor

@@ -4,7 +4,7 @@ Thank you for contributing agent templates. This guide explains how to add or im
 
 ## Template Structure
 
-Each template is a complete Connic project:
+Each template is a complete connic project:
 
 ```
 template-id/
@@ -28,11 +28,11 @@ Templates in this repo should be genuinely useful, not just minimal examples:
 - **Tools**: Implement real logic with proper type hints, docstrings, and error handling. No placeholder "replace with real implementation" stubs.
 - **Middleware**: Every middleware should do something meaningful (validation, enrichment, filtering, metrics). Empty pass-through middleware should not be included.
 - **Schemas**: Define complete schemas with descriptions, enums for constrained values, and `required` fields.
-- **READMEs**: Explain how the template works, which Connic features it uses (with a table), and how to set up the relevant connectors.
+- **READMEs**: Explain how the template works, which connic features it uses (with a table), and how to set up the relevant connectors.
 
 ## Feature Showcase
 
-Each template should demonstrate at least 3-4 Connic platform features. Check the feature coverage matrix in the main README.md and try to fill gaps. Available features to showcase:
+Each template should demonstrate at least 3-4 connic platform features. Check the feature coverage matrix in the main README.md and try to fill gaps. Available features to showcase:
 
 - Agent types: LLM, sequential, tool
 - Connectors: HTTP, Cron, Kafka, WebSocket, MCP, SQS, S3, PostgreSQL, Email, Stripe
@@ -53,7 +53,7 @@ Each template should demonstrate at least 3-4 Connic platform features. Check th
 ```bash
 cd connic-awesome-agents/your-template
 connic lint    # Validate structure and config
-connic test    # Test against Connic cloud (requires connic login)
+connic test    # Test against connic cloud (requires connic login)
 ```
 
 ## Pull Request Process

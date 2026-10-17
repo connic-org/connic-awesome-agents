@@ -8,7 +8,7 @@ connic init my-project --templates=research-assistant   # new project
 connic init . --templates=research-assistant            # existing project
 ```
 
-[Connic CLI docs](https://connic.co/docs/v1/reference/cli)
+[connic CLI docs](https://connic.co/docs/v1/reference/cli)
 
 ## How It Works
 
@@ -19,7 +19,7 @@ connic init . --templates=research-assistant            # existing project
 3. The orchestrator synthesizes all results, identifies conflicts, assesses confidence, and produces a structured report.
 4. The final report is stored in Retrieval for future reference.
 
-## Connic Features Used
+## connic Features Used
 
 | Feature | Where |
 |---------|-------|
@@ -35,7 +35,7 @@ connic init . --templates=research-assistant            # existing project
 
 ## Connector Setup
 
-Add an **HTTP Webhook (sync)** connector from the agent detail page in the [Connic dashboard](https://connic.co) for on-demand research requests:
+Add an **HTTP Webhook (sync)** connector from the agent detail page in the [connic dashboard](https://connic.co) for on-demand research requests:
 
 | Setting | Value |
 |---------|-------|
