@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pages</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        </span>
+        <span id="app-name">Pages</span>
+      </div>
+      <div class="account">
+        <span id="status" class="status" data-state="connecting">Connecting</span>
+        <span id="user" class="user"></span>
+        <button id="new-chat" type="button" class="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+          New chat
+        </button>
+        <a id="logout" class="icon-button" aria-label="Sign out" title="Sign out" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
+        </a>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <section class="chat" aria-label="Chat">
+        <div id="scroll" class="scroll">
+          <div class="thread">
+            <div id="welcome" class="welcome">
+              <h1>What should we build?</h1>
+              <p>Describe a chart, a dashboard or a small tool. It opens next to the chat, and you can keep changing it.</p>
+              <div id="ideas" class="ideas"></div>
+            </div>
+            <ol id="messages" class="messages" aria-live="polite"></ol>
+          </div>
+        </div>
+        <form id="composer" class="composer">
+          <div class="composer-box">
+            <textarea id="input" rows="1" placeholder="Describe a page, a chart or a change" autocomplete="off" aria-label="Message"></textarea>
+            <button id="send" type="submit" class="send" aria-label="Send" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <aside id="panel" class="panel" aria-label="Page" hidden>
+        <div class="panel-bar">
+          <div class="panel-title">
+            <span id="page-title" class="page-title"></span>
+            <span id="page-version" class="version"></span>
+            <label class="switcher" id="switcher" hidden>
+              <span class="sr-only">Pages in this chat</span>
+              <select id="pages"></select>
+            </label>
+          </div>
+          <div class="panel-actions">
+            <button id="reload" type="button" class="icon-button" aria-label="Reload page" title="Reload page">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+            </button>
+            <a id="open-tab" class="icon-button" target="_blank" rel="noopener" aria-label="Open in a new tab" title="Open in a new tab">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+            </a>
+            <button id="close-panel" type="button" class="icon-button" aria-label="Close page" title="Close page">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="stage">
+          <iframe id="frame" title="Page"></iframe>
+          <div id="frame-loading" class="frame-loading"><span class="spinner" aria-hidden="true"></span>Loading page</div>
+        </div>
+      </aside>
+    </div>
+  </body>
+</html>

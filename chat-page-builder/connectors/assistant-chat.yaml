@@ -1,0 +1,11 @@
+# WebSocket for the chat app (apps/chat/). apps_only: only that app can open
+# it, through /_connic/c/assistant-chat. Progress events let the chat show
+# what the assistant is doing while the page designer works.
+type: websocket
+apps_only: true
+name: Assistant chat
+config:
+  streaming: true
+  progress_events: true
+agents:
+  - chat-assistant

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Harbour Coffee Roasters sales</title>
+    <link rel="stylesheet" href="/lib/page.css">
+    <script src="/lib/tailwind.js"></script>
+    <script src="/lib/chart.js"></script>
+    <script src="/lib/lucide.js"></script>
+    <script src="/lib/page.js"></script>
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <main class="mx-auto max-w-6xl px-6 py-8">
+      <header>
+        <div class="flex items-center gap-2">
+          <p id="eyebrow" class="text-sm font-medium text-muted-foreground">Sales</p>
+          <span class="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">Sample data</span>
+        </div>
+        <h1 id="headline" class="mt-1 text-2xl font-semibold tracking-tight">Sales</h1>
+        <p id="period" class="mt-1 text-sm text-muted-foreground"></p>
+      </header>
+
+      <div id="content" hidden>
+        <section id="stats" class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"></section>
+
+        <section class="mt-4 grid gap-4 lg:grid-cols-3">
+          <article class="rounded-xl border bg-card p-5 lg:col-span-2">
+            <div class="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h2 id="trend-title" class="text-sm font-medium">Monthly revenue</h2>
+                <p class="text-sm text-muted-foreground">Each month against the same month last year</p>
+              </div>
+              <div id="metric" role="group" aria-label="Metric" class="inline-flex rounded-lg bg-muted p-0.5 text-sm">
+                <button type="button" data-metric="revenue" aria-pressed="true" class="rounded-md px-2.5 py-1 font-medium text-muted-foreground hover:text-foreground aria-pressed:bg-card aria-pressed:text-foreground aria-pressed:shadow-sm">Revenue</button>
+                <button type="button" data-metric="orders" aria-pressed="false" class="rounded-md px-2.5 py-1 font-medium text-muted-foreground hover:text-foreground aria-pressed:bg-card aria-pressed:text-foreground aria-pressed:shadow-sm">Orders</button>
+              </div>
+            </div>
+            <div class="mt-4 h-72"><canvas id="trend" role="img" aria-label="Monthly revenue, this year and last year"></canvas></div>
+          </article>
+
+          <article class="rounded-xl border bg-card p-5">
+            <h2 class="text-sm font-medium">Revenue by product</h2>
+            <p class="text-sm text-muted-foreground">Last 12 months</p>
+            <div class="mt-4 h-72"><canvas id="products" role="img" aria-label="Revenue by product"></canvas></div>
+          </article>
+        </section>
+
+        <section class="mt-4 rounded-xl border bg-card">
+          <div class="px-5 pt-5">
+            <h2 class="text-sm font-medium">Stores</h2>
+            <p class="text-sm text-muted-foreground">Last 12 months. Select a column to sort.</p>
+          </div>
+          <div class="mt-3 overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead class="text-muted-foreground">
+                <tr class="border-b">
+                  <th class="px-5 py-2 text-left font-medium" aria-sort="none"><button type="button" data-sort="name" class="inline-flex items-center gap-1 hover:text-foreground">Store</button></th>
+                  <th class="px-5 py-2 text-right font-medium" aria-sort="descending"><button type="button" data-sort="revenue" class="inline-flex items-center gap-1 hover:text-foreground">Revenue</button></th>
+                  <th class="px-5 py-2 text-right font-medium" aria-sort="none"><button type="button" data-sort="change" class="inline-flex items-center gap-1 hover:text-foreground">vs last year</button></th>
+                  <th class="hidden px-5 py-2 text-left font-medium sm:table-cell">Share of revenue</th>
+                </tr>
+              </thead>
+              <tbody id="stores"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <div id="status" class="mt-8"></div>
+    </main>
+  </body>
+</html>

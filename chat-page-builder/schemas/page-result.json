@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "description": "Where the published page lives, for chat-assistant to link and to change later",
+  "properties": {
+    "title": {
+      "type": "string",
+      "maxLength": 60,
+      "description": "The page title as the chat shows it, at most 40 characters"
+    },
+    "url": {
+      "type": "string",
+      "description": "url from the last app_publish"
+    },
+    "embed_url": {
+      "type": ["string", "null"],
+      "description": "embed_url from the last app_publish; null when it returned none"
+    },
+    "instance": {
+      "type": "string",
+      "description": "Instance ID from app_publish, needed to change the page later"
+    },
+    "folder": {
+      "type": "string",
+      "description": "Files folder that holds the page's source"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "version from the last app_publish"
+    },
+    "checked": {
+      "type": "boolean",
+      "description": "True when you looked at a screenshot of the published page"
+    },
+    "notes": {
+      "type": "string",
+      "description": "What the person should know, such as sample data; empty when there is nothing"
+    }
+  },
+  "required": ["title", "url", "embed_url", "instance", "folder", "version", "checked", "notes"],
+  "additionalProperties": false
+}

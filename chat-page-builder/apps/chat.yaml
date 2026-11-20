@@ -1,0 +1,13 @@
+# The chat: the conversation with chat-assistant, and the pages page-designer
+# builds in a panel next to it. Messages go through the assistant-chat
+# WebSocket connector.
+name: Page builder
+build:
+  command: npm run build
+  output: dist
+auth:
+  mode: connic
+connectors:
+  - assistant-chat
+# connic's default policy plus frame-src for the pages app's host.
+content_security_policy: "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src https://*.connic.app; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"

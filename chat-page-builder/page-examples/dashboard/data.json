@@ -1,0 +1,34 @@
+{
+  "company": "Harbour Coffee Roasters",
+  "currency": "EUR",
+  "months": [
+    {"month": "2025-11", "revenue": 198800, "previous_revenue": 179900, "orders": 21796, "previous_orders": 21561},
+    {"month": "2025-12", "revenue": 228300, "previous_revenue": 202700, "orders": 26404, "previous_orders": 23557},
+    {"month": "2026-01", "revenue": 185900, "previous_revenue": 164000, "orders": 21476, "previous_orders": 19630},
+    {"month": "2026-02", "revenue": 178000, "previous_revenue": 151800, "orders": 20462, "previous_orders": 17998},
+    {"month": "2026-03", "revenue": 186600, "previous_revenue": 157500, "orders": 20592, "previous_orders": 18446},
+    {"month": "2026-04", "revenue": 189300, "previous_revenue": 172900, "orders": 20383, "previous_orders": 20404},
+    {"month": "2026-05", "revenue": 178900, "previous_revenue": 162400, "orders": 20222, "previous_orders": 18476},
+    {"month": "2026-06", "revenue": 174400, "previous_revenue": 151900, "orders": 19141, "previous_orders": 17821},
+    {"month": "2026-07", "revenue": 173300, "previous_revenue": 158100, "orders": 20040, "previous_orders": 18768},
+    {"month": "2026-08", "revenue": 171400, "previous_revenue": 151300, "orders": 19364, "previous_orders": 17488},
+    {"month": "2026-09", "revenue": 187100, "previous_revenue": 167100, "orders": 20258, "previous_orders": 19164},
+    {"month": "2026-10", "revenue": 198900, "previous_revenue": 173300, "orders": 22050, "previous_orders": 19637}
+  ],
+  "products": [
+    {"name": "Espresso drinks", "revenue": 855300},
+    {"name": "Filter coffee", "revenue": 382700},
+    {"name": "Beans to go", "revenue": 360100},
+    {"name": "Pastries", "revenue": 315100},
+    {"name": "Cold drinks", "revenue": 225100},
+    {"name": "Merchandise", "revenue": 112600}
+  ],
+  "stores": [
+    {"name": "Harbour Street", "city": "Hamburg", "revenue": 540200, "previous_revenue": 446500},
+    {"name": "Old Town", "city": "Munich", "revenue": 450200, "previous_revenue": 413000},
+    {"name": "Station Plaza", "city": "Cologne", "revenue": 382700, "previous_revenue": 329900},
+    {"name": "Riverside", "city": "Frankfurt", "revenue": 337600, "previous_revenue": 324600},
+    {"name": "University", "city": "Leipzig", "revenue": 292600, "previous_revenue": 230400},
+    {"name": "Market Hall", "city": "Stuttgart", "revenue": 247600, "previous_revenue": 257900}
+  ]
+}

@@ -21,6 +21,7 @@ Production-ready agent templates for the [connic](https://connic.co) platform. E
 | [sqs-order-processor](./sqs-order-processor) | Order validation and fulfillment | SQS queues, concurrency keys, tool agent, timeout |
 | [telegram-personal-assistant](./telegram-personal-assistant) | Persistent Telegram chatbot with memory | Telegram, persistent sessions, web_search, database, Retrieval |
 | [retrieval-copilot](./retrieval-copilot) | Long-running internal docs copilot | WebSocket sessions, context compression, fallback model, reasoning budget, data_exfiltration guardrail |
+| [chat-page-builder](./chat-page-builder) | Chat agent that builds dashboards and tools next to the conversation | Apps, app instances and embed links, trigger_agent, app_preview self-check |
 
 ## Feature Coverage
 
@@ -33,7 +34,7 @@ Each feature below is demonstrated in at least one template:
 | HTTP Webhook | lead-enricher, customer-support, invoice |
 | Cron | compliance-auditor |
 | Kafka (in + out) | kafka-fraud-detector |
-| WebSocket | customer-support, retrieval-copilot |
+| WebSocket | customer-support, retrieval-copilot, chat-page-builder |
 | MCP Server | compliance-auditor |
 | AWS SQS (in + out) | sqs-order-processor |
 | AWS S3 | s3-document-pipeline |
@@ -55,35 +56,38 @@ Each feature below is demonstrated in at least one template:
 
 | Feature | Template |
 |---------|----------|
-| `trigger_agent` (agent-to-agent) | stripe-dunning, postgres-change-notifier, research-assistant, kafka-fraud-detector |
+| `trigger_agent` (agent-to-agent) | stripe-dunning, postgres-change-notifier, research-assistant, kafka-fraud-detector, chat-page-builder |
 | `retrieval_query` / `retrieval_store` | lead-enricher, customer-support, kafka-fraud-detector, compliance-auditor, research-assistant, telegram-personal-assistant, retrieval-copilot |
 | `retrieval_query` (read-only knowledge access) | voice-customer-support |
 | `retrieval_delete` | email-helpdesk |
 | `retrieval_list_namespaces` | compliance-auditor, retrieval-copilot |
-| `db_find` / `db_upsert` (database) | lead-enricher, stripe-dunning, postgres-change-notifier, compliance-auditor, telegram-personal-assistant, retrieval-copilot |
+| `db_find` / `db_upsert` (database) | lead-enricher, stripe-dunning, postgres-change-notifier, compliance-auditor, telegram-personal-assistant, retrieval-copilot, chat-page-builder |
 | `web_search` | lead-enricher, compliance-auditor, research-assistant, telegram-personal-assistant |
 | Browser tools | browser-automation-demo |
+| Apps (hosted frontends, `apps_only` connectors) | chat-page-builder |
+| App instances (`app_publish`, `app_preview`, embed links) | chat-page-builder |
+| Files (`file_read`, `file_write`, `file_list`) | chat-page-builder |
 | Human input (`approval.inputs`) | browser-automation-demo |
 | Output schemas | All templates except the conversational agents (telegram-personal-assistant, retrieval-copilot, voice-customer-support), lead-enricher, and browser-automation-demo |
 | Conditional tools | kafka-fraud-detector |
-| Concurrency control (key + on_conflict) | kafka-fraud-detector, sqs-order-processor |
-| `StopProcessing` middleware | customer-support, s3-document-pipeline, stripe-dunning, email-helpdesk, sqs-order-processor, retrieval-copilot |
+| Concurrency control (key + on_conflict) | kafka-fraud-detector, sqs-order-processor, chat-page-builder |
+| `StopProcessing` middleware | customer-support, s3-document-pipeline, stripe-dunning, email-helpdesk, sqs-order-processor, retrieval-copilot, chat-page-builder |
 | Tool hooks (`before` / `after`) | kafka-fraud-detector |
 | Guardrails (input / output) | customer-support, email-helpdesk, retrieval-copilot |
 | `data_exfiltration` guardrail | email-helpdesk, retrieval-copilot |
 | `run_after_on_block` | retrieval-copilot |
 | Discoverable tools | compliance-auditor, research-assistant |
 | A/B testing variant | customer-support |
-| Agent tests (`connic test`) | Text-agent templates except browser-automation-demo |
-| `_defaults.yaml` (cascading config) | Text-agent templates except browser-automation-demo |
-| Persistent sessions | telegram-personal-assistant, retrieval-copilot |
-| `context_compression` (incl. `session_history` compaction) | telegram-personal-assistant, retrieval-copilot |
-| Middleware context injection | customer-support, stripe-dunning, kafka-fraud-detector, email-helpdesk, sqs-order-processor, telegram-personal-assistant, retrieval-copilot |
+| Agent tests (`connic test`) | Text-agent templates except browser-automation-demo and chat-page-builder |
+| `_defaults.yaml` (cascading config) | Text-agent templates except browser-automation-demo and chat-page-builder |
+| Persistent sessions | telegram-personal-assistant, retrieval-copilot, chat-page-builder |
+| `context_compression` (incl. `session_history` compaction) | telegram-personal-assistant, retrieval-copilot, chat-page-builder |
+| Middleware context injection | customer-support, stripe-dunning, kafka-fraud-detector, email-helpdesk, sqs-order-processor, telegram-personal-assistant, retrieval-copilot, chat-page-builder |
 | Context in tools | customer-support, kafka-fraud-detector, retrieval-copilot, voice-customer-support |
 | Native voice (`voice_config`) | voice-customer-support |
 | MCP server integration | compliance-auditor |
 | `max_iterations` | lead-enricher, customer-support, research-assistant |
-| `reasoning_effort` | compliance-auditor, research-assistant, kafka-fraud-detector, retrieval-copilot, _defaults |
+| `reasoning_effort` | compliance-auditor, research-assistant, kafka-fraud-detector, retrieval-copilot, chat-page-builder, _defaults |
 | `fallback_model` | kafka-fraud-detector, sqs-order-processor, stripe-dunning, retrieval-copilot |
 | `retry_options` | invoice, s3-document-pipeline |
 | `timeout` | lead-enricher, invoice, compliance-auditor, research-assistant, sqs-order-processor |

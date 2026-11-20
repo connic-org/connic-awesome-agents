@@ -1,0 +1,31 @@
+# Base for the pages the page-designer agent publishes. The app serves only
+# those instances, under /i/<instance id>/. Its build holds the libraries and
+# the theme the pages load from /lib/, so every page looks the same and a
+# change to the theme restyles all of them on the next deploy.
+name: Pages
+instances_only: true
+build:
+  command: npm run build
+  output: dist
+auth:
+  mode: connic
+# Sites that may show pages in a frame. The chat app opens them in its panel,
+# signed in through the embed link app_publish returns. Replace the wildcard
+# with the chat app's address once it is deployed.
+embed:
+  origins:
+    - https://*.connic.app
+# What published pages may read and change for the visitor who opens them.
+access:
+  database:
+    # Rows chat-assistant stores for live pages; owner is the visitor it acts for.
+    page_data:
+      read: doc.owner == user.id
+    # What visitors save on a page: check-ins, notes, settings.
+    page_state:
+      read: doc.owner == user.id
+      insert: true
+      update: doc.owner == user.id
+      delete: doc.owner == user.id
+      set:
+        owner: user.id

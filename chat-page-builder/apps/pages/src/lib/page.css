@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/lib/inter.woff2") format("woff2-variations");
+}
+
+/* Hidden until Tailwind has compiled the theme, which sets opacity back to 1,
+   so a page never shows unstyled markup. */
+body {
+  opacity: 0;
+  transition: opacity 120ms ease-out;
+}
