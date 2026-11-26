@@ -90,7 +90,7 @@ if (window.Chart) {
   defaults.scale.border.display = false;
   defaults.scale.grid.color = colors.border;
   defaults.scale.ticks.padding = 8;
-  defaults.scales.category.grid.display = false;
+  defaults.set("scales.category", { grid: { display: false } });
 
   // Series colors in palette order for datasets that set none of their own.
   Chart.register({
